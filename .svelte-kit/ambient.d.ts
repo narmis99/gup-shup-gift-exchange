@@ -50,7 +50,6 @@ declare module '$env/static/private' {
 	export const __CF_USER_TEXT_ENCODING: string;
 	export const npm_execpath: string;
 	export const PATH: string;
-	export const GITHUB_PERSONAL_TOKEN: string;
 	export const npm_package_json: string;
 	export const npm_config_engine_strict: string;
 	export const _: string;
@@ -139,7 +138,6 @@ declare module '$env/dynamic/private' {
 		__CF_USER_TEXT_ENCODING: string;
 		npm_execpath: string;
 		PATH: string;
-		GITHUB_PERSONAL_TOKEN: string;
 		npm_package_json: string;
 		npm_config_engine_strict: string;
 		_: string;
