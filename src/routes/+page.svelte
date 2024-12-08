@@ -6,7 +6,3 @@
 	// Any necessary script logic can go here
 </script>
 
-<div class="p-4">
-	<!-- DaisyUI Button -->
-	<button class="btn btn-primary">Test Button</button>
-</div>
