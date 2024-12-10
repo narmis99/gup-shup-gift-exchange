@@ -1,7 +1,6 @@
 <script lang="ts">
 	import '../app.css';
 	import Avatar from '../lib/components/Avatar.svelte';
-	import Modal from '../lib/components/Modal.svelte';
 
 	let { children } = $props();
 </script>

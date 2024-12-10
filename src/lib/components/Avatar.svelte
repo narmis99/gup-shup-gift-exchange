@@ -1,14 +1,8 @@
 <script>
-	import Modal from './Modal.svelte';
-
-	const modalInfo = {
-		modalHeader: 'modal header',
-		modalMessage: 'modal message',
-		modalButton: 'Yay!'
-	};
+	import LoginModal from './LoginModal.svelte';
 </script>
 
-<Modal {...modalInfo}/>
+<LoginModal />
 
 <!-- <div class="modal" class:login-modal-open={isLoginModalOpen}>
 	<div class="modal-box">
