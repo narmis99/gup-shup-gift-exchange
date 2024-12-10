@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
-	import Avatar from '../components/Avatar.svelte';
-	import Modal from '../lib/Modal.svelte';
+	import Avatar from '../lib/components/Avatar.svelte';
+	import Modal from '../lib/components/Modal.svelte';
 
 	let { children } = $props();
 </script>
@@ -17,7 +17,7 @@
 		</div>
 		<div class="flex-none">
 			<div class="dropdown dropdown-end">
-				<Modal />
+				<Modal/>
 				<!-- <Avatar /> -->
 
 				<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->

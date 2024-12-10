@@ -1,5 +1,15 @@
 <script>
+	import Modal from './Modal.svelte';
+
+	const modalInfo = {
+		modalHeader: 'modal header',
+		modalMessage: 'modal message',
+		modalButton: 'Yay!'
+	};
 </script>
+
+<!-- <Modal {...modalInfo}/> -->
+
 <!-- <div class="modal" class:login-modal-open={isLoginModalOpen}>
 	<div class="modal-box">
 		<h3 class="text-lg font-bold">Congratulations random Interner user!</h3>
