@@ -52,8 +52,9 @@ const hashPasswordOfExistingUser = async (id, passkey) => {
 
 // Example: Insert a user with username and password
 // (async () => {
-// 	await insertUser('ravnit', 'ilovepeople55+', '1991-10-26');
-// 	await insertUser('sahejveer', 'hikingsurfingandskating0hmy!', '1996-05-11');
+	// await insertUser('ravnit', 'ilovepeople55+', '1991-10-26');
+	// await insertUser('sahejveer', 'hikingsurfingandskating0hmy!', '1996-05-11');
+// 	await insertUser('simran', 'asstograsssquats0!', '1999-12-16');
 // 	pool.end();
 // })();
 
