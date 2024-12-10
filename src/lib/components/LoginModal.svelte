@@ -1,8 +1,4 @@
 <script>
-	// let { modalHeader, modalMessage, modalButton } = $props();
-	// let modalHeader = 'modal header';
-	// let modalMessage = 'modal message';
-	// let modalButton = 'Yay!';
 	let isLoginModalOpen = $state(false);
 	let username = $state();
 	let passkey = $state();
@@ -15,8 +11,8 @@
 		isLoginModalOpen = false;
 	}
 
-	$inspect(username);
-	$inspect(passkey);
+	// $inspect(username);
+	// $inspect(passkey);
 </script>
 
 <button class="btn" onclick={openLoginModal}>Log in</button>
