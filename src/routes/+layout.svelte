@@ -1,34 +1,44 @@
 <script lang="ts">
 	import '../app.css';
+	import Avatar from '../components/Avatar.svelte';
 	let { children } = $props();
+
+	let isLoginModalOpen = false;
 </script>
 
-{@render children()}
+<svelte:head>
+	<script src="https://cdn.tailwindcss.com"></script>
+</svelte:head>
 
-<div class="navbar bg-base-100">
-	<div class="flex-1">
-		<a class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
-	</div>
-	<div class="flex-none">
-		<div class="dropdown dropdown-end">
-			<button class="btn btn-primary">Log in</button>
-			<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
-			<!-- ring ring-primary ring-offset-2 ring-offset-base-100 -->
-			<!-- <div class="w-12 rounded-full bg-neutral text-neutral-content">
-					<span>SY</span>
+<nav>
+	<div class="navbar bg-base-100">
+		<div class="flex-1">
+			<a class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
+		</div>
+		<div class="flex-none">
+			<div class="dropdown dropdown-end">
+				<Avatar />
+
+				<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
+				<!-- ring ring-primary ring-offset-2 ring-offset-base-100 -->
+				<!-- <div class="w-12 rounded-full bg-neutral text-neutral-content">
+						<span>SY</span>
+					</div>
 				</div>
+				<ul
+					tabindex="0"
+					class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+				>
+					<li><a>Profile </a></li>
+					<li><a>Settings</a></li>
+					<li><a>Logout</a></li>
+				</ul>-->
 			</div>
-			<ul
-				tabindex="0"
-				class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
-			>
-				<li><a>Profile </a></li>
-				<li><a>Settings</a></li>
-				<li><a>Logout</a></li>
-			</ul>-->
 		</div>
 	</div>
-</div>
+</nav>
+
+{@render children()}
 
 <!-- <div class="p-4 drawer">
 	<input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
