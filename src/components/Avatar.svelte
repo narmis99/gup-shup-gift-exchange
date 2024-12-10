@@ -1,9 +1,6 @@
 <script>
-	let isLoginModalOpen = false;
 </script>
-
-<button class="btn btn-primary" on:click={() => (isLoginModalOpen = true)}>Log in</button>
-<div class="modal" class:login-modal-open={isLoginModalOpen}>
+<!-- <div class="modal" class:login-modal-open={isLoginModalOpen}>
 	<div class="modal-box">
 		<h3 class="text-lg font-bold">Congratulations random Interner user!</h3>
 		<p class="py-4">
@@ -13,4 +10,4 @@
 			<button class="btn" on:click={() => (isLoginModalOpen = false)}>Yay!</button>
 		</div>
 	</div>
-</div>
+</div> -->

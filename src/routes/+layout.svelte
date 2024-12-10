@@ -1,9 +1,9 @@
 <script lang="ts">
 	import '../app.css';
 	import Avatar from '../components/Avatar.svelte';
-	let { children } = $props();
+	import Modal from '../lib/Modal.svelte';
 
-	let isLoginModalOpen = false;
+	let { children } = $props();
 </script>
 
 <svelte:head>
@@ -17,7 +17,8 @@
 		</div>
 		<div class="flex-none">
 			<div class="dropdown dropdown-end">
-				<Avatar />
+				<Modal />
+				<!-- <Avatar /> -->
 
 				<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
 				<!-- ring ring-primary ring-offset-2 ring-offset-base-100 -->
