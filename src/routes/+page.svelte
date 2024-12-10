@@ -3,6 +3,4 @@
 
 <!-- src/routes/+page.svelte -->
 <script>
-	// Any necessary script logic can go here
 </script>
-
