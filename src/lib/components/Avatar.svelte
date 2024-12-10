@@ -8,7 +8,7 @@
 	};
 </script>
 
-<!-- <Modal {...modalInfo}/> -->
+<Modal {...modalInfo}/>
 
 <!-- <div class="modal" class:login-modal-open={isLoginModalOpen}>
 	<div class="modal-box">

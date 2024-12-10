@@ -1,9 +1,9 @@
 <script>
-	// let { modalHeader, modalMessage, modalButton } = $props();
-	let modalHeader = 'modal header';
-	let modalMessage = 'modal message';
-	let modalButton = 'Yay!';
-	let isLoginModalOpen = false;
+	let { modalHeader, modalMessage, modalButton } = $props();
+	// let modalHeader = 'modal header';
+	// let modalMessage = 'modal message';
+	// let modalButton = 'Yay!';
+	let isLoginModalOpen = $state(false);
 
 	function openLoginModal() {
 		isLoginModalOpen = true;

@@ -17,8 +17,8 @@
 		</div>
 		<div class="flex-none">
 			<div class="dropdown dropdown-end">
-				<Modal/>
-				<!-- <Avatar /> -->
+				<!-- <Modal/> -->
+				<Avatar />
 
 				<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
 				<!-- ring ring-primary ring-offset-2 ring-offset-base-100 -->
