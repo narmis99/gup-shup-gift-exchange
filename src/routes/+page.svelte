@@ -3,4 +3,11 @@
 
 <!-- src/routes/+page.svelte -->
 <script>
+	export let isLoggedIn;
 </script>
+
+{#if isLoggedIn}
+<h2>Congrats you're logged in!</h2>
+{:else}
+<h2>Sucks to suck, maybe you should log in</h2>
+{/if}

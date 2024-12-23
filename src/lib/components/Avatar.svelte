@@ -1,8 +1,9 @@
+<!-- handles logic of the top right login to icon to login transition -->
 <script>
 	import LoginModal from './LoginModal.svelte';
 </script>
 
-<LoginModal />
+<!-- <LoginModal /> -->
 
 <!-- <div class="modal" class:login-modal-open={isLoginModalOpen}>
 	<div class="modal-box">

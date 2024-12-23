@@ -57,8 +57,8 @@ const hashPasswordOfExistingUser = async (id, passkey) => {
 // 	pool.end();
 // })();
 
-(async () => {
-	await hashPasswordOfExistingUser('2', 'atablawithoutaholeinit33!');
-	await hashPasswordOfExistingUser('3', 'camaro0car$');
-	pool.end();
-})();
+// (async () => {
+// 	await hashPasswordOfExistingUser('2', 'atablawithoutaholeinit33!');
+// 	await hashPasswordOfExistingUser('3', 'camaro0car$');
+// 	pool.end();
+// })();

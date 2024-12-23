@@ -1,13 +1,16 @@
 <script lang="ts">
 	import '../app.css';
 	import Avatar from '../lib/components/Avatar.svelte';
+	import LoginModal from '../lib/components/LoginModal.svelte';
+	import { enhance } from '$app/forms';
 
 	let { children } = $props();
 </script>
 
+<!-- 
 <svelte:head>
 	<script src="https://cdn.tailwindcss.com"></script>
-</svelte:head>
+</svelte:head> -->
 
 <nav>
 	<div class="navbar bg-base-100">
@@ -16,8 +19,8 @@
 		</div>
 		<div class="flex-none">
 			<div class="dropdown dropdown-end">
-				<!-- <Modal/> -->
-				<Avatar />
+				<LoginModal />
+				<!-- <Avatar /> -->
 
 				<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
 				<!-- ring ring-primary ring-offset-2 ring-offset-base-100 -->
