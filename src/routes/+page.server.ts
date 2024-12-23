@@ -1,11 +1,12 @@
 // @ts-nocheck
 import type { Actions } from '../../.svelte-kit/types/src/routes/$types';
 import bcrypt from 'bcryptjs';
-import pool from '$lib/server/database.js'; // Replace with your PostgreSQL connection
+import { pool } from '../lib/server/database';
+// import pool from '$lib/server/database.js'; // Replace with your PostgreSQL connection
 
 export const actions: Actions = {
 	default: async ({ request }) => {
-		console.log('POST request: ' + request);
+		console.log('POST request: ' + JSON.stringify(request));
 
 		// parse form data
 		const loginData = await request.formData();
@@ -18,20 +19,32 @@ export const actions: Actions = {
 		// $inspect(passkey);
 
 		// Validate user in the database
-		// const query = 'SELECT passkey FROM users WHERE username = $1';
-		// const result = await pool.query(query, [username]);
+		console.log('1');
+		const query = 'SELECT passkey FROM users WHERE username = $1';
+		console.log('2');
+		const result = await pool.query(query, [username]);
+		console.log('3');
 
-		// if (result.rows.length === 0) {
-		// 	return { status: 401, message: 'Invalid username or password' };
-		// }
+		if (result.rows.length === 0) {
+			console.log('4');
+			return {
+				requestResult: { isLoggedIn: false, status: 401, message: 'Invalid username or password' }
+			};
+		}
 
-		// const isValid = await bcrypt.compare(passkey, result.rows[0].passkey);
-		// if (!isValid) {
-		// 	return { status: 401, message: 'Invalid username or password' };
-		// }
+		console.log('4');
+		const isValid = await bcrypt.compare(passkey, result.rows[0].passkey);
+		console.log('5');
+		if (!isValid) {
+			console.log('6');
+			return {
+				requestResult: { isLoggedIn: false, status: 401, message: 'Invalid username or password' }
+			};
+		}
 
+		console.log('7');
 		// console.log('Login successful');
-		// return {isLoggedIn: true};
+		return { requestResult: { isLoggedIn: true } };
 
 		// try {
 		// 	// Query the database for the user

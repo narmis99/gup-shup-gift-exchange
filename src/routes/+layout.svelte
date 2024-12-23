@@ -2,7 +2,6 @@
 	import '../app.css';
 	import Avatar from '../lib/components/Avatar.svelte';
 	import LoginModal from '../lib/components/LoginModal.svelte';
-	import { enhance } from '$app/forms';
 
 	let { children } = $props();
 </script>

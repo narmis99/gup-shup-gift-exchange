@@ -3,7 +3,8 @@
 
 <!-- src/routes/+page.svelte -->
 <script>
-	export let isLoggedIn;
+	let requestResult = $props();
+	// export let isLoggedIn;
 </script>
 
 <!-- <form method="POST">
@@ -30,8 +31,9 @@
 	<button type="submit" class="btn">Login</button>
 </form> -->
 
-{#if isLoggedIn}
+{#if requestResult.isLoggedIn}
 	<h2>Congrats you're logged in!</h2>
 {:else}
+	<!-- <h2>{requestResult.message}</h2> -->
 	<h2>Sucks to suck, maybe you should log in</h2>
 {/if}
