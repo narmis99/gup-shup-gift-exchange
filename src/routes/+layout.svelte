@@ -1,7 +1,10 @@
 <script lang="ts">
+	// @ts-nocheck
 	import '../app.css';
 	import Avatar from '../lib/components/Avatar.svelte';
 	import LoginModal from '../lib/components/LoginModal.svelte';
+
+	export let data;
 
 	let { children } = $props();
 </script>
@@ -18,7 +21,7 @@
 		</div>
 		<div class="flex-none">
 			<div class="dropdown dropdown-end">
-				<LoginModal />
+				<LoginModal {data.form}/>
 				<!-- <Avatar /> -->
 
 				<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->

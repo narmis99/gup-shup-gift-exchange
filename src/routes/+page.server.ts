@@ -1,11 +1,12 @@
 // @ts-nocheck
+import { fail } from '@sveltejs/kit';
 import type { Actions } from '../../.svelte-kit/types/src/routes/$types';
 import bcrypt from 'bcryptjs';
 import { pool } from '../lib/server/database';
 
 export const actions: Actions = {
 	default: async ({ request }) => {
-		console.log('POST request: ' + JSON.stringify(request));
+		// console.log('POST request: ' + JSON.stringify(request));
 
 		// parse form data
 		const loginData = await request.formData();
@@ -19,21 +20,16 @@ export const actions: Actions = {
 		const result = await pool.query(query, [username]);
 
 		if (result.rows.length === 0) {
-			return {
-				status: 401,
-				message: 'Invalid username or password'
-			};
+			return fail(400, { username, error: 'Invalid credentials' });
 		}
 
 		const isValid = await bcrypt.compare(passkey, result.rows[0].passkey);
 		if (!isValid) {
-			return {
-				status: 401,
-				message: 'Invalid username or password'
-			};
+			return fail(400, { username, error: 'Invalid credentials' });
 		}
 
-		return { isLoggedIn: true };
+		console.log('success!');
+		return { success: true };
 
 		// try {
 		// 	// Query the database for the user
@@ -61,56 +57,3 @@ export const actions: Actions = {
 		// }
 	}
 };
-
-// import * as db from '$lib/server/database.js';
-// import bcrypt from 'bcryptjs';
-// import pool from '$lib/db'; // Import your data base connection pool
-
-// export const POST = async ({ request }) => {
-// 	console.log('request: ' + request);
-// 	try {
-// 		const { username, passkey } = await request.json();
-
-// 		// Query the database for the user
-// 		const { rows } = await pool.query('SELECT passkey FROM users WHERE username = $1', [username]);
-
-// 		if (rows.length === 0) {
-// 			return new Response(JSON.stringify({ error: 'User not found' }), { status: 404 });
-// 		}
-
-// 		const hashedPasskey = rows[0].passkey;
-
-// 		// Validate the passkey
-// 		const isValid = bcrypt.compareSync(passkey, hashedPasskey);
-// 		if (!isValid) {
-// 			return new Response(JSON.stringify({ error: 'Invalid passkey' }), { status: 401 });
-// 		}
-
-// 		// Optionally, set a session or authentication cookie here
-// 		return new Response(JSON.stringify({ success: true }), { status: 200 });
-// 	} catch (error) {
-// 		console.error(error);
-// 		return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500 });
-// 	}
-// };
-
-// -------------------------------------------------------------------------
-
-// import * as db from '$lib/server/database.js';
-// import bcrypt from 'bcryptjs';
-
-// export async function loginUser(username, passkey) {
-// 	const user = await db.getUser(username);
-// 	console.log('user: ' + user);
-// 	if (user && (await bcrypt.compare(passkey, user.password_hash))) {
-// 		return { success: true, user };
-// 	}
-// 	return { success: false };
-// }
-
-// export const actions = {
-// 	default: async ({ cookies, request }) => {
-// 		const data = await request.formData();
-// 		db.createTodo(cookies.get('userid'), data.get('description'));
-// 	}
-// };
