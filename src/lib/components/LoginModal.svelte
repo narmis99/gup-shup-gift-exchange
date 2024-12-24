@@ -1,14 +1,17 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script>
+	// @ts-nocheck
+
 	import { enhance } from '$app/forms';
 
+	let requestResult;
 	let isLoginModalOpen = $state(false);
 	let username = $state();
 	let passkey = $state();
 	let errorMessage = '';
 	let response;
 
-	let showAlert = true;
+	// let showAlert = true;
 
 	function openLoginModal() {
 		isLoginModalOpen = true;
@@ -23,11 +26,10 @@
 
 <div class="modal" class:modal-open={isLoginModalOpen}>
 	<div class="modal-box">
-		
 		<!-- shere -->
-		{#if showAlert}
+		{#if requestResult?.message}
 			<!-- <div class="toast toast-center"> -->
-			<div class="toast toast-top toast-center">
+			<div class="toast toast-center toast-top">
 				<div class="alert alert-warning">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +44,7 @@
 							d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
 						/>
 					</svg>
-					<span>New mail arrived.</span>
+					<span>{requestResult.message}</span>
 				</div>
 			</div>
 		{/if}
@@ -50,7 +52,12 @@
 		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
 		<div class="pt-6">
 			<!-- <form method="POST" action="/" onsubmit={() => console.log('Form submitted')} use:enhance> -->
-			<form method="POST" action="/" use:enhance>
+			<form
+				method="POST"
+				use:enhance={(result) => {
+					requestResult = result;
+				}}
+			>
 				<label class="max-w form-control w-full p-2">
 					<input
 						type="text"
