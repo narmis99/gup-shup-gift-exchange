@@ -3,25 +3,28 @@
 	import '../app.css';
 	import Avatar from '../lib/components/Avatar.svelte';
 	import LoginModal from '../lib/components/LoginModal.svelte';
-
-	export let data;
+	import NavBar from '$lib/components/NavBar.svelte';
 
 	let { children } = $props();
 </script>
+
+<NavBar/>
+<!-- <slot/> -->
 
 <!-- 
 <svelte:head>
 	<script src="https://cdn.tailwindcss.com"></script>
 </svelte:head> -->
 
-<nav>
+<!-- <nav>
 	<div class="navbar bg-base-100">
 		<div class="flex-1">
 			<a class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
 		</div>
 		<div class="flex-none">
-			<div class="dropdown dropdown-end">
-				<LoginModal {data.form}/>
+			<div class="dropdown dropdown-end"> -->
+				<!-- <LoginModal /> -->
+				<!-- <LoginModal {data.form}/> -->
 				<!-- <Avatar /> -->
 
 				<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
@@ -38,10 +41,10 @@
 					<li><a>Settings</a></li>
 					<li><a>Logout</a></li>
 				</ul>-->
-			</div>
+			<!-- </div>
 		</div>
 	</div>
-</nav>
+</nav> -->
 
 {@render children()}
 

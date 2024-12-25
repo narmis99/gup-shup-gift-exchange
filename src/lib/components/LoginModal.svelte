@@ -1,28 +1,23 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
 	// @ts-nocheck
+	console.log('loginmodal');
 	import { enhance } from '$app/forms';
-	let { form } = $props();
-
-	let isLoginModalOpen = $state(false);
-
-	function openLoginModal() {
-		isLoginModalOpen = true;
-	}
-
+	let { isModalOpen = $bindable() } = $props();
+	// console.log('isModalOpen: ' + isModalOpen);
 	function closeLoginModal() {
 		isLoginModalOpen = false;
 	}
 </script>
 
-<button class="btn btn-primary" onclick={openLoginModal}>Log in</button>
+<!-- <button class="btn btn-primary" onclick={openLoginModal}>Log in</button> -->
 
-<div class="modal" class:modal-open={isLoginModalOpen}>
+<div class="modal" class:modal-open={isModalOpen}>
 	<div class="modal-box">
 		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
 		<div class="pt-6">
 			<form method="POST" use:enhance>
-				{#if form?.error}
+				<!-- {#if form?.error}
 					<div class="toast toast-center toast-top">
 						<div class="alert alert-warning">
 							<svg
@@ -41,14 +36,15 @@
 							<span>STODO: message here</span>
 						</div>
 					</div>
-				{/if}
+				{/if} -->
 
 				<label class="max-w form-control w-full p-2">
+					<!-- value={form?.username ?? ''} -->
 					<input
 						type="text"
 						name="username"
 						placeholder="username"
-						value={form?.username ?? ''}
+						
 						required
 						class="max-w input input-bordered w-full"
 					/>
