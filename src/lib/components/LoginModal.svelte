@@ -1,23 +1,48 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
 	// @ts-nocheck
-	console.log('loginmodal');
+	import { createEventDispatcher } from 'svelte';
 	import { enhance } from '$app/forms';
-	let { isModalOpen = $bindable() } = $props();
-	// console.log('isModalOpen: ' + isModalOpen);
+
+	// export let openModal = false;
+	let formData = { username: '', passkey: '', error: '' };
+
+	const dispatch = createEventDispatcher();
+
+	let { openModal = $bindable() } = $props();
+	// let { openModal = $bindable(), formData } = $props();
+	// export let formData: { error?: string; success?: boolean } = {};
+
+	// console.log('formData: ' + JSON.stringify(formData))
+	$inspect(formData);
 	function closeLoginModal() {
-		isLoginModalOpen = false;
+		openModal = false;
+		dispatch('close');
+		// openModal = false;
 	}
 </script>
 
 <!-- <button class="btn btn-primary" onclick={openLoginModal}>Log in</button> -->
 
-<div class="modal" class:modal-open={isModalOpen}>
+<div class="modal" class:modal-open={openModal}>
 	<div class="modal-box">
 		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
 		<div class="pt-6">
-			<form method="POST" use:enhance>
-				<!-- {#if form?.error}
+			<form
+				method="POST"
+				use:enhance={{
+					update: ({ result }) => {
+						console.log('result: ' + JSON.stringify(result));
+						// if (result.type === 'failure') {
+						// 	formData.error = result.data.error;
+						// } else if (result.type === 'success') {
+						// 	formData.error = '';
+						// 	closeLoginModal();
+						// }
+					}
+				}}
+			>
+				{#if formData.error}
 					<div class="toast toast-center toast-top">
 						<div class="alert alert-warning">
 							<svg
@@ -36,15 +61,14 @@
 							<span>STODO: message here</span>
 						</div>
 					</div>
-				{/if} -->
+				{/if}
 
 				<label class="max-w form-control w-full p-2">
-					<!-- value={form?.username ?? ''} -->
 					<input
 						type="text"
 						name="username"
 						placeholder="username"
-						
+						value={formData?.username ?? ''}
 						required
 						class="max-w input input-bordered w-full"
 					/>
@@ -61,8 +85,8 @@
 				<button type="submit" class="btn">Login</button>
 			</form>
 		</div>
-		<!-- <div class="modal-action">
+		<div class="modal-action">
 			<button class="btn" onclick={closeLoginModal}>Yay!</button>
-		</div> -->
+		</div>
 	</div>
 </div>

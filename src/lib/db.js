@@ -1,3 +1,4 @@
+// snote: currently useless
 import bcrypt from 'bcrypt';
 // import { getUser } from '$lib/db';
 import pkg from 'pg';

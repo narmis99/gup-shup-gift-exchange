@@ -6,7 +6,7 @@ import { pool } from '../lib/server/database';
 
 export const actions: Actions = {
 	default: async ({ request }) => {
-		// console.log('POST request: ' + JSON.stringify(request));
+		console.log('POST request: ' + JSON.stringify(request));
 
 		// parse form data
 		const loginData = await request.formData();
@@ -15,21 +15,29 @@ export const actions: Actions = {
 		const passkey = loginData.get('passkey');
 		console.log('passkey: ' + passkey);
 
-		// validate user in the database
-		const query = 'SELECT passkey FROM users WHERE username = $1';
-		const result = await pool.query(query, [username]);
+		try {
+			// validate user in the database
+			const query = 'SELECT passkey FROM users WHERE username = $1';
+			const result = await pool.query(query, [username]);
 
-		if (result.rows.length === 0) {
-			return fail(400, { username, error: 'Invalid credentials' });
+			if (result.rows.length === 0) {
+				console.log('fail 1');
+				return fail(400, { error: 'Invalid credentials', username });
+				// return fail({ username, error: 'Invalid credentials' });
+			}
+			const isValid = await bcrypt.compare(passkey, result.rows[0].passkey);
+
+			if (!isValid) {
+				console.log('fail 2');
+				return fail(400, { error: 'Invalid credentials', username });
+				// return fail({ username, error: 'Invalid credentials' });
+			}
+
+			return { success: true };
+		} catch (error) {
+			console.log('database error: ' + error);
+			return fail(500, { error: 'Internal server error' });
 		}
-
-		const isValid = await bcrypt.compare(passkey, result.rows[0].passkey);
-		if (!isValid) {
-			return fail(400, { username, error: 'Invalid credentials' });
-		}
-
-		console.log('success!');
-		return { success: true };
 
 		// try {
 		// 	// Query the database for the user
