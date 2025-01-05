@@ -8,6 +8,7 @@
 	// let formData = { username: '', error: '', success: false };
 
 	function openLoginModal() {
+		
 		showModal = true;
 	}
 </script>
@@ -18,14 +19,14 @@
 			<a class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
 		</div>
 		<div class="flex-none">
-			{#if !isLoggedIn}
-				<button class="btn btn-primary" onclick={openLoginModal}>Log in</button>
-			{/if}
+			<!-- {#if !isLoggedIn} -->
+			<button class="btn btn-primary" onclick={openLoginModal}>Log in</button>
+			<!-- {/if} -->
 		</div>
 	</div>
 </nav>
 
 {#if showModal}
-	<LoginModal bind:openModal={showModal}/>
+	<LoginModal bind:openModal={showModal} />
 	<!-- <LoginModal bind:openModal={showModal} {formData}/> -->
 {/if}
