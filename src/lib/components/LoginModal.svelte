@@ -12,10 +12,15 @@
 	let { openModal = $bindable(), form } = $props();
 	$inspect(form);
 
-	function closeLoginModal() {
+	if (form?.data.success) {
 		openModal = false;
-		dispatch('close');
+		dispatch(form.data.username);
 	}
+
+	// function closeLoginModal() {
+	// 	openModal = false;
+	// 	dispatch('close');
+	// }
 
 	/*	async function handleSubmit(event) {
 		console.log('handleSubmit in LoginModal.svelte js');
@@ -49,6 +54,26 @@
 
 <div class="modal" class:modal-open={openModal}>
 	<div class="modal-box">
+		{#if form?.data.error}
+			<div class="toast toast-center toast-top">
+				<div class="alert alert-error">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6 shrink-0 stroke-current"
+						fill="none"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+						/>
+					</svg>
+					<span>{form.data.error}</span>
+				</div>
+			</div>
+		{/if}
 		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
 		<div class="pt-6">
 			<form
@@ -87,18 +112,9 @@
 						class="max-w input input-bordered w-full"
 					/>
 				</label>
-				<button type="submit">Submit</button>
-				{#if form?.data.error}
-					<p class="text-red-500">{form.data.error}</p>
-				{/if}
-				{#if form?.data.success}
-					<p class="text-green-500">Login successful! Welcome, {form.data.username}.</p>
-				{/if}
+				<button type="submit" class="btn">Submit</button>
 				<!-- <button onclick={handleSubmit} class="btn">Login</button> -->
 			</form>
-		</div>
-		<div class="modal-action">
-			<button class="btn" onclick={closeLoginModal}>Yay!</button>
 		</div>
 	</div>
 </div>
