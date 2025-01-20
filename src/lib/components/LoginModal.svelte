@@ -1,25 +1,48 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
 	// @ts-nocheck
+	// export let form;
 	import { createEventDispatcher } from 'svelte';
-	import { enhance } from '$app/forms';
+	import { enhance, applyAction } from '$app/forms';
 
-	// export let openModal = false;
-	let formData = { username: '', passkey: '', error: '' };
+	// let formData = $state({ username: '', passkey: '', error: '' });
 
 	const dispatch = createEventDispatcher();
 
-	let { openModal = $bindable() } = $props();
-	// let { openModal = $bindable(), formData } = $props();
-	// export let formData: { error?: string; success?: boolean } = {};
+	let { openModal = $bindable(), form } = $props();
+	$inspect(form);
 
-	// console.log('formData: ' + JSON.stringify(formData))
-	$inspect(formData);
 	function closeLoginModal() {
 		openModal = false;
 		dispatch('close');
-		// openModal = false;
 	}
+
+	/*	async function handleSubmit(event) {
+		console.log('handleSubmit in LoginModal.svelte js');
+		// console.log('formData: ' + JSON.stringify(formData));
+		event.preventDefault();
+		// formData.error = '';
+
+		try {
+			const response = await fetch('/api/auth.js', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ username, passkey })
+			});
+
+			console.log('resposnse: ' + JSON.stringify(response));
+			const result = await response.json();
+			console.log('result: ' + JSON.stringify(result));
+
+			// if (response.ok) {
+			// 	dispatch('closeModal');
+			// } else {
+			// 	formData.error = result.message || 'Invalid credentials';
+			// }
+		} catch (err) {
+			formData.error = 'Error connecting to the server - ' + err;
+		}
+	}*/
 </script>
 
 <!-- <button class="btn btn-primary" onclick={openLoginModal}>Log in</button> -->
@@ -30,19 +53,57 @@
 		<div class="pt-6">
 			<form
 				method="POST"
-				use:enhance={{
-					update: ({ result }) => {
-						console.log('result: ' + JSON.stringify(result));
-						// if (result.type === 'failure') {
-						// 	formData.error = result.data.error;
-						// } else if (result.type === 'success') {
-						// 	formData.error = '';
-						// 	closeLoginModal();
-						// }
-					}
+				use:enhance={({ formElement, formData, action, cancel, submitter }) => {
+					// `formElement` is this `<form>` element
+					// `formData` is its `FormData` object that's about to be submitted
+					// `action` is the URL to which the form is posted
+					// calling `cancel()` will prevent the submission
+					// `submitter` is the `HTMLElement` that caused the form to be submitted
+
+					return async ({ result, update }) => {
+						form = result;
+						console.log('form: ' + JSON.stringify(form.data));
+						await applyAction(result);
+						// `result` is an `ActionResult` object
+						// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
+					};
 				}}
 			>
-				{#if formData.error}
+				<label class="max-w form-control w-full p-2">
+					<input
+						type="text"
+						name="username"
+						placeholder="username"
+						required
+						class="max-w input input-bordered w-full"
+					/>
+				</label>
+				<label class="max-w form-control w-full p-2">
+					<input
+						type="password"
+						name="passkey"
+						placeholder="passkey"
+						required
+						class="max-w input input-bordered w-full"
+					/>
+				</label>
+				<button type="submit">Submit</button>
+				{#if form?.data.error}
+					<p class="text-red-500">{form.data.error}</p>
+				{/if}
+				{#if form?.data.success}
+					<p class="text-green-500">Login successful! Welcome, {form.data.username}.</p>
+				{/if}
+				<!-- <button onclick={handleSubmit} class="btn">Login</button> -->
+			</form>
+		</div>
+		<div class="modal-action">
+			<button class="btn" onclick={closeLoginModal}>Yay!</button>
+		</div>
+	</div>
+</div>
+
+<!-- {#if formData.error}
 					<div class="toast toast-center toast-top">
 						<div class="alert alert-warning">
 							<svg
@@ -61,32 +122,4 @@
 							<span>STODO: message here</span>
 						</div>
 					</div>
-				{/if}
-
-				<label class="max-w form-control w-full p-2">
-					<input
-						type="text"
-						name="username"
-						placeholder="username"
-						value={formData?.username ?? ''}
-						required
-						class="max-w input input-bordered w-full"
-					/>
-				</label>
-				<label class="max-w form-control w-full p-2">
-					<input
-						type="password"
-						name="passkey"
-						placeholder="passkey"
-						required
-						class="max-w input input-bordered w-full"
-					/>
-				</label>
-				<button type="submit" class="btn">Login</button>
-			</form>
-		</div>
-		<div class="modal-action">
-			<button class="btn" onclick={closeLoginModal}>Yay!</button>
-		</div>
-	</div>
-</div>
+				{/if} -->

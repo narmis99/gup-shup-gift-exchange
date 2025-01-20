@@ -1,4 +1,5 @@
 // @ts-nocheck
+import { json } from '@sveltejs/kit';
 import { fail } from '@sveltejs/kit';
 import type { Actions } from '../../.svelte-kit/types/src/routes/$types';
 import bcrypt from 'bcryptjs';
@@ -38,6 +39,10 @@ export const actions: Actions = {
 			console.log('database error: ' + error);
 			return fail(500, { error: 'Internal server error' });
 		}
+	}
+};
+
+
 
 		// try {
 		// 	// Query the database for the user
@@ -63,5 +68,3 @@ export const actions: Actions = {
 		// 	console.error(error);
 		// 	return { error: 'An internal error occurred. Please try again later.' };
 		// }
-	}
-};
