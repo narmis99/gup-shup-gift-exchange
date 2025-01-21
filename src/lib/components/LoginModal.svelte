@@ -1,39 +1,82 @@
-<script>
-	// let { modalHeader, modalMessage, modalButton } = $props();
-	// let modalHeader = 'modal header';
-	// let modalMessage = 'modal message';
-	// let modalButton = 'Yay!';
-	let isLoginModalOpen = $state(false);
-	let username = $state();
-	let passkey = $state();
+<!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
+<script lang="ts">
+	import { enhance, applyAction } from '$app/forms';
+	// import { createEventDispatcher } from 'svelte';
+	
+	let { openModal = $bindable(), form = undefined, getUsername = undefined} = $props();
 
-	function openLoginModal() {
-		isLoginModalOpen = true;
-	}
-
-	function closeLoginModal() {
-		isLoginModalOpen = false;
-	}
-
-	$inspect(username);
-	$inspect(passkey);
+	// function dispatch() {
+	// 	$host().dispatchEvent(new CustomEvent(type));
+	// }
 </script>
 
-<button class="btn" onclick={openLoginModal}>Log in</button>
 
-<div class="modal" class:modal-open={isLoginModalOpen}>
+<div class="modal" class:modal-open={openModal}>
 	<div class="modal-box">
+		{#if form?.data.error}
+			<div class="toast toast-center toast-top">
+				<div class="alert alert-error">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6 shrink-0 stroke-current"
+						fill="none"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+						/>
+					</svg>
+					<span>{form.data.error}</span>
+				</div>
+			</div>
+		{/if}
 		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
 		<div class="pt-6">
-			<label class="max-w form-control w-full p-2">
-				<input type="text" placeholder="username" class="max-w input input-bordered w-full" bind:value={username}/>
-			</label>
-			<label class="max-w form-control w-full p-2">
-				<input type="password" placeholder="passkey" class="max-w input input-bordered w-full" bind:value={passkey} />
-			</label>
-		</div>
-		<div class="modal-action">
-			<button class="btn" onclick={closeLoginModal}>Yay!</button>
+			<form
+				method="POST"
+				use:enhance={({ formElement, formData, action, cancel, submitter }) => {
+					// `formElement` is this `<form>` element
+					// `formData` is its `FormData` object that's about to be submitted
+					// `action` is the URL to which the form is posted
+					// calling `cancel()` will prevent the submission
+					// `submitter` is the `HTMLElement` that caused the form to be submitted
+
+					return async ({ result, update }) => {
+						form = result;
+						console.log('result: ' + JSON.stringify(result.type));
+						if (result.type == 'success') {
+							openModal = false;
+							getUsername(result.data.username);
+							// STODO: ispatch username back up to parent
+						}
+						// `result` is an `ActionResult` object
+						// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
+					};
+				}}
+			>
+				<label class="max-w form-control w-full p-2">
+					<input
+						type="text"
+						name="username"
+						placeholder="username"
+						required
+						class="max-w input input-bordered w-full"
+					/>
+				</label>
+				<label class="max-w form-control w-full p-2">
+					<input
+						type="password"
+						name="passkey"
+						placeholder="passkey"
+						required
+						class="max-w input input-bordered w-full"
+					/>
+				</label>
+				<button type="submit" class="btn">Submit</button>
+			</form>
 		</div>
 	</div>
 </div>

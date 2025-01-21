@@ -1,27 +1,36 @@
 <script lang="ts">
+	// @ts-nocheck
 	import '../app.css';
-	import Avatar from '../lib/components/Avatar.svelte';
+	import LoginModal from '$lib/components/LoginModal.svelte';
+	import NavBar from '$lib/components/NavBar.svelte';
 
 	let { children } = $props();
+	// let isLoggedIn = false;
 </script>
 
+<NavBar />
+
+{@render children()}
+
+<!-- 
 <svelte:head>
 	<script src="https://cdn.tailwindcss.com"></script>
-</svelte:head>
+</svelte:head> -->
 
-<nav>
+<!-- <nav>
 	<div class="navbar bg-base-100">
 		<div class="flex-1">
 			<a class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
 		</div>
 		<div class="flex-none">
-			<div class="dropdown dropdown-end">
-				<!-- <Modal/> -->
-				<Avatar />
+			<div class="dropdown dropdown-end"> -->
+<!-- <LoginModal /> -->
+<!-- <LoginModal {data.form}/> -->
+<!-- <Avatar /> -->
 
-				<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
-				<!-- ring ring-primary ring-offset-2 ring-offset-base-100 -->
-				<!-- <div class="w-12 rounded-full bg-neutral text-neutral-content">
+<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
+<!-- ring ring-primary ring-offset-2 ring-offset-base-100 -->
+<!-- <div class="w-12 rounded-full bg-neutral text-neutral-content">
 						<span>SY</span>
 					</div>
 				</div>
@@ -33,12 +42,10 @@
 					<li><a>Settings</a></li>
 					<li><a>Logout</a></li>
 				</ul>-->
-			</div>
+<!-- </div>
 		</div>
 	</div>
-</nav>
-
-{@render children()}
+</nav> -->
 
 <!-- <div class="p-4 drawer">
 	<input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
