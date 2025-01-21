@@ -1,12 +1,13 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
-	// @ts-nocheck
-	import { createEventDispatcher } from 'svelte';
 	import { enhance, applyAction } from '$app/forms';
+	// import { createEventDispatcher } from 'svelte';
+	
+	let { openModal = $bindable(), form = undefined, getUsername = undefined} = $props();
 
-	const dispatch = createEventDispatcher();
-
-	let { openModal = $bindable(), form } = $props();
+	// function dispatch() {
+	// 	$host().dispatchEvent(new CustomEvent(type));
+	// }
 </script>
 
 
@@ -48,7 +49,8 @@
 						console.log('result: ' + JSON.stringify(result.type));
 						if (result.type == 'success') {
 							openModal = false;
-							dispatch(form.data.username);
+							getUsername(result.data.username);
+							// STODO: ispatch username back up to parent
 						}
 						// `result` is an `ActionResult` object
 						// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
