@@ -1,7 +1,10 @@
 <script lang="ts">
 	import LoginModal from './LoginModal.svelte';
 
-	let isLoggedIn: boolean = $state(false);
+	let { isLoggedIn = false } = $props();
+	$inspect(isLoggedIn);
+
+	// let isLoggedIn: boolean = $state(false);
 	let showModal: boolean = $state(false);
 
 	function openLoginModal() {

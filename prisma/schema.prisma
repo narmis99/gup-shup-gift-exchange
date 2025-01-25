@@ -18,7 +18,7 @@ model User {
   username       String     @unique
   passkeyHash    String
   birthdate      DateTime
-  userAuthToken  Session?   @relation("UserSession")
+  sessions       Session[]
 }
 
 model Session {
@@ -26,5 +26,5 @@ model Session {
   token       String     @unique
   createdAt   DateTime   @default(now())
   userId      Int        @unique
-  user        User       @relation("UserSession", fields: [userId], references: [id])
+  user        User       @relation(fields: [userId], references: [id])
 }

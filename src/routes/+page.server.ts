@@ -8,8 +8,8 @@ export const actions: Actions = {
 	default: async ({ request, cookies }) => {
 		// parse form data
 		const loginData = await request.formData();
-		const username = loginData.get('username');
-		const passkey = loginData.get('passkey');
+		const username = loginData.get('username') as string;
+		const passkey = loginData.get('passkey')  as string;
 
 		try {
 			// validate user in database
@@ -32,22 +32,6 @@ export const actions: Actions = {
 				return fail(400, { error: 'Invalid credentials', username });
 			}
 
-			// -----------------
-			// validate user in the database
-			// const query = 'SELECT id, passkey FROM users WHERE username = $1';
-			// const result = await pool.query(query, [username]);
-
-			// if (result.rows.length === 0) {
-			// 	return fail(400, { error: 'Invalid credentials', username });
-			// }
-			// const user = result.rows[0];
-			// console.log('user: ' + JSON.stringify(user));
-			// const isValid = await bcrypt.compare(passkey, result.rows[0].passkey);
-
-			// if (!isValid) {
-			// 	return fail(400, { error: 'Invalid credentials', username });
-			// }
-
 			// generate session token
 			const sessionToken = crypto.randomUUID();
 			console.log('sessionToken: ' + sessionToken);
@@ -65,7 +49,6 @@ export const actions: Actions = {
 			console.log('cookie set!: ' + JSON.stringify(cookies));
 
 			// Optionally store sessionToken in DB (if using sessions table)
-			// await pool.query('UPDATE users SET userAuthToken = $1 WHERE id = $2', [sessionToken, user.id]);
 			await prisma.session.create({
 				data: {
 					token: sessionToken,
