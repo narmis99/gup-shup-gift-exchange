@@ -1,6 +1,6 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
-	import { enhance, applyAction } from '$app/forms';
+	import { enhance } from '$app/forms';
 	// import { createEventDispatcher } from 'svelte';
 	
 	let { openModal = $bindable(), form = undefined, getUsername = undefined} = $props();
@@ -37,6 +37,7 @@
 		<div class="pt-6">
 			<form
 				method="POST"
+				action="?/login"
 				use:enhance={({ formElement, formData, action, cancel, submitter }) => {
 					// `formElement` is this `<form>` element
 					// `formData` is its `FormData` object that's about to be submitted

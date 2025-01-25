@@ -1,15 +1,15 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from '../../.svelte-kit/types/src/routes/$types';
 import bcrypt from 'bcryptjs';
 // import { pool } from '../lib/server/database';
 import { prisma } from '$lib/server/prisma';
 
 export const actions: Actions = {
-	default: async ({ request, cookies }) => {
+	login: async ({ request, cookies }) => {
 		// parse form data
 		const loginData = await request.formData();
 		const username = loginData.get('username') as string;
-		const passkey = loginData.get('passkey')  as string;
+		const passkey = loginData.get('passkey') as string;
 
 		try {
 			// validate user in database
@@ -60,5 +60,25 @@ export const actions: Actions = {
 		} catch (error) {
 			return fail(500, { error: 'Internal server error: ' + error });
 		}
+	},
+	logout: async ({ cookies }) => {
+		console.log('logging out...');
+		const sessionToken = cookies.get('session_token') as string;
+
+		if (sessionToken) {
+			await prisma.session.delete({
+				where: {
+					token: sessionToken
+				}
+			});
+
+			cookies.delete('session_token', {
+				path: '/',
+				httpOnly: true,
+				secure: process.env.NODE_ENV === 'production',
+				sameSite: 'lax'
+			});
+		}
+		throw redirect(302, '/');
 	}
 };

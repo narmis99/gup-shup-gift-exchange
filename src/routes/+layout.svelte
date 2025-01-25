@@ -5,13 +5,7 @@
 	import NavBar from '$lib/components/NavBar.svelte';
 
 	let { data, children } = $props();
-	let isLoggedIn = $state(false);
-
-	if (data.user) {
-		isLoggedIn = true;
-	}
-	console.log('\ndata in +layout.svelte: ' + JSON.stringify(data));
-	// let isLoggedIn = false;
+	let isLoggedIn = $derived(data.user);
 </script>
 
 <NavBar isLoggedIn={isLoggedIn}/>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import LoginModal from './LoginModal.svelte';
 
 	let { isLoggedIn = false } = $props();
@@ -13,7 +14,7 @@
 </script>
 
 <nav>
-	<div class="navbar bg-base-100">
+	<div class="navbar">
 		<div class="flex-1">
 			<a class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
 		</div>
@@ -30,17 +31,10 @@
 							/>
 						</div>
 					</div>
-					<ul
-						class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
-					>
-						<li>
-							<a href="yuh" class="justify-between">
-								Profile
-								<span class="badge">New</span>
-							</a>
-						</li>
-						<li>Settings</li>
-						<li>Logout</li>
+					<ul class="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-white p-2 shadow">
+						<form method="POST" use:enhance action="?/logout">
+							<li class="justify-between"><button  type="submit">Logout</button></li>
+						</form>
 					</ul>
 				</div>
 			{/if}
