@@ -1,16 +1,8 @@
+
 const bcrypt = require('bcrypt');
-const { Pool } = require('pg');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
 
-// Configure your PostgreSQL connection
-const pool = new Pool({
-	user: 'postgres',
-	host: 'localhost',
-	database: 'gup_shup_gift_exchange',
-	password: 'BhangraChakde99!',
-	port: 5432
-});
-
-// Function to hash a password
 const hashPassword = async (password) => {
 	const saltRounds = 10;
 	try {
@@ -19,16 +11,22 @@ const hashPassword = async (password) => {
 		return hashedPassword;
 	} catch (err) {
 		console.error('Error hashing password:', err);
+		throw err;
 	}
 };
 
-// Function to insert a user with hashed password into the database
-const insertUser = async (username, passkey, birthday) => {
+const insertUser = async (username, passkey, birthdate) => {
 	const hashedPassword = await hashPassword(passkey);
+
 	if (hashedPassword) {
 		try {
-			const query = 'INSERT INTO users (username, passkey, birthday) VALUES ($1, $2, $3)';
-			await pool.query(query, [username, hashedPassword, birthday]);
+			await prisma.user.create({
+				data: {
+					username,
+					passkeyHash: hashedPassword,
+					birthdate: new Date(birthdate)
+				}
+			});
 			console.log(`User ${username} inserted successfully!`);
 		} catch (err) {
 			console.error('Error inserting user:', err);
@@ -36,29 +34,27 @@ const insertUser = async (username, passkey, birthday) => {
 	}
 };
 
-// Function to insert a user with hashed password into the database
-const hashPasswordOfExistingUser = async (id, passkey) => {
-	const hashedPassword = await hashPassword(passkey);
-	if (hashedPassword) {
-		try {
-			const query = 'UPDATE users SET passkey=$1 WHERE id=$2';
-			await pool.query(query, [hashedPassword, id]);
-			console.log(`User ${id} updated successfully!`);
-		} catch (err) {
-			console.error('Error inserting user:', err);
-		}
-	}
-};
+// const hashPasswordOfExistingUser = async (id, passkey) => {
+// 	const hashedPassword = await hashPassword(passkey);
+// 	if (hashedPassword) {
+// 		try {
+// 			const query = 'UPDATE users SET passkey=$1 WHERE id=$2';
+// 			await pool.query(query, [hashedPassword, id]);
+// 			console.log(`User ${id} updated successfully!`);
+// 		} catch (err) {
+// 			console.error('Error inserting user:', err);
+// 		}
+// 	}
+// };
 
-// Example: Insert a user with username and password
-// (async () => {
-// 	await insertUser('test_user_SS', 'pa55w0rd&', '2025-01-20');
-// 	await insertUser('angadraj', 'atablawithoutaholeinit33!', '1991-06-09');
-// 	await insertUser('yuvraj', 'camaro0car$', '1994-03-14');
-// 	await insertUser('ravnit', 'ilovepeople55+', '1991-10-26');
-// 	await insertUser('sahejveer', 'hikingsurfingandskating0hmy!', '1996-05-11');
-// 	pool.end();
-// })();
+
+(async () => {
+	// await insertUser('test_user_SS', 'pa55w0rd&', '2025-01-20');
+	await insertUser('angadraj', 'atablawithoutaholeinit33!', '1991-06-09');
+	await insertUser('ravnit', 'ilovepeople55+', '1991-10-26');
+	await insertUser('yuvraj', 'camaro0car$', '1994-03-14');
+	await insertUser('sahejveer', 'hikingsurfingandskating0hmy!', '1996-05-11');
+})();
 
 // (async () => {
 // 	await hashPasswordOfExistingUser('2', 'atablawithoutaholeinit33!');

@@ -11,16 +11,16 @@ export async function load({ cookies }) {
     }
 
     // Validate session_token in the database
-    const result = await pool.query('SELECT id FROM users WHERE session_token = $1', [sessionToken]);
+    // const result = await pool.query('SELECT id FROM users WHERE session_token = $1', [sessionToken]);
 
-    if (result.rows.length === 0) {
-        return { user: null }; // Invalid session, treat as logged out
-    }
+    // if (result.rows.length === 0) {
+    //     return { user: null }; // Invalid session, treat as logged out
+    // }
 
-    // Fetch user details
-    const user = await pool.query('SELECT id, username, birthday FROM users WHERE id = $1', [result.rows[0].id]);
+    // // Fetch user details
+    // const user = await pool.query('SELECT id, username, birthday FROM users WHERE id = $1', [result.rows[0].id]);
 
-    return {
-        user: user.rows.length > 0 ? user.rows[0] : null
-    };
+    // return {
+    //     user: user.rows.length > 0 ? user.rows[0] : null
+    // };
 }
