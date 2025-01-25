@@ -32,21 +32,18 @@ export const actions: Actions = {
 
 			console.log('setting cookie...');
 			// store session token in cookie
-			cookies.set('sessions', sessionToken, {
+			cookies.set('session_token', sessionToken, {
 				path: '/',
 				httpOnly: true,
 				secure: process.env.NODE_ENV === 'production',
 				sameSite: 'lax',
-				maxAge: 60 * 60 * 24 * 7 // week (in seconds)
+				maxAge: 60 * 60 * 2 // 2 hours
+				// maxAge: 60 * 60 * 24 * 7 // week (in seconds)
 			})
-			console.log('cookie set!');
+			console.log('cookie set!: ' + JSON.stringify(cookies));
 			
 			// Optionally store sessionToken in DB (if using sessions table)
 			await pool.query('UPDATE users SET session_token = $1 WHERE id = $2', [sessionToken, user.id]);
-
-			/*
-			throw redirect(303, '/dashboard'); // Redirect user after login
-			*/
 			
 			return { success: true };
 		} catch (error) {

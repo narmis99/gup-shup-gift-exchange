@@ -4,7 +4,8 @@
 	import LoginModal from '$lib/components/LoginModal.svelte';
 	import NavBar from '$lib/components/NavBar.svelte';
 
-	let { children } = $props();
+	let { data, children } = $props();
+	console.log('\ndata in +layout.svelte: ' + JSON.stringify(data));
 	// let isLoggedIn = false;
 </script>
 
