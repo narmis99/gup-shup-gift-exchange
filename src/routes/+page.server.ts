@@ -1,7 +1,6 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import type { Actions } from '../../.svelte-kit/types/src/routes/$types';
 import bcrypt from 'bcryptjs';
-// import { pool } from '../lib/server/database';
 import { prisma } from '$lib/server/prisma';
 
 export const actions: Actions = {
@@ -25,7 +24,7 @@ export const actions: Actions = {
 
 			console.log('found user: ' + JSON.stringify(user));
 
-			// Compare password hash with bcrypt
+			// compare hashed passkey
 			const isValid = await bcrypt.compare(passkey, user.passkeyHash);
 
 			if (!isValid) {
@@ -34,9 +33,7 @@ export const actions: Actions = {
 
 			// generate session token
 			const sessionToken = crypto.randomUUID();
-			console.log('sessionToken: ' + sessionToken);
 
-			console.log('setting cookie...');
 			// store session token in cookie
 			cookies.set('session_token', sessionToken, {
 				path: '/',
@@ -46,9 +43,7 @@ export const actions: Actions = {
 				maxAge: 60 * 60 * 2 // 2 hours
 				// maxAge: 60 * 60 * 24 * 7 // week (in seconds)
 			});
-			console.log('cookie set!: ' + JSON.stringify(cookies));
 
-			// Optionally store sessionToken in DB (if using sessions table)
 			await prisma.session.create({
 				data: {
 					token: sessionToken,
@@ -62,23 +57,26 @@ export const actions: Actions = {
 		}
 	},
 	logout: async ({ cookies }) => {
-		console.log('logging out...');
-		const sessionToken = cookies.get('session_token') as string;
+		try {
+			const sessionToken = cookies.get('session_token') as string;
 
-		if (sessionToken) {
-			await prisma.session.delete({
-				where: {
-					token: sessionToken
-				}
-			});
+			if (sessionToken) {
+				await prisma.session.delete({
+					where: {
+						token: sessionToken
+					}
+				});
 
-			cookies.delete('session_token', {
-				path: '/',
-				httpOnly: true,
-				secure: process.env.NODE_ENV === 'production',
-				sameSite: 'lax'
-			});
+				cookies.delete('session_token', {
+					path: '/',
+					httpOnly: true,
+					secure: process.env.NODE_ENV === 'production',
+					sameSite: 'lax'
+				});
+			}
+			return { success: true };
+		} catch (error) {
+			return fail(500, { error: 'Internal server error: ' + error });
 		}
-		throw redirect(302, '/');
 	}
 };

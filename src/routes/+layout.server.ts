@@ -1,9 +1,7 @@
 import { prisma } from '$lib/server/prisma.js';
 
 export async function load({ cookies }) {
-	console.log('Cookies:', cookies.getAll()); // Log all cookies
 	const sessionToken = cookies.get('session_token') as string;
-	console.log('retrieved sessionToken: ' + sessionToken);
 
 	if (!sessionToken) {
 		return { user: null };
