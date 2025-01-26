@@ -52,7 +52,7 @@ export const actions: Actions = {
 			}
 		});
 
-		redirect(303, '/');
+		await redirect(303, '/');
 	},
 	logout: async ({ cookies }) => {
 		try {
