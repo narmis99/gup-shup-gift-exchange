@@ -29,7 +29,7 @@ export function computeCountdownValues(birthdate: Date) {
 	const remainingHours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 	const remainingMinutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-	console.log(`Time until next birthday: ${remainingMonths} months, ${remainingDays} days, ${remainingHours} hours, ${remainingMinutes} minutes.`);
+	// console.log(`Time until next birthday: ${remainingMonths} months, ${remainingDays} days, ${remainingHours} hours, ${remainingMinutes} minutes.`);
 	return {
 		months: remainingMonths,
 		days: remainingDays,
