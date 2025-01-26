@@ -1,15 +1,8 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
-	import { enhance, applyAction } from '$app/forms';
-	// import { createEventDispatcher } from 'svelte';
-	
-	let { openModal = $bindable(), form = undefined, getUsername = undefined} = $props();
-
-	// function dispatch() {
-	// 	$host().dispatchEvent(new CustomEvent(type));
-	// }
+	import { enhance } from '$app/forms';
+	let { openModal = $bindable(), form = undefined, refreshNavBar } = $props();
 </script>
-
 
 <div class="modal" class:modal-open={openModal}>
 	<div class="modal-box">
@@ -37,32 +30,30 @@
 		<div class="pt-6">
 			<form
 				method="POST"
+				action="?/login"
 				use:enhance={({ formElement, formData, action, cancel, submitter }) => {
 					// `formElement` is this `<form>` element
 					// `formData` is its `FormData` object that's about to be submitted
 					// `action` is the URL to which the form is posted
 					// calling `cancel()` will prevent the submission
 					// `submitter` is the `HTMLElement` that caused the form to be submitted
-
 					return async ({ result, update }) => {
 						form = result;
-						console.log('result: ' + JSON.stringify(result.type));
 						if (result.type == 'success') {
 							openModal = false;
-							getUsername(result.data.username);
-							// STODO: ispatch username back up to parent
+							refreshNavBar();
 						}
 						// `result` is an `ActionResult` object
 						// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
 					};
 				}}
 			>
+				<button class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2" onclick={() => {openModal = false}}>✕</button>
 				<label class="max-w form-control w-full p-2">
 					<input
 						type="text"
 						name="username"
 						placeholder="username"
-						required
 						class="max-w input input-bordered w-full"
 					/>
 				</label>
@@ -71,7 +62,6 @@
 						type="password"
 						name="passkey"
 						placeholder="passkey"
-						required
 						class="max-w input input-bordered w-full"
 					/>
 				</label>
