@@ -3,6 +3,10 @@ import type { Actions } from '../../.svelte-kit/types/src/routes/$types';
 import bcrypt from 'bcryptjs';
 import { prisma } from '$lib/server/prisma';
 
+export function load({ locals }) {
+	return { user: locals.user };
+  }
+
 export const actions: Actions = {
 	login: async ({ request, cookies }) => {
 		// parse form data
@@ -21,8 +25,6 @@ export const actions: Actions = {
 			if (!user) {
 				return fail(400, { error: 'Invalid credentials', username });
 			}
-
-			console.log('found user: ' + JSON.stringify(user));
 
 			// compare hashed passkey
 			const isValid = await bcrypt.compare(passkey, user.passkeyHash);

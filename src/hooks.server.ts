@@ -1,14 +1,18 @@
 import type { Handle } from '@sveltejs/kit';
-import { pool } from '$lib/server/database';
+import { prisma } from '$lib/server/prisma';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	const sessionToken = event.cookies.get('session');
+	const sessionToken = event.cookies.get('session_token');
 
 	if (sessionToken) {
-		const result = await pool.query('SELECT id, username FROM users WHERE session_token = $1', [sessionToken]);
+		const session = await prisma.session.findUnique({
+            where: { token: sessionToken },
+            include: { user: true }
+        });
 
-		if (result.rows.length > 0) {
-			event.locals.user = result.rows[0];
+		if (session) {
+			event.locals.sessionId = session.id;
+			event.locals.user = session.user;
 		}
 	}
 	return resolve(event);

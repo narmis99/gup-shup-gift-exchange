@@ -8,6 +8,6 @@
 	let isLoggedIn = $derived(data.user);
 </script>
 
-<NavBar isLoggedIn={isLoggedIn}/>
+<NavBar {isLoggedIn} />
 
 {@render children()}
