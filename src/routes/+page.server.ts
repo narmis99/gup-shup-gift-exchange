@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import { prisma } from '$lib/server/prisma';
 
 export function load({ locals }) {
+	console.log('loading in page');
 	return { user: locals.user };
 }
 
@@ -52,6 +53,7 @@ export const actions: Actions = {
 			}
 		});
 
+		console.log('redirecting...');
 		await redirect(303, '/');
 	},
 	logout: async ({ cookies }) => {

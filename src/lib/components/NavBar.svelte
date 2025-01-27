@@ -10,6 +10,7 @@
 <nav>
 	<div class="navbar">
 		<div class="navbar-start">
+			<!-- STODO: how about Secret Santa Banta Birthday? -->
 			<a class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
 		</div>
 		{#if isLoggedIn}

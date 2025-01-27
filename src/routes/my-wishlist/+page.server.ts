@@ -1,3 +1,4 @@
+import type { Actions } from '@sveltejs/kit';
 export async function load({ locals }) {
 	console.log('locals on load: ' + JSON.stringify(locals.user));
 	return { user: locals.user };
@@ -9,6 +10,24 @@ export const actions: Actions = {
 		console.log('creating wish');
 		console.log('request: ' + JSON.stringify(request));
 		console.log('wishData: ' + JSON.stringify(wishData));
+		const name = wishData.get('name') as string;
+		const url = wishData.get('url') as string;
+		const comment = wishData.get('comment') as string;
+		const rating = wishData.get('rating') as string;
+		const userId = wishData.get('userId') as string;
+
+		console.log('name: ' + name);
+		console.log('url: ' + url);
+		console.log('comment: ' + comment);
+		console.log('rating: ' + rating);
+		console.log('userId: ' + userId);
+
+		// console.log('session: ' + )
+		// await prisma.wish.create({
+		// 	data: {
+
+		// 	}
+		// });
 	}
 	// STODO: either move login/logout to layout or call parent
 	// logout: async ({ cookies }) => {
