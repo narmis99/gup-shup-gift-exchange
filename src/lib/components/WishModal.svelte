@@ -5,7 +5,7 @@
 </script>
 
 <div class="modal" class:modal-open={openModal}>
-	<div class="modal-box">
+	<div class="modal-box max-w-xl">
 		<!-- <div class="pt-2"> -->
 		<form
 			method="POST"
@@ -16,21 +16,61 @@
 				};
 			}}
 		>
-			<div class="form-control">
-				<label class="label">
-					<span class="label-text">*What do you wish for?</span>
-				</label>
-				<input type="text" placeholder="world peace" class="input input-bordered" required />
-			</div>
-			<div class="form-control">
-				<label class="label">
-					<span class="label-text">Link to gift</span>
-				</label>
-				<input type="text" placeholder="www.thebestgift.org" class="input input-bordered" />
-			</div>
-			<div class="flex justify-end gap-4 mt-4">
-				<button class="btn">Cancel</button>
-				<button class="btn btn-primary">Create Wish</button>
+			<label class="max-w form-control w-full p-2">
+				<span class="label-text pb-2 text-base">*What do you wish for?</span>
+				<input
+					type="text"
+					name="name"
+					placeholder="world peace"
+					class="input input-bordered"
+					required
+				/>
+			</label>
+
+			<label class="max-w form-control w-full p-2">
+				<span class="label-text pb-2 text-base">Link to gift</span>
+				<input
+					type="text"
+					name="url"
+					placeholder="https://pingalwara.org"
+					class="input input-bordered"
+				/>
+			</label>
+
+			<label class="max-w form-control w-full p-2">
+				<span class="label-text pb-2 text-base">Any comments for your Santa?</span>
+				<input
+					type="text"
+					name="comment"
+					placeholder="black size M plz"
+					class="input input-bordered"
+				/>
+			</label>
+
+			<label class="max-w form-control w-full p-2">
+				<span class="label-text pb-2 text-base">Wish rating</span>
+				<input type="range" name="rating" min="0" max="2" class="range range-xs" step="1" />
+				<div class="grid grid-cols-3 justify-between gap-4 p-2 text-xs">
+					<span class="w-30 flex-none justify-self-start text-left text-sm"
+						>I'll accept this 👍</span
+					>
+					<span class="w-30 flex-none justify-self-center text-center text-sm"
+						>I'd love to have this ❤️</span
+					>
+					<span class="w-30 flex-none justify-self-end text-right text-sm"
+						>If you don't grant this for me, I will 🧞</span
+					>
+				</div>
+			</label>
+
+			<div class="mt-4 flex justify-end gap-4">
+				<button
+					class="btn"
+					onclick={() => {
+						openModal = false;
+					}}>Cancel</button
+				>
+				<button type="submit" class="btn btn-primary">Create Wish</button>
 			</div>
 			<!-- <div class="form-control mt-6">
 			</div> -->
