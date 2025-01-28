@@ -1,7 +1,7 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	let { openModal = $bindable(), form = undefined, user = undefined } = $props();
+	let { openModal = $bindable()} = $props();
 </script>
 
 <div class="modal" class:modal-open={openModal}>
@@ -11,11 +11,10 @@
 			method="POST"
 			action="?/createWish"
 			use:enhance={({ formElement, formData, action, cancel, submitter }) => {
-				console.log('updating formData...');
-				console.log('user: ' + user);
-				formData.append('userId', '1');
-				console.log('formData in enhance: ' + JSON.stringify(formData));
 				return async ({ result, update }) => {
+					if (result.type === 'redirect') {
+						openModal = false;
+					}
 					console.log('result in wish modal: ' + JSON.stringify(result));
 				};
 			}}
