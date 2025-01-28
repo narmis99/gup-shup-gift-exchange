@@ -1,4 +1,3 @@
-<!-- shere -->
 <script>
 	import WishModal from '$lib/components/WishModal.svelte';
 	let showWishModal = $state(false);
@@ -16,14 +15,3 @@
 {#if showWishModal}
 	<WishModal bind:openModal={showWishModal} />
 {/if}
-<!-- <form
-	method="POST"
-	action="?/createWish"
-	use:enhance={() => {
-		return async ({ result }) => {
-			console.log('result: ' + JSON.stringify(result));
-		};
-	}}
->
-	<button type="submit" class="btn btn-accent">+ Add Wish</button>
-</form> -->

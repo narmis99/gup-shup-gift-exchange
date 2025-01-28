@@ -2,7 +2,6 @@ import { redirect, type Actions } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
 export async function load({ locals }) {
-	console.log('locals on load in wishlist: ' + JSON.stringify(locals.user));
 	return { user: locals.user };
 }
 
@@ -13,7 +12,7 @@ export const actions: Actions = {
 		const url = wishData.get('url') as string;
 		const comment = wishData.get('comment') as string;
 		const rating = Number(wishData.get('rating'));
-		
+
 		await prisma.wish.create({
 			data: {
 				name: name,
@@ -26,28 +25,4 @@ export const actions: Actions = {
 
 		await redirect(303, '/my-wishlist');
 	}
-	// STODO: either move login/logout to layout or call parent
-	// logout: async ({ cookies }) => {
-	// 	try {
-	// 		const sessionToken = cookies.get('session_token') as string;
-
-	// 		if (sessionToken) {
-	// 			await prisma.session.delete({
-	// 				where: {
-	// 					token: sessionToken
-	// 				}
-	// 			});
-
-	// 			cookies.delete('session_token', {
-	// 				path: '/',
-	// 				httpOnly: true,
-	// 				secure: process.env.NODE_ENV === 'production',
-	// 				sameSite: 'lax'
-	// 			});
-	// 		}
-	// 		return { success: true };
-	// 	} catch (err) {
-	// 		return fail(500, { error: 'Internal server error: ' + err });
-	// 	}
-	// }
 };

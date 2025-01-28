@@ -1,4 +1,4 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import type { Actions } from '../../.svelte-kit/types/src/routes/$types';
 import bcrypt from 'bcryptjs';
 import { prisma } from '$lib/server/prisma';
@@ -59,27 +59,4 @@ export const actions: Actions = {
 			throw fail(500, { error: 'Internal server error: ' + err });
 		}
 	}
-	// logout: async ({ cookies }) => {
-	// 	try {
-	// 		const sessionToken = cookies.get('session_token') as string;
-
-	// 		if (sessionToken) {
-	// 			await prisma.session.delete({
-	// 				where: {
-	// 					token: sessionToken
-	// 				}
-	// 			});
-
-	// 			cookies.delete('session_token', {
-	// 				path: '/',
-	// 				httpOnly: true,
-	// 				secure: process.env.NODE_ENV === 'production',
-	// 				sameSite: 'lax'
-	// 			});
-	// 		}
-	// 		return { success: true };
-	// 	} catch (err) {
-	// 		return fail(500, { error: 'Internal server error: ' + err });
-	// 	}
-	// }
 };

@@ -6,7 +6,6 @@
 
 <div class="modal" class:modal-open={openModal}>
 	<div class="modal-box max-w-xl">
-		<!-- <div class="pt-2"> -->
 		<form
 			method="POST"
 			action="?/createWish"
@@ -15,7 +14,6 @@
 					if (result.type === 'redirect') {
 						openModal = false;
 					}
-					console.log('result in wish modal: ' + JSON.stringify(result));
 				};
 			}}
 		>
@@ -75,16 +73,6 @@
 				>
 				<button type="submit" class="btn btn-primary">Create Wish</button>
 			</div>
-			<!-- <div class="form-control mt-6">
-			</div> -->
-			<!-- <button class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2" onclick={() => {openModal = false}}>✕</button> -->
-			<!-- name -->
-			<!-- url -->
-			<!-- level -->
-			<!-- comment -->
-			<!-- userId -->
-			<!-- <button type="submit" class="btn">Submit</button> -->
 		</form>
-		<!-- </div> -->
 	</div>
 </div>
