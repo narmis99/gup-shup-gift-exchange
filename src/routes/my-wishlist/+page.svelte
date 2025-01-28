@@ -1,6 +1,5 @@
 <!-- shere -->
 <script>
-	import { enhance } from '$app/forms';
 	import WishModal from '$lib/components/WishModal.svelte';
 	let showWishModal = $state(false);
 </script>

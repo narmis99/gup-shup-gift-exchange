@@ -12,7 +12,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 		});
 
 		if (session) {
-			console.log('setting sessionId and user');
 			event.locals.sessionId = session.id;
 			event.locals.user = {
 				userId: session.user.id,
@@ -22,5 +21,5 @@ export const handle: Handle = async ({ event, resolve }) => {
 		}
 	}
 
-	return await resolve(event);
+	return resolve(event);
 };

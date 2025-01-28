@@ -1,6 +1,5 @@
-// import { prisma } from '$lib/server/prisma.js';
+import type { LayoutServerLoad } from './$types';
 
-export async function load({ locals }) {
-	console.log('loading in layout');
+export const load: LayoutServerLoad = async ({ locals }) => {
 	return { user: locals.user };
-}
+};

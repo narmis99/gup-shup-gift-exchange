@@ -34,9 +34,9 @@
 					</div>
 					<ul class="menu dropdown-content menu-sm z-[1] mt-3 w-44 rounded-box bg-white shadow">
 						<li><a href="/my-wishlist">My Wishlist</a></li>
-						<form
+						<!-- <form
 							method="POST"
-							action="?/logout"
+							action="/logout"
 							use:enhance={() => {
 								return async ({ result }) => {
 									if (result.type == 'success') {
@@ -46,7 +46,19 @@
 							}}
 						>
 							<li class="justify-between"><button type="submit">Logout</button></li>
-						</form>
+						</form> -->
+						<li class="justify-between">
+							<button
+								onclick={async (e) => {
+									const response = await fetch('/logout', {
+										method: 'POST'
+									});
+									if (response.status === 307) {
+										window.location.href = '/';
+									}
+								}}>Logout</button
+							>
+						</li>
 					</ul>
 				</div>
 			{:else}
@@ -62,10 +74,5 @@
 </nav>
 
 {#if showModal}
-	<LoginModal
-		bind:openModal={showModal}
-		refreshNavBar={() => {
-			isLoggedIn = true;
-		}}
-	/>
+	<LoginModal bind:openModal={showModal} />
 {/if}
