@@ -13,6 +13,7 @@
 				return async ({ result, update }) => {
 					if (result.type === 'redirect') {
 						openModal = false;
+						window.location.reload();
 					}
 				};
 			}}
@@ -33,7 +34,7 @@
 				<input
 					type="text"
 					name="url"
-					placeholder="https://pingalwara.org"
+					placeholder="https://www.pingalwara.org"
 					class="input input-bordered"
 				/>
 			</label>
@@ -53,10 +54,10 @@
 				<input type="range" name="rating" min="0" max="2" class="range range-xs" step="1" />
 				<div class="grid grid-cols-3 justify-between gap-4 p-2 text-xs">
 					<span class="w-30 flex-none justify-self-start text-left text-sm"
-						>I'll accept this 👍</span
+						>I won't say no to this 👍</span
 					>
 					<span class="w-30 flex-none justify-self-center text-center text-sm"
-						>I'd love to have this ❤️</span
+						>I'd love to have this 😍</span
 					>
 					<span class="w-30 flex-none justify-self-end text-right text-sm"
 						>If you don't grant this for me, I will 🧞</span

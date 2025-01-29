@@ -8,7 +8,7 @@
 </script>
 
 <nav>
-	<div class="navbar">
+	<div class="navbar bg-primary">
 		<div class="navbar-start">
 			<!-- STODO: how about Secret Santa Banta Birthday? -->
 			<a href="/" class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
@@ -24,7 +24,7 @@
 					<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
 					<div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost">
 						<!-- <div class="w-24 rounded-full"> -->
-						<div class="w-12 rounded-full ring ring-primary ring-offset-2 ring-offset-base-100">
+						<div class="w-12 rounded-full ring ring-base-100 ring-offset-2 ring-offset-primary">
 							<span class="text-2xl">{user.username[0].toUpperCase()}</span>
 							<!-- <img
 							alt="Tailwind CSS Navbar component"
@@ -63,7 +63,7 @@
 				</div>
 			{:else}
 				<button
-					class="btn btn-primary"
+					class="btn btn-base-100"
 					onclick={() => {
 						showModal = true;
 					}}>Log in</button

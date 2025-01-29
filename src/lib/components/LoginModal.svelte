@@ -41,7 +41,7 @@
 					return async ({ result, update }) => {
 						form = result;
 
-						if (result.type == "success") {
+						if (result.type == 'success') {
 							openModal = false;
 							window.location.reload();
 						}
@@ -50,7 +50,12 @@
 					};
 				}}
 			>
-				<button class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2" onclick={() => {openModal = false}}>✕</button>
+				<button
+					class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
+					onclick={() => {
+						openModal = false;
+					}}>✕</button
+				>
 				<label class="max-w form-control w-full p-2">
 					<input
 						type="text"
@@ -67,7 +72,9 @@
 						class="max-w input input-bordered w-full"
 					/>
 				</label>
-				<button type="submit" class="btn">Submit</button>
+				<div class="flex justify-end p-2">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
 			</form>
 		</div>
 	</div>
