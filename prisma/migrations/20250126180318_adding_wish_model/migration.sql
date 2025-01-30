@@ -18,3 +18,4 @@ CREATE UNIQUE INDEX "Wish_name_key" ON "Wish"("name");
 
 -- AddForeignKey
 ALTER TABLE "Wish" ADD CONSTRAINT "Wish_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE IF EXISTS "level" RENAME TO "rating";
