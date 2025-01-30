@@ -28,7 +28,6 @@
 		{/if}
 		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
 		<div class="pt-6">
-			<!-- STODO: point this to an API endpoint instead -->
 			<form
 				method="POST"
 				action="?/login"

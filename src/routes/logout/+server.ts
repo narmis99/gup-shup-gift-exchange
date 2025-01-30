@@ -2,7 +2,7 @@ import { prisma } from '$lib/server/prisma';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 // STODO: update to DELETE
-export const POST: RequestHandler = async ({ cookies }) => {
+export const DELETE: RequestHandler = async ({ cookies }) => {
 	try {
 		const sessionToken = cookies.get('session_token') as string;
 

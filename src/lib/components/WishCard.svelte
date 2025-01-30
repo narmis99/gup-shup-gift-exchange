@@ -26,7 +26,6 @@
 
 <div class="w-full card card-bordered break-inside-avoid-column shadow-lg {shadowClasses[shadowIndex]}">
 	<div class="card-body">
-		<!-- STODO: implement edit and delete functions -->
 		<button
 			class="group btn btn-circle btn-ghost btn-sm absolute bottom-4 right-12"
 			aria-label="edit wish card"

@@ -51,8 +51,7 @@
 							<button
 								onclick={async (e) => {
 									const response = await fetch('/logout', {
-										// STODO: change to delete
-										method: 'POST'
+										method: 'DELETE'
 									});
 									if (response.status === 307) {
 										window.location.href = '/';
