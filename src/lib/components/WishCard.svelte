@@ -1,16 +1,36 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
-	const { name, url, rating, comment, shadowIndex } = $props();
+	const { id, name, url, rating, comment, shadowIndex } = $props();
 
 	const shadowClasses = ['shadow-secondary', 'shadow-accent', 'shadow-success', 'shadow-primary'];
+
+	async function handleDeleteWish() {
+		console.log('deleting wish: ' + id);
+		const response = await fetch('/my-wishlist', {
+			method: 'DELETE',
+			body: JSON.stringify({ id }),
+			headers: {
+				'content-type': 'application/json'
+			}
+		});
+
+		if (response.status === 307) {
+			window.location.href = '/my-wishlist';
+		}
+	}
+
+	async function handleEditWish() {
+		console.log('editing wish: ' + id);
+	}
 </script>
 
-<div class="break-inside-avoid-column card card-bordered shadow-lg {shadowClasses[shadowIndex]}">
+<div class="w-full card card-bordered break-inside-avoid-column shadow-lg {shadowClasses[shadowIndex]}">
 	<div class="card-body">
 		<!-- STODO: implement edit and delete functions -->
 		<button
 			class="group btn btn-circle btn-ghost btn-sm absolute bottom-4 right-12"
 			aria-label="edit wish card"
+			onclick={handleEditWish}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -31,6 +51,7 @@
 		<button
 			class="group btn btn-circle btn-ghost btn-sm absolute bottom-4 right-4"
 			aria-label="trash wish card"
+			onclick={handleDeleteWish}
 		>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

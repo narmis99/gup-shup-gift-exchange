@@ -17,7 +17,7 @@
 
 <!-- <div class="m-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3"> -->
 <!-- <div class="m-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3"> -->
-<div class="w-full columns-3 gap-5 space-y-5 p-5">
+<div class="w-full columns-sm gap-5 space-y-5 p-5">
 	<!-- <div class="m-8 columns-2xs gap-4"> -->
 	{#each data.wishes.map((wish, i) => ({ ...wish, shadowIndex: i % 4 })) as wish}
 		<!-- <div class="bg-white shadow-lg p-4 rounded-md"> -->

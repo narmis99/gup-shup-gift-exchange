@@ -22,7 +22,7 @@
 			{#if isLoggedIn}
 				<div class="dropdown dropdown-end">
 					<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
-					<div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost">
+					<div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost m-1">
 						<!-- <div class="w-24 rounded-full"> -->
 						<div class="w-12 rounded-full ring ring-base-100 ring-offset-2 ring-offset-primary">
 							<span class="text-2xl">{user.username[0].toUpperCase()}</span>
@@ -51,6 +51,7 @@
 							<button
 								onclick={async (e) => {
 									const response = await fetch('/logout', {
+										// STODO: change to delete
 										method: 'POST'
 									});
 									if (response.status === 307) {
@@ -63,7 +64,7 @@
 				</div>
 			{:else}
 				<button
-					class="btn btn-base-100"
+					class="btn-base-100 btn"
 					onclick={() => {
 						showModal = true;
 					}}>Log in</button

@@ -8,6 +8,7 @@ export async function load({ locals }) {
 
 	const wishes = await prisma.wish.findMany({
 		select: {
+			id: true,
 			name: true,
 			url: true,
 			rating: true,
