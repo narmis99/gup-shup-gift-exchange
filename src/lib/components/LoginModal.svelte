@@ -28,6 +28,7 @@
 		{/if}
 		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
 		<div class="pt-6">
+			<!-- STODO: move to +server.ts -->
 			<form
 				method="POST"
 				action="?/login"

@@ -1,5 +1,4 @@
 <script>
-	import { enhance } from '$app/forms';
 	import LoginModal from './LoginModal.svelte';
 	import Countdown from './Countdown.svelte';
 
@@ -21,32 +20,13 @@
 		<div class="navbar-end">
 			{#if isLoggedIn}
 				<div class="dropdown dropdown-end">
-					<!-- <div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost"> -->
 					<div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost m-1">
-						<!-- <div class="w-24 rounded-full"> -->
 						<div class="w-12 rounded-full ring ring-base-100 ring-offset-2 ring-offset-primary">
 							<span class="text-2xl">{user.username[0].toUpperCase()}</span>
-							<!-- <img
-							alt="Tailwind CSS Navbar component"
-							src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-						/> -->
 						</div>
 					</div>
 					<ul class="menu dropdown-content menu-sm z-[1] mt-3 w-44 rounded-box bg-white shadow">
 						<li><a href="/my-wishlist">My Wishlist</a></li>
-						<!-- <form
-							method="POST"
-							action="/logout"
-							use:enhance={() => {
-								return async ({ result }) => {
-									if (result.type == 'success') {
-										isLoggedIn = false;
-									}
-								};
-							}}
-						>
-							<li class="justify-between"><button type="submit">Logout</button></li>
-						</form> -->
 						<li class="justify-between">
 							<button
 								onclick={async (e) => {
