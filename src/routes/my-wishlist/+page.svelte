@@ -2,7 +2,7 @@
 	import WishModal from '$lib/components/WishModal.svelte';
 	import WishCard from '$lib/components/WishCard.svelte';
 	let { data, form } = $props();
-=	let showWishModal = $state(false);
+	let showWishModal = $state(false);
 </script>
 
 <div class="m-4 flex items-center justify-between">
