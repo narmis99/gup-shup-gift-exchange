@@ -1,13 +1,15 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
-	const { name, url, rating, comment } = $props();
+	const { name, url, rating, comment, shadowIndex } = $props();
+
+	const shadowClasses = ['shadow-secondary', 'shadow-accent', 'shadow-success', 'shadow-primary'];
 </script>
 
-<div class="card card-bordered w-96 shadow-lg">
+<div class="break-inside-avoid-column card card-bordered shadow-lg {shadowClasses[shadowIndex]}">
 	<div class="card-body">
 		<!-- STODO: implement edit and delete functions -->
 		<button
-			class="btn btn-circle btn-ghost btn-sm absolute bottom-4 right-12 group"
+			class="group btn btn-circle btn-ghost btn-sm absolute bottom-4 right-12"
 			aria-label="edit wish card"
 		>
 			<svg
@@ -60,8 +62,10 @@
 		</h2>
 
 		<p>{comment}</p>
-		<a class="link link-secondary" href={url} target="_blank" rel="noopener noreferrer"
-			>buy me here</a
-		>
+		{#if url}
+			<a class="link link-secondary" href={url} target="_blank" rel="noopener noreferrer"
+				>buy me here</a
+			>
+		{/if}
 	</div>
 </div>
