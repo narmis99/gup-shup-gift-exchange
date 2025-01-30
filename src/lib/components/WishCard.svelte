@@ -1,11 +1,12 @@
-<!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
-	const { id, name, url, rating, comment, shadowIndex } = $props();
+	import WishModal from './WishModal.svelte';
 
-	const shadowClasses = ['shadow-secondary', 'shadow-accent', 'shadow-success', 'shadow-primary'];
+	const { id, name, url, rating, comment, shadowIndex } = $props();
+	const SHADOW_CLASSES = ['shadow-secondary', 'shadow-accent', 'shadow-success', 'shadow-primary'];
+	let showWishModal = $state(false);
+	let wishData: Object;
 
 	async function handleDeleteWish() {
-		console.log('deleting wish: ' + id);
 		const response = await fetch('/my-wishlist', {
 			method: 'DELETE',
 			body: JSON.stringify({ id }),
@@ -20,11 +21,20 @@
 	}
 
 	async function handleEditWish() {
-		console.log('editing wish: ' + id);
+		wishData = {
+			id: id,
+			name: name,
+			url: url,
+			rating: rating,
+			comment: comment
+		};
+		showWishModal = true;
 	}
 </script>
 
-<div class="w-full card card-bordered break-inside-avoid-column shadow-lg {shadowClasses[shadowIndex]}">
+<div
+	class="card card-bordered w-full break-inside-avoid-column shadow-lg {SHADOW_CLASSES[shadowIndex]}"
+>
 	<div class="card-body">
 		<button
 			class="group btn btn-circle btn-ghost btn-sm absolute bottom-4 right-12"
@@ -89,3 +99,7 @@
 		{/if}
 	</div>
 </div>
+
+{#if showWishModal}
+	<WishModal bind:openModal={showWishModal} {wishData} />
+{/if}

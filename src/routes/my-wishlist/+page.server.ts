@@ -18,7 +18,7 @@ export async function load({ locals }) {
 			userId: locals.user.userId
 		},
 		orderBy: {
-			createdAt: 'desc'
+			rating: 'desc'
 		}
 	});
 

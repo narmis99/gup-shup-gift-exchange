@@ -1,6 +1,44 @@
 import { prisma } from '$lib/server/prisma';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
+export const POST: RequestHandler = async ({ request, locals }) => {
+	const { name, url, rating, comment } = await request.json();
+	try {
+		await prisma.wish.create({
+			data: {
+				name: name,
+				url: url,
+				comment: comment,
+				rating: rating,
+				userId: locals.user?.userId
+			}
+		});
+		return json({ success: true }, { status: 307 });
+	} catch (err) {
+		return json({ error: 'Internal server error: ' + err }, { status: 501 });
+	}
+};
+
+export const PATCH: RequestHandler = async ({ request }) => {
+    const { id, name, url, rating, comment } = await request.json();
+	try {
+		await prisma.wish.update({
+			where: {
+				id: id
+			},
+			data: {
+				name: name,
+				url: url,
+				rating: rating,
+				comment: comment
+			}
+		});
+		return json({ success: true }, { status: 307 });
+	} catch (err) {
+		return json({ error: 'Internal server error: ' + err }, { status: 501 });
+	}
+};
+
 export const DELETE: RequestHandler = async ({ request }) => {
 	const { id } = await request.json();
 	try {
@@ -9,24 +47,6 @@ export const DELETE: RequestHandler = async ({ request }) => {
 				id: id
 			}
 		});
-		console.log('deleting wish server side: ' + id);
-		// const sessionToken = cookies.get('session_token') as string;
-
-		// if (sessionToken) {
-		//     await prisma.session.delete({
-		//         where: {
-		//             token: sessionToken
-		//         }
-		//     });
-
-		//     cookies.delete('session_token', {
-		//         path: '/',
-		//         httpOnly: true,
-		//         secure: process.env.NODE_ENV === 'production',
-		//         sameSite: 'lax'
-		//     });
-		// }
-
 		return json({ success: true }, { status: 307 });
 	} catch (err) {
 		return json({ error: 'Internal server error: ' + err }, { status: 501 });
