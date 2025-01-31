@@ -6,14 +6,18 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	if (sessionToken) {
 		const session = await prisma.session.findUnique({
-            where: { token: sessionToken },
-            include: { user: true }
-        });
+			where: { token: sessionToken },
+			include: { user: true }
+		});
 
 		if (session) {
 			event.locals.sessionId = session.id;
-			event.locals.user = session.user;
+			event.locals.user = {
+				username: session.user.username,
+				birthdate: session.user.birthdate
+			};
 		}
 	}
-	return resolve(event);
+
+	return await resolve(event);
 };

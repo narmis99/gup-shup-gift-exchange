@@ -39,7 +39,8 @@
 					// `submitter` is the `HTMLElement` that caused the form to be submitted
 					return async ({ result, update }) => {
 						form = result;
-						if (result.type == 'success') {
+
+						if (result.status == 303) {
 							openModal = false;
 							refreshNavBar();
 						}

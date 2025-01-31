@@ -6,8 +6,13 @@
 
 	let { data, children } = $props();
 	let isLoggedIn = $derived(data.user);
+
+	let navBarProps = {
+		isLoggedIn: isLoggedIn,
+		user: data.user
+	};
 </script>
 
-<NavBar {isLoggedIn} />
+<NavBar {...navBarProps} />
 
 {@render children()}
