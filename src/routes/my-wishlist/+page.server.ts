@@ -18,31 +18,9 @@ export async function load({ locals }) {
 			userId: locals.user.userId
 		},
 		orderBy: {
-			rating: 'desc'
+			createdAt: 'desc'
 		}
 	});
 
 	return { wishes };
 }
-
-export const actions: Actions = {
-	createWish: async ({ request, locals }) => {
-		const wishData = await request.formData();
-		const name = wishData.get('name') as string;
-		const url = wishData.get('url') as string;
-		const comment = wishData.get('comment') as string;
-		const rating = Number(wishData.get('rating'));
-
-		await prisma.wish.create({
-			data: {
-				name: name,
-				url: url,
-				comment: comment,
-				rating: rating,
-				userId: locals.user?.userId
-			}
-		});
-
-		await redirect(303, '/my-wishlist');
-	}
-};

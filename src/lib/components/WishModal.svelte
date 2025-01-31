@@ -2,10 +2,11 @@
 <script lang="ts">
 	let { openModal = $bindable(), wishData = undefined } = $props();
 	let { id, name, url, rating, comment } = { ...wishData };
-	const editMode = wishData ? true : false;
+	const editMode: boolean = wishData ? true : false;
+	let errorMessage: string | undefined = $state();
 
 	async function handleSubmitWish() {
-		let response;
+		let response: Response;
 		if (editMode) {
 			response = await fetch('/my-wishlist', {
 				method: 'PATCH',
@@ -38,13 +39,38 @@
 		if (response.status === 307) {
 			openModal = false;
 			window.location.reload();
+		} else {
+			const result = await response.json();
+			
+			if (result.error) {
+				errorMessage = result.error;
+			}
 		}
 	}
-
 </script>
 
 <div class="modal bg-cover" class:modal-open={openModal}>
 	<div class="modal-box max-w-xl">
+		{#if errorMessage}
+			<div class="toast toast-center toast-top">
+				<div class="alert alert-error">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="h-6 w-6 shrink-0 stroke-current"
+						fill="none"
+						viewBox="0 0 24 24"
+					>
+						<path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+						/>
+					</svg>
+					<span>{errorMessage}</span>
+				</div>
+			</div>
+		{/if}
 		<label class="max-w form-control w-full p-2">
 			<span class="label-text pb-2 text-base">*What do you wish for?</span>
 			<input
