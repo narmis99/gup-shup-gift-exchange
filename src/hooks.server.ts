@@ -13,11 +13,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 		if (session) {
 			event.locals.sessionId = session.id;
 			event.locals.user = {
+				userId: session.user.id,
 				username: session.user.username,
 				birthdate: session.user.birthdate
 			};
 		}
 	}
 
-	return await resolve(event);
+	return resolve(event);
 };
