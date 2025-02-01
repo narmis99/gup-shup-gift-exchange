@@ -10,7 +10,11 @@
 				'content-type': 'application/json'
 			}
 		});
+
+		// STODO: add messaging based on response
 	}
 </script>
 
-<button class="btn" onclick={handleAssignSantas}>Assign Santas</button>
+<div class="m-4">
+	<button class="btn" onclick={handleAssignSantas}>Assign Santas</button>
+</div>
