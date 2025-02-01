@@ -17,10 +17,11 @@ const insertExchange = async (year, present, santaId, recipientId) => {
 	}
 };
 
-// (async () => {
-// 	await insertExchange(2024, 'bombas socks and workout shorts', 6, 2);
-// 	await insertExchange(2024, '', 5, 3);
-// 	await insertExchange(2024, '', 3, 4);
-// 	await insertExchange(2024, '', 2, 5);
-// 	await insertExchange(2024, 'gold jewelry', 4, 6);
-// })();
+(async () => {
+	await insertExchange(2023, 'travel coffee maker and coffee canisters', 6, 4);
+	// await insertExchange(2024, 'bombas socks and workout shorts', 6, 2);
+	// await insertExchange(2024, '', 5, 3);
+	// await insertExchange(2024, '', 3, 4);
+	// await insertExchange(2024, '', 2, 5);
+	// await insertExchange(2024, 'gold jewelry', 4, 6);
+})();
