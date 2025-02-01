@@ -5,10 +5,11 @@
 	let showWishModal = $state(false);
 </script>
 
-<div class="m-4 flex items-center justify-between">
-	<h1 class="text-xl font-bold">My Wishlist</h1>
+<!-- <div class="m-4 flex items-center justify-between"> -->
+<div class="m-4 flex justify-end">
+	<!-- <h1 class="text-xl">My Wishlist</h1> -->
 	<button
-		class="btn btn-outline"
+		class="btn btn-accent"
 		onclick={() => {
 			showWishModal = true;
 		}}>+ Add Wish</button

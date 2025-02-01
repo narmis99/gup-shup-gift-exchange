@@ -33,7 +33,7 @@
 </script>
 
 <div
-	class="card card-bordered w-full break-inside-avoid-column shadow-lg {SHADOW_CLASSES[shadowIndex]}"
+	class="card bg-white w-full break-inside-avoid-column shadow-lg {SHADOW_CLASSES[shadowIndex]}"
 >
 	<div class="card-body">
 		<button

@@ -49,7 +49,7 @@
 	}
 </script>
 
-<div class="modal bg-cover" class:modal-open={openModal}>
+<div class="modal" class:modal-open={openModal}>
 	<div class="modal-box max-w-xl">
 		{#if errorMessage}
 			<div class="toast toast-center toast-top">
