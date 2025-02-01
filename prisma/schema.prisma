@@ -8,12 +8,14 @@ datasource db {
 }
 
 model User {
-  id          Int       @id @default(autoincrement())
-  username    String    @unique
-  passkeyHash String
-  birthdate   DateTime  @db.Timestamp(6)
-  sessions    Session[]
-  wishes      Wish[]
+  id                        Int         @id @default(autoincrement())
+  username                  String      @unique
+  passkeyHash               String
+  birthdate                 DateTime    @db.Timestamp(6)
+  sessions                  Session[]
+  wishes                    Wish[]
+  exchangesWhereSanta       Exchange[]  @relation("santa")
+  exchangesWhereRecipient   Exchange[]  @relation("recipient")
 }
 
 model Session {
@@ -21,6 +23,7 @@ model Session {
   token     String   @unique
   createdAt DateTime @default(now())
   userId    Int
+
   user      User     @relation(fields: [userId], references: [id])
 }
 
@@ -32,5 +35,17 @@ model Wish {
   rating      Int
   comment     String
   userId      Int
+
   user        User       @relation(fields: [userId], references: [id])
+}
+
+model Exchange {
+  id            Int      @id @default(autoincrement())
+  year          Int
+  present       String
+  santaId       Int
+  recipientId   Int
+
+  santaUser     User     @relation(name:"santa", fields: [santaId], references: [id])
+  recipientUser User     @relation(name:"recipient", fields: [recipientId], references: [id])
 }
