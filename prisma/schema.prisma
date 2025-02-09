@@ -14,8 +14,11 @@ model User {
   birthdate                 DateTime    @db.Timestamp(6)
   sessions                  Session[]
   wishes                    Wish[]
-  exchangesWhereSanta       Exchange[]  @relation("santa")
-  exchangesWhereRecipient   Exchange[]  @relation("recipient")
+  exchangesWhereSanta       Exchange[]  @relation("santaExchangeId")
+  exchangesWhereRecipient   Exchange[]  @relation("recipientExchangeId")
+  santaChat                 Chat?       @relation("santaChatId")
+  recipientChat             Chat?       @relation("recipientChatId")
+  messages                  Message[]
 }
 
 model Session {
@@ -46,6 +49,27 @@ model Exchange {
   santaId       Int
   recipientId   Int
 
-  santaUser     User     @relation(name:"santa", fields: [santaId], references: [id])
-  recipientUser User     @relation(name:"recipient", fields: [recipientId], references: [id])
+  santaUser     User     @relation(name:"santaExchangeId", fields: [santaId], references: [id])
+  recipientUser User     @relation(name:"recipientExchangeId", fields: [recipientId], references: [id])
+}
+
+model Chat {
+  id            Int       @id @default(autoincrement())
+  santaId       Int       @unique
+  recipientId   Int       @unique
+  messages      Message[]
+
+  santaUser     User     @relation(name:"santaChatId", fields: [santaId], references: [id])
+  recipientUser User     @relation(name:"recipientChatId", fields: [recipientId], references: [id])
+}
+
+model Message {
+  id          Int       @id @default(autoincrement())
+  chatId      Int
+  senderId    Int
+  content     String
+  timestamp   DateTime  @default(now())
+
+  chat        Chat      @relation(fields: [chatId], references: [id])
+  sender      User      @relation(fields: [senderId], references: [id])
 }
