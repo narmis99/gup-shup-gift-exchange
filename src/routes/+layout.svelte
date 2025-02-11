@@ -11,6 +11,18 @@
 	};
 </script>
 
-<NavBar {...navBarProps} />
+<!-- <div class="h-screen">
+	<NavBar {...navBarProps} />
 
-{@render children()}
+	{@render children()}
+</div> -->
+
+<div class="flex h-screen flex-col">
+	<!-- Fixed Navbar -->
+	<NavBar {...navBarProps} />
+
+	<!-- Main content area should fill remaining space -->
+	<div class="flex min-h-0 flex-1">
+		{@render children()}
+	</div>
+</div>
