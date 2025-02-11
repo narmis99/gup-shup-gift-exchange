@@ -1,7 +1,7 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	let { openModal = $bindable(), form = undefined, refreshNavBar } = $props();
+	let { openModal = $bindable(), form = undefined } = $props();
 </script>
 
 <div class="modal" class:modal-open={openModal}>
@@ -40,16 +40,21 @@
 					return async ({ result, update }) => {
 						form = result;
 
-						if (result.status == 303) {
+						if (result.type == 'success') {
 							openModal = false;
-							refreshNavBar();
+							window.location.reload();
 						}
 						// `result` is an `ActionResult` object
 						// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
 					};
 				}}
 			>
-				<button class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2" onclick={() => {openModal = false}}>✕</button>
+				<button
+					class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
+					onclick={() => {
+						openModal = false;
+					}}>✕</button
+				>
 				<label class="max-w form-control w-full p-2">
 					<input
 						type="text"
@@ -66,7 +71,9 @@
 						class="max-w input input-bordered w-full"
 					/>
 				</label>
-				<button type="submit" class="btn">Submit</button>
+				<div class="flex justify-end p-2">
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
 			</form>
 		</div>
 	</div>
