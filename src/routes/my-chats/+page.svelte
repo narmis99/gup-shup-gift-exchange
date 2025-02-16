@@ -1,8 +1,12 @@
 <script lang="ts">
 	import Chat from '$lib/components/Chat.svelte';
 
+	let { data, form } = $props();
+
 	let openChat = $state(false);
 	let isDrawerOpen = $state(false);
+
+	console.log('data: ' + JSON.stringify(data.chats));
 
 	// function handleOpenChat(context: string) {
 	// 	switch (context) {
@@ -37,7 +41,7 @@
 		<label for="chat-drawer" class="btn btn-primary drawer-button lg:hidden">Choose chat</label>
 		<div class="drawer-content m-4 content-end border-2 border-neutral rounded-md bg-base-100 p-4">
 			{#if openChat}
-				<Chat />
+				<Chat chatId={data?.chats[0]?.id}/>
 			{/if}
 		</div>
 

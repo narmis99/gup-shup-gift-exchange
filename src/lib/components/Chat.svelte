@@ -1,4 +1,8 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+
+	let data = $props();
+	console.log('chatId: ' + JSON.stringify(data.chatId));
 </script>
 
 <div class="m-4 columns-1">
@@ -26,14 +30,16 @@
 		<div class="chat-bubble">You underestimate my power!</div>
 	</div>
 	<div>
-		<form method="POST" action="?/chat">
+		<form method="POST" action="?/message" autocomplete="off">
+			<input type="hidden" name="chatId" value={data.chatId} />
 			<div class="join mt-4 w-full">
 				<input
+					name="message"
 					type="text"
 					placeholder="Message your santa"
 					class="input join-item input-bordered w-full bg-white"
 				/>
-				<button class="btn join-item">
+				<button class="btn join-item" type="submit">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
