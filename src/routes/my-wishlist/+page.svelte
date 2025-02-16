@@ -1,6 +1,7 @@
-<script>
+<script lang="ts">
 	import WishModal from '$lib/components/WishModal.svelte';
 	import WishCard from '$lib/components/WishCard.svelte';
+
 	let { data, form } = $props();
 	let showWishModal = $state(false);
 </script>

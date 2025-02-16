@@ -48,13 +48,14 @@ const insertUser = async (username, passkey, birthdate) => {
 // };
 
 
-(async () => {
+// (async () => {
 	// await insertUser('test_user_SS', 'pa55w0rd&', '2025-01-20');
-	await insertUser('angadraj', 'atablawithoutaholeinit33!', '1991-06-09');
-	await insertUser('ravnit', 'ilovepeople55+', '1991-10-26');
-	await insertUser('yuvraj', 'camaro0car$', '1994-03-14');
-	await insertUser('sahejveer', 'hikingsurfingandskating0hmy!', '1996-05-11');
-})();
+	// await insertUser('angadraj', 'atablawithoutaholeinit33!', '1991-06-09');
+	// await insertUser('ravnit', 'ilovepeople55+', '1991-10-26');
+	// await insertUser('yuvraj', 'camaro0car$', '1994-03-14');
+	// await insertUser('sahejveer', 'hikingsurfingandskating0hmy!', '1996-05-11');
+	// await insertUser('simran', 'gl4diator07%', '1999-12-16');
+// })();
 
 // (async () => {
 // 	await hashPasswordOfExistingUser('2', 'atablawithoutaholeinit33!');
