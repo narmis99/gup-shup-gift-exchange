@@ -1,9 +1,9 @@
 import { prisma } from '$lib/server/prisma';
 
-// export async function load({ locals }) {
-// 	if (!locals.user) {
-// 		return { wishes: [] };
-// 	}
+export async function load({ locals }) {
+	// if (!locals.user) {
+	// 	return { wishes: [] };
+	// }
 
 	// const wishes = await prisma.wish.findMany({
 	// 	select: {
@@ -22,7 +22,7 @@ import { prisma } from '$lib/server/prisma';
 	// });
 
 	// return { wishes };
-// }
+}
 
 /**
  * Store AI-generated suggestions in the database, linked to the user.

@@ -17,12 +17,22 @@
 	{@render children()}
 </div> -->
 
-<div class="flex h-screen flex-col">
-	<!-- Fixed Navbar -->
-	<NavBar {...navBarProps} />
+<!-- <div class="flex h-screen flex-col"> -->
 
-	<!-- Main content area should fill remaining space -->
-	<div class="flex min-h-0 flex-1">
+<!-- <div class="flex h-screen flex-col">
+	
+	<NavBar {...navBarProps}/>
+	<div class="flex flex-1 flex-grow">
+		{@render children()}
+	</div>
+</div> -->
+
+
+<div class="flex min-h-screen flex-col">
+	<div class="h-16">
+		<NavBar {...navBarProps}/>
+	</div>
+	<div class="flex flex-1">
 		{@render children()}
 	</div>
 </div>

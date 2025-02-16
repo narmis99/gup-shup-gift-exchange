@@ -28,6 +28,7 @@
 		{/if}
 		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
 		<div class="pt-6">
+			<!-- STODO: call api instead of using form -->
 			<form
 				method="POST"
 				action="?/login"
