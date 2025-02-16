@@ -5,22 +5,6 @@
 
 	let openChat = $state(false);
 	let isDrawerOpen = $state(false);
-
-	console.log('data: ' + JSON.stringify(data.chats));
-
-	// function handleOpenChat(context: string) {
-	// 	switch (context) {
-	// 		case 'santa':
-	// 			console.log('opening santa...');
-	// 			break;
-	// 		case 'recipient':
-	// 			console.log('opening recipient...');
-	// 			break;
-	// 	}
-
-	// 	openChat = true;
-	// 	isDrawerOpen = false;
-	// }
 </script>
 
 <!-- <div class="grid w-full grid-cols-2 gap-4">
@@ -40,6 +24,7 @@
 		<input bind:checked={isDrawerOpen} id="chat-drawer" type="checkbox" class="drawer-toggle" />
 		<label for="chat-drawer" class="btn btn-primary drawer-button lg:hidden">Choose chat</label>
 		<div class="drawer-content m-4 content-end border-2 border-neutral rounded-md bg-base-100 p-4">
+			<!-- STODO: handle switching between chats -->
 			{#if openChat}
 				<Chat chatId={data?.chats[0]?.id}/>
 			{/if}
