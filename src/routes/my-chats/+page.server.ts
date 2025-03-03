@@ -1,12 +1,11 @@
 import { prisma } from '$lib/server/prisma';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
 import { fail, type Actions } from '@sveltejs/kit';
-
+/*
 export async function load({ locals }) {
 	if (!locals.user) {
 		return { chats: [] };
 	}
-	// userId: locals.user.userId
 
 	const chatWhereSanta = await prisma.chat.findUnique({
 		where: {
@@ -37,6 +36,7 @@ export async function load({ locals }) {
 	// STODO: add validation
 	return { chats: [chatWhereSanta, chatWhereRecipient] };
 }
+*/
 
 export const actions: Actions = {
 	message: async ({ request, locals }) => {

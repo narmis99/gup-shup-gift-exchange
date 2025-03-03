@@ -1,37 +1,66 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { onMount } from 'svelte';
 
-	let data = $props();
-	console.log('chatId: ' + JSON.stringify(data.chatId));
+	let isUserSanta = $props();
+	// let _senderId,
+	// 	chatData = $props();
+	// const messages = chatData.data.messages;
+	const getMessages = async () => {
+		await fetch(`/retrieve-messages`, {
+			method: 'GET',
+			body: JSON.stringify({ isUserSanta }),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
+	};
+
+	let messages;
+	onMount(async () => {
+		messages = await getMessages();
+	});
+
+	console.log('messages: ' + JSON.stringify(messages));
+
+	// console.log('data in chat: ' + JSON.stringify(chatData.data.messages));
 </script>
 
 <div class="m-4 columns-1">
-	<div class="chat chat-start">
-		<div class="avatar chat-image">
-			<div class="w-10 rounded-full">
-				<img alt="Tailwind CSS chat bubble component" src="src/lib/images/santa-avatar.png" />
+	{#snippet chatBubble(content: string, senderId: number)}
+		<!-- {#if senderId == _senderId}
+			<div class="chat chat-start">
+				<div class="avatar chat-image">
+					<div class="w-10 rounded-full">
+						<img alt="Tailwind CSS chat bubble component" src="src/lib/images/santa-avatar.png" />
+					</div>
+				</div>
+				<div class="chat-bubble">
+					{content}
+				</div>
 			</div>
-		</div>
-		<div class="chat-bubble">
-			It's over Anakin,
-			<br />
-			I have the high ground.
-		</div>
-	</div>
-	<div class="chat chat-end">
-		<div class="avatar chat-image">
-			<div class="w-10 rounded-full">
-				<img
-					alt="Tailwind CSS chat bubble component"
-					src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-				/>
+		{:else}
+			<div class="chat chat-end">
+				<div class="avatar chat-image">
+					<div class="w-10 rounded-full">
+						<img
+							alt="Tailwind CSS chat bubble component"
+							src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+						/>
+					</div>
+				</div>
+				<div class="chat-bubble">{content}</div>
 			</div>
-		</div>
-		<div class="chat-bubble">You underestimate my power!</div>
-	</div>
+		{/if} -->
+	{/snippet}
+
+	<!-- {#each messages as message}
+		{@render chatBubble(message.content, message.senderId)}
+	{/each} -->
+
 	<div>
 		<form method="POST" action="?/message" autocomplete="off">
-			<input type="hidden" name="chatId" value={data.chatId} />
+			<!-- <input type="hidden" name="chatId" value={chatData.chatId} /> -->
 			<div class="join mt-4 w-full">
 				<input
 					name="message"
