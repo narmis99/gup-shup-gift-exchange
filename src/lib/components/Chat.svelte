@@ -2,25 +2,15 @@
 	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
 
-	let isUserSanta = $props();
+	// let { value = $bindable(), ...props } = $props();
+	const data = $props();
 	// let _senderId,
 	// 	chatData = $props();
 	// const messages = chatData.data.messages;
-	const getMessages = async () => {
-		await fetch(`/retrieve-messages`, {
-			method: 'GET',
-			body: JSON.stringify({ isUserSanta }),
-			headers: {
-				'Content-Type': 'application/json'
-			}
-		});
-	};
 
-	let messages;
-	onMount(async () => {
-		messages = await getMessages();
-	});
-
+	const userId = data.userId;
+	const messages = data.messages;
+	const chatId = data.chatId;
 	console.log('messages: ' + JSON.stringify(messages));
 
 	// console.log('data in chat: ' + JSON.stringify(chatData.data.messages));
@@ -28,18 +18,7 @@
 
 <div class="m-4 columns-1">
 	{#snippet chatBubble(content: string, senderId: number)}
-		<!-- {#if senderId == _senderId}
-			<div class="chat chat-start">
-				<div class="avatar chat-image">
-					<div class="w-10 rounded-full">
-						<img alt="Tailwind CSS chat bubble component" src="src/lib/images/santa-avatar.png" />
-					</div>
-				</div>
-				<div class="chat-bubble">
-					{content}
-				</div>
-			</div>
-		{:else}
+		{#if senderId == userId}
 			<div class="chat chat-end">
 				<div class="avatar chat-image">
 					<div class="w-10 rounded-full">
@@ -51,21 +30,49 @@
 				</div>
 				<div class="chat-bubble">{content}</div>
 			</div>
-		{/if} -->
+		{:else}
+			<div class="chat chat-start">
+				<div class="avatar chat-image">
+					<div class="w-10 rounded-full">
+						<img alt="Tailwind CSS chat bubble component" src="src/lib/images/santa-avatar.png" />
+					</div>
+				</div>
+				<div class="chat-bubble">
+					{content}
+				</div>
+			</div>
+		{/if}
 	{/snippet}
 
-	<!-- {#each messages as message}
+	{#each messages as message}
 		{@render chatBubble(message.content, message.senderId)}
-	{/each} -->
+	{/each}
 
 	<div>
-		<form method="POST" action="?/message" autocomplete="off">
-			<!-- <input type="hidden" name="chatId" value={chatData.chatId} /> -->
+		<form
+			method="POST"
+			action="?/message"
+			autocomplete="off"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					// form = result;
+
+					if (result.type == 'success') {
+						console.log('success!');
+						// openModal = false;
+						// window.location.reload();
+					}
+					// `result` is an `ActionResult` object
+					// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
+				};
+			}}
+		>
+			<input type="hidden" name="chatId" value={chatId} />
 			<div class="join mt-4 w-full">
 				<input
 					name="message"
 					type="text"
-					placeholder="Message your santa"
+					placeholder="Write your message here"
 					class="input join-item input-bordered w-full bg-white"
 				/>
 				<button class="btn join-item" type="submit">

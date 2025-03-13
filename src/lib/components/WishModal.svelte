@@ -1,4 +1,6 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
+
+<!-- This component presents the inputs to create or edit a wish. PATCH and POST calls are made accordingly. $props are only populated when editing a wish -->
 <script lang="ts">
 	let { openModal = $bindable(), wishData = undefined } = $props();
 	let { id, name, url, rating, comment } = { ...wishData };

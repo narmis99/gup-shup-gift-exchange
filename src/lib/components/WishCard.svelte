@@ -1,3 +1,4 @@
+<!-- This component displays a single wish on the My Wishlist page. Data is loaded from the parent that calls this component. The WishModal component is opened when a user chooses to edit a wish. This component does not handle editing the wish data, but it does handle deleting a wish. -->
 <script lang="ts">
 	import WishModal from './WishModal.svelte';
 

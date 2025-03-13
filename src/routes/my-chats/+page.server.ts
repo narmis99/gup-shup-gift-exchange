@@ -40,6 +40,7 @@ export async function load({ locals }) {
 
 export const actions: Actions = {
 	message: async ({ request, locals }) => {
+		console.log('messaging...');
 		if (!locals.user) {
 			return fail(500, { error: 'Internal server error: No local user found' });
 		}
@@ -57,6 +58,7 @@ export const actions: Actions = {
 			});
 			return { success: true };
 		} catch (err) {
+			console.log('err: ' + JSON.stringify(err));
 			if (err instanceof PrismaClientValidationError) {
 				return fail(500, { error: 'Internal prisma error: ' + JSON.stringify(err) });
 			}

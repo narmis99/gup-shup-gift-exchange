@@ -11,7 +11,6 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		}
 
 		let chat;
-		console.log('isUserSanta: ' + JSON.stringify(requestData.isUserSanta));
 		if (requestData.isUserSanta) {
 			chat = await prisma.chat.findUnique({
 				where: {

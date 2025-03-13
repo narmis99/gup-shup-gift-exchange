@@ -1,3 +1,4 @@
+<!-- The wishes created by the user are loaded upon page navigation and then passed to children components to handle display. -->
 <script lang="ts">
 	import WishModal from '$lib/components/WishModal.svelte';
 	import WishCard from '$lib/components/WishCard.svelte';
