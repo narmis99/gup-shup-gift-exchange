@@ -1,12 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { onMount } from 'svelte';
 
-	// let { value = $bindable(), ...props } = $props();
-	const data = $props();
-	// let _senderId,
-	// 	chatData = $props();
-	// const messages = chatData.data.messages;
+	const { data, refreshChat } = $props();
 
 	const userId = data.userId;
 	const messages = data.messages;
@@ -57,8 +52,10 @@
 				return async ({ result, update }) => {
 					// form = result;
 
+					console.log('result.type: ');
 					if (result.type == 'success') {
 						console.log('success!');
+						refreshChat();
 						// openModal = false;
 						// window.location.reload();
 					}

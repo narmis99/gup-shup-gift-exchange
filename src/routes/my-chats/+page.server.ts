@@ -58,7 +58,7 @@ export const actions: Actions = {
 			});
 			return { success: true };
 		} catch (err) {
-			console.log('err: ' + JSON.stringify(err));
+			console.error('err: ' + JSON.stringify(err));
 			if (err instanceof PrismaClientValidationError) {
 				return fail(500, { error: 'Internal prisma error: ' + JSON.stringify(err) });
 			}

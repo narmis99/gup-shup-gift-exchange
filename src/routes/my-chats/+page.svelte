@@ -41,7 +41,11 @@
 		const result = await response.json();
 		console.log('result.chat: ' + JSON.stringify(result.chat));
 		// STODO: add result validation
-		chatData = { userId: data.user?.userId, messages: result.chat.messages, chatId: result.chat.id };
+		chatData = {
+			userId: data.user?.userId,
+			messages: result.chat.messages,
+			chatId: result.chat.id
+		};
 		openChat = true;
 		activeTab = purpose;
 	}
@@ -66,7 +70,7 @@
 	</div>
 	{#if openChat}
 		<div class="m-4 flex-grow content-end rounded-md border-2 border-neutral bg-base-100 p-4">
-			<Chat {...chatData} />
+			<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} />
 		</div>
 	{/if}
 </div>
