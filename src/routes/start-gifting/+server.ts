@@ -4,7 +4,6 @@ import { json } from '@sveltejs/kit';
 import { mapSantasToRecipients } from '$lib/utils/mapSantasToRecipients';
 
 export const POST = async () => {
-	console.log('in post');
 	try {
 		// verify assignment has not already been done
 		const mostRecentExchange = await prisma.exchange.findFirst({

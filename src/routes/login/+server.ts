@@ -1,7 +1,6 @@
 import { prisma } from '$lib/server/prisma';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import bcrypt from 'bcryptjs';
-// shere
 
 export const POST: RequestHandler = async ({ request, cookies }) => {
 	try {

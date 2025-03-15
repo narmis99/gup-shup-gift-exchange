@@ -6,9 +6,6 @@
 	const userId = data.userId;
 	const messages = data.messages;
 	const chatId = data.chatId;
-	console.log('messages: ' + JSON.stringify(messages));
-
-	// console.log('data in chat: ' + JSON.stringify(chatData.data.messages));
 </script>
 
 <div class="m-4 columns-1">
@@ -50,14 +47,8 @@
 			autocomplete="off"
 			use:enhance={() => {
 				return async ({ result, update }) => {
-					// form = result;
-
-					console.log('result.type: ');
 					if (result.type == 'success') {
-						console.log('success!');
 						refreshChat();
-						// openModal = false;
-						// window.location.reload();
 					}
 					// `result` is an `ActionResult` object
 					// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
@@ -72,7 +63,7 @@
 					placeholder="Write your message here"
 					class="input join-item input-bordered w-full bg-white"
 				/>
-				<button class="btn join-item" type="submit">
+				<button class="btn join-item" type="submit" aria-label="submit message button">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"

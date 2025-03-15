@@ -3,11 +3,12 @@ import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
 	const requestData = await request.json();
-	// STODO: add validation
 
 	try {
 		if (!locals.user) {
 			return json({ error: 'Internal server error: No local user saved' }, { status: 501 });
+		} else if (requestData.isUserSanta === undefined) {
+			return json({ error: 'Internal server error: Improper data when retrieving messages' }, { status: 501 });
 		}
 
 		let chat;
@@ -19,7 +20,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 				include: {
 					messages: {
 						orderBy: {
-							timestamp: 'asc', // Or 'desc' for latest messages first
+							timestamp: 'asc',
 						},
 					},
 				}
@@ -32,14 +33,12 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 				include: {
 					messages: {
 						orderBy: {
-							timestamp: 'asc', // Or 'desc' for latest messages first
+							timestamp: 'asc',
 						},
 					},
 				}
 			});
 		}
-
-		// STODO: add validation
 		return json({ chat });
 	} catch (err) {
 		return json({ error: 'Internal server error: ' + err }, { status: 501 });
