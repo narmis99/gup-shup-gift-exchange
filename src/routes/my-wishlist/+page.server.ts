@@ -2,6 +2,7 @@ import { prisma } from '$lib/server/prisma';
 
 export async function load({ locals }) {
 	if (!locals.user) {
+		// STODO: no local user
 		return { wishes: [] };
 	}
 

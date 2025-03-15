@@ -1,7 +1,9 @@
-<!-- This component displays a single wish on the My Wishlist page. Data is loaded from the parent that calls this component. The WishModal component is opened when a user chooses to edit a wish. This component does not handle editing the wish data, but it does handle deleting a wish. -->
+<!-- This component displays a single wish on the My Wishlist page. Data is loaded from the parent that calls this component. 
+ The WishModal component is opened when a user chooses to edit a wish. This component does not handle editing the wish data, 
+ but it does handle deleting a wish. -->
+ <!-- This component displays a wishlist item as a card with options to edit or delete it, using different shadow styles for visual distinction. If the user opts to edit the item, a modal opens with the item's details, while deletion triggers a request to remove it from the wishlist. -->
 <script lang="ts">
 	import WishModal from './WishModal.svelte';
-
 	const { id, name, url, rating, comment, shadowIndex } = $props();
 	const SHADOW_CLASSES = ['shadow-secondary', 'shadow-accent', 'shadow-success', 'shadow-primary'];
 	let showWishModal = $state(false);

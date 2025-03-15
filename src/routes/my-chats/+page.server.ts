@@ -5,7 +5,7 @@ import { fail, type Actions } from '@sveltejs/kit';
 export const actions: Actions = {
 	message: async ({ request, locals }) => {
 		if (!locals.user) {
-			return fail(500, { error: 'Internal server error: No local user found' });
+			return fail(500, { error: 'Internal server error: No local user found. Try signing in again.' });
 		}
 
 		const formData: FormData = await request.formData();

@@ -6,7 +6,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 	try {
 		if (!locals.user) {
-			return json({ error: 'Internal server error: No local user saved' }, { status: 501 });
+			return json({ error: 'Internal server error: No local user found. Try signing in again.' }, { status: 501 });
 		} else if (requestData.isUserSanta === undefined) {
 			return json({ error: 'Internal server error: Improper data when retrieving messages' }, { status: 501 });
 		}

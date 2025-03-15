@@ -1,8 +1,8 @@
+<!-- This component renders a chat interface where users can send and receive messages, displaying chat bubbles based on the 
+ sender's identity. It includes a form for message submission, which updates the chat in real time -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
-
 	const { data, refreshChat } = $props();
-
 	const userId = data.userId;
 	const messages = data.messages;
 	const chatId = data.chatId;
@@ -50,8 +50,6 @@
 					if (result.type == 'success') {
 						refreshChat();
 					}
-					// `result` is an `ActionResult` object
-					// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
 				};
 			}}
 		>

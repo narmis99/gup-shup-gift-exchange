@@ -1,7 +1,6 @@
 import { prisma } from '$lib/server/prisma';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
-// Logout is
 export const DELETE: RequestHandler = async ({ cookies }) => {
 	try {
 		const sessionToken = cookies.get('session_token') as string;
