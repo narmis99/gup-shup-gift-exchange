@@ -69,8 +69,10 @@
 		</div>
 	</div>
 	{#if openChat}
-		<div class="h-[70vh] overflow-y-scroll m-4 flex-grow content-end rounded-md border-2 border-neutral bg-base-100 p-4">
-			<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} />
+		<div class="m-4 rounded-md border-2 border-neutral bg-base-100 p-4">
+			<div class="h-[70vh] flex-grow content-end overflow-auto">
+				<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} />
+			</div>
 		</div>
 	{/if}
 </div>

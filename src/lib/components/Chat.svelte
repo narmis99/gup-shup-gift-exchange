@@ -43,7 +43,7 @@
 		{@render chatBubble(message.content, message.senderId)}
 	{/each}
 
-	<div>
+	<div class="sticky bottom-0">
 		<form
 			method="POST"
 			action="?/message"
