@@ -69,7 +69,7 @@
 		</div>
 	</div>
 	{#if openChat}
-		<div class="m-4 flex-grow content-end rounded-md border-2 border-neutral bg-base-100 p-4">
+		<div class="h-[70vh] overflow-y-scroll m-4 flex-grow content-end rounded-md border-2 border-neutral bg-base-100 p-4">
 			<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} />
 		</div>
 	{/if}

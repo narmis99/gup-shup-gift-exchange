@@ -11,7 +11,7 @@
 	// console.log('data in chat: ' + JSON.stringify(chatData.data.messages));
 </script>
 
-<div class="m-4 columns-1">
+<div class="columns-1">
 	{#snippet chatBubble(content: string, senderId: number)}
 		{#if senderId == userId}
 			<div class="chat chat-end">
