@@ -1,8 +1,8 @@
-import { redirect, type Actions } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
 export async function load({ locals }) {
 	if (!locals.user) {
+		// STODO: no local user
 		return { wishes: [] };
 	}
 
@@ -24,3 +24,9 @@ export async function load({ locals }) {
 
 	return { wishes };
 }
+
+/**
+ * Store AI-generated suggestions in the database, linked to the user.
+ * Track feedback (e.g., thumbs up/down, comments) to refine future recommendations.
+ * Offer a “Refresh Suggestions” button that fetches new AI ideas while considering past feedback.
+ */

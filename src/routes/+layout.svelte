@@ -11,6 +11,11 @@
 	};
 </script>
 
-<NavBar {...navBarProps} />
-
-{@render children()}
+<div class="flex min-h-screen flex-col">
+	<div class="h-16">
+		<NavBar {...navBarProps}/>
+	</div>
+	<div class="flex flex-1">
+		{@render children()}
+	</div>
+</div>
