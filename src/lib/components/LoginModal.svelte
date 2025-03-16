@@ -2,6 +2,8 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	let { openModal = $bindable(), form = undefined } = $props();
+
+	
 </script>
 
 <div class="modal" class:modal-open={openModal}>
@@ -28,10 +30,9 @@
 		{/if}
 		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
 		<div class="pt-6">
-			<!-- STODO: call api instead of using form -->
 			<form
 				method="POST"
-				action="?/login"
+				action="/login"
 				use:enhance={({ formElement, formData, action, cancel, submitter }) => {
 					// `formElement` is this `<form>` element
 					// `formData` is its `FormData` object that's about to be submitted
