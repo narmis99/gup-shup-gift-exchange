@@ -6,14 +6,18 @@ import { mapSantasToRecipients } from '$lib/utils/mapSantasToRecipients';
 export const POST = async () => {
 	try {
 		// verify assignment has not already been done
-		const mostRecentExchange = await prisma.exchange.findFirst({
+		const latestExchange = await prisma.exchange.findFirst({
 			select: { year: true },
 			orderBy: { year: 'desc' }
 		});
 
+		if (latestExchange === null) {
+			throw new Error('Database should contain at least one exchange');
+		}
+
 		const currentYear = new Date().getUTCFullYear();
 
-		if (mostRecentExchange.year === currentYear) {
+		if (latestExchange.year === currentYear) {
 			return json({ error: 'Santas have already been assigned' }, { status: 409 });
 		}
 
@@ -52,8 +56,8 @@ export const POST = async () => {
 		});
 
 		return json({ success: true }, { status: 307 });
-	} catch (err) {
-		if (err.message) {
+	} catch (err: any) {
+		if (err satisfies Error) {
 			return json({ error: 'Internal server error: ' + err.message }, { status: 501 });
 		}
 		return json({ error: 'Internal server error: ' + err }, { status: 501 });

@@ -27,6 +27,7 @@
 					</div>
 					<ul class="menu dropdown-content menu-sm z-[1] mt-3 w-44 rounded-box bg-white shadow">
 						<li><a href="/my-wishlist">My Wishlist</a></li>
+						<li><a href="/my-exchanges">My Exchanges</a></li>
 						<li class="justify-between">
 							<button
 								onclick={async (e) => {
