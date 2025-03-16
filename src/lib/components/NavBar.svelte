@@ -7,9 +7,9 @@
 </script>
 
 <nav>
-	<div class="navbar bg-primary">
+	<div class="navbar">
 		<div class="navbar-start">
-			<!-- STODO: how about Secret Santa Banta Birthday? -->
+			<!-- SNOTE: how about Secret Santa Banta Birthday? -->
 			<a href="/" class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
 		</div>
 		{#if isLoggedIn}
@@ -27,6 +27,7 @@
 					</div>
 					<ul class="menu dropdown-content menu-sm z-[1] mt-3 w-44 rounded-box bg-white shadow">
 						<li><a href="/my-wishlist">My Wishlist</a></li>
+						<li><a href="/my-chats">My Chats</a></li>
 						<li><a href="/my-exchanges">My Exchanges</a></li>
 						<li class="justify-between">
 							<button
@@ -44,7 +45,7 @@
 				</div>
 			{:else}
 				<button
-					class="btn-base-100 btn"
+					class="btn-primary btn"
 					onclick={() => {
 						showModal = true;
 					}}>Log in</button

@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-const insertExchange = async (year, present, santaId, recipientId) => {
+const insertChat = async (year, present, santaId, recipientId) => {
 	try {
 		await prisma.exchange.create({
 			data: {
@@ -13,7 +13,7 @@ const insertExchange = async (year, present, santaId, recipientId) => {
 		});
 		console.log(`Exchange inserted successfully!`);
 	} catch (err) {
-		console.error('Error inserting user:', err);
+		console.error('Error inserting exchange:', err);
 	}
 };
 

@@ -7,7 +7,7 @@ export const pool = new Pool({
 	host: 'localhost',
 	database: 'gup_shup_gift_exchange',
 	password: 'BhangraChakde99!',
-	port: '5432'
+	port: '5431'
 });
 
 export async function getUser(username) {

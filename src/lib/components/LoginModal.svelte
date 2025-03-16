@@ -30,7 +30,7 @@
 		<div class="pt-6">
 			<form
 				method="POST"
-				action="?/login"
+				action="/login"
 				use:enhance={({ formElement, formData, action, cancel, submitter }) => {
 					// `formElement` is this `<form>` element
 					// `formData` is its `FormData` object that's about to be submitted

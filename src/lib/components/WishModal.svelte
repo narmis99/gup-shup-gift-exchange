@@ -1,4 +1,10 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
+
+<!-- This component presents the inputs to create or edit a wish. PATCH and POST calls are made accordingly. $props are only populated when editing a wish -->
+<!-- This component is a modal for creating or editing a wishlist item. It determines edit mode based on whether wishData is 
+  provided. Users can input a wish name, optional URL, comment, and a rating using a range slider. Upon submission, the 
+  component makes a POST request for new wishes and a PATCH request for updates. If the request succeeds, the modal closes, 
+  and the page reloads. If an error occurs, an error message is displayed in an alert. -->
 <script lang="ts">
 	let { openModal = $bindable(), wishData = undefined } = $props();
 	let { id, name, url, rating, comment } = { ...wishData };
@@ -41,7 +47,7 @@
 			window.location.reload();
 		} else {
 			const result = await response.json();
-			
+
 			if (result.error) {
 				errorMessage = result.error;
 			}
@@ -49,7 +55,7 @@
 	}
 </script>
 
-<div class="modal bg-cover" class:modal-open={openModal}>
+<div class="modal" class:modal-open={openModal}>
 	<div class="modal-box max-w-xl">
 		{#if errorMessage}
 			<div class="toast toast-center toast-top">
