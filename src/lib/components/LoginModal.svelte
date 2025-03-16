@@ -2,8 +2,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	let { openModal = $bindable(), form = undefined } = $props();
-
-	
 </script>
 
 <div class="modal" class:modal-open={openModal}>
