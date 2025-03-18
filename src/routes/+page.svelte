@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
 	import Countdown from '$lib/components/Countdown.svelte';
 
 	let { data } = $props();
+	let futureDate: Date | undefined = $state(data.nextBirthday);
 </script>
 
-<h2 class="m-4 w-full p-2">
+<div class="m-4 w-full p-2">
 	<p>
 		Welcome to our Secret Santa Banta Birthday website! This will serve as the hub for the
 		exchanges. Ask me (Sim) for your username and password, and keep it safe because I haven't built
@@ -15,5 +16,12 @@
 		sibling website that we can keep building on.
 	</p>
 
-	<Countdown birthdate={data?.user?.birthdate} />
-</h2>
+	{#if futureDate}
+		<h2 class="m-4 flex justify-center text-2xl">Birthday countdown!</h2>
+		<div class="flex justify-center bg-primary">
+			<Countdown {futureDate} />
+		</div>
+	{:else}
+		<p class="m-4 flex justify-center text-2xl"></p>
+	{/if}
+</div>
