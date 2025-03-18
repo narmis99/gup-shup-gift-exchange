@@ -1,8 +1,8 @@
 import { prisma } from '$lib/server/prisma';
+import type { LayoutServerLoad } from '../$types';
 
-export async function load({ locals }) {
+export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!locals.user) {
-		// STODO: no local user
 		return { wishes: [] };
 	}
 

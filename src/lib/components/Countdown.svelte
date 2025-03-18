@@ -32,9 +32,30 @@
 </script>
 
 {#if countdown.message}
+	<p class="m-4 flex justify-center text-2xl">{countdown.message}</p>
+{:else}
+	<h2 class="m-4 flex justify-center text-2xl">Birthday countdown!</h2>
+	<div class="flex grid auto-cols-max grid-flow-col justify-center gap-5 text-center">
+		{#snippet timeUnit(value: number, unit: string)}
+			<div class="flex flex-col rounded-box bg-primary p-2 text-primary-content">
+				<span class="countdown font-mono text-5xl">
+					<span style="--value:{value};" aria-live="polite">{value}</span>
+				</span>
+				{unit}
+			</div>
+		{/snippet}
+
+		{@render timeUnit(countdown.months, 'months')}
+		{@render timeUnit(countdown.days, 'days')}
+		{@render timeUnit(countdown.hours, 'hours')}
+		{@render timeUnit(countdown.minutes, 'mins')}
+	</div>
+{/if}
+
+<!-- {#if countdown.message}
 	<p class="text-xl">{countdown.message}</p>
 {:else}
-	<div class="flex gap-2 border-b-4 border-primary p-2">
+	<div class="flex justify-center gap-2 border-b-4 border-primary p-2">
 		{#snippet timeUnit(value: number, unit: string)}
 			{#if value}
 				<div>
@@ -51,4 +72,4 @@
 		{@render timeUnit(countdown.hours, 'hours')}
 		{@render timeUnit(countdown.minutes, 'mins')}
 	</div>
-{/if}
+{/if} -->

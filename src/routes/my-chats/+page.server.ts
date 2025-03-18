@@ -11,16 +11,16 @@ export const actions: Actions = {
 		const formData: FormData = await request.formData();
 		const chatId = Number(formData.get('chatId'));
 		const message = formData.get('message') as string;
-
+		
 		if (chatId === undefined || message === undefined) {
 			return fail(501, { error: 'Internal server error: Improper data when posting message' });
 		}
-
+		
 		// don't post if empty message
 		if (message.length == 0) {
 			return;
 		}
-
+		
 		try {
 			await prisma.message.create({
 				data: {
