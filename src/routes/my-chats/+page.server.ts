@@ -12,7 +12,7 @@ export const actions: Actions = {
 		const chatId = Number(formData.get('chatId'));
 		const message = formData.get('message') as string;
 		
-		if (chatId === undefined || message === undefined) {
+		if (!chatId || !message) {
 			return fail(501, { error: 'Internal server error: Improper data when posting message' });
 		}
 		

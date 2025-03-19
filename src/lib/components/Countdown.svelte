@@ -31,6 +31,7 @@
 	});
 </script>
 
+<!-- STODO: until next year message if above 12 months -->
 <div class="grid auto-cols-max grid-flow-col gap-4 text-center">
 	{#snippet timeUnit(value: number, unit: string)}
 		<div class="flex flex-col rounded-box p-1 text-primary-content">

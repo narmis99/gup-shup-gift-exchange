@@ -17,11 +17,12 @@
 	</p>
 
 	{#if futureDate}
-		<h2 class="m-4 flex justify-center text-2xl">Birthday countdown!</h2>
+		<h2 class="m-4 flex justify-center text-2xl">Your birthday countdown!</h2>
 		<div class="flex justify-center bg-primary">
 			<Countdown {futureDate} />
 		</div>
-	{:else}
-		<p class="m-4 flex justify-center text-2xl"></p>
+	{:else if data.user}
+		<!-- STODO: fun birthday message -->
+		<p class="m-4 flex justify-center text-2xl">Happy Birthday 🎂</p>
 	{/if}
 </div>

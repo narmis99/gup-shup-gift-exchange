@@ -7,6 +7,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		return { exchanges: [] };
 	}
 
+	// STODO: reveal santa when users birthday has passed?
 	const exchanges = await prisma.exchange.findMany({
 		select: { santaId: true, recipientId: true },
 		where: {
@@ -21,8 +22,37 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	}
 
 	const recipient = await prisma.user.findUnique({
-		select: { username: true, birthdate: true }, where: { id: exchanges[0].recipientId }
+		select: { id: true, username: true, birthdate: true },
+		where: { id: exchanges[0].recipientId }
 	});
 
-	return { exchanges, recipient };
+	if (!recipient?.birthdate) {
+		// STODO: something went wrong
+		return { exchanges, recipient };
+	}
+
+	let isBirthdayToday: boolean = false;
+	let formattedBirthday: Date | undefined;
+	const birthdate: Date = recipient.birthdate;
+	const birthMonth: number = birthdate.getUTCMonth();
+	const birthDay: number = birthdate.getUTCDate();
+
+	const now = new Date();
+
+	if (now.getMonth() === birthMonth && now.getDate() === birthDay) {
+		isBirthdayToday = true;
+	} else {
+		const currentYear = now.getUTCFullYear();
+		const nextBirthday = new Date(currentYear, birthMonth, birthDay, 0, 0, 0, 0);
+
+		formattedBirthday = now > nextBirthday ? undefined : nextBirthday;
+	}
+
+	/**
+	 * recipientBirthday and isBirthdayToday are the two indicators to differentiate between the three states:
+	 * 	1. birthday passed
+	 * 	2. birthday today
+	 * 	3. upcoming birthday
+	 */
+	return { exchanges, recipient, recipientBirthday: formattedBirthday, isBirthdayToday };
 };

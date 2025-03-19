@@ -18,7 +18,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 			userId: locals.user.userId
 		},
 		orderBy: {
-			createdAt: 'desc'
+			createdAt: 'desc' // STODO: update this to rating?
 		}
 	});
 
