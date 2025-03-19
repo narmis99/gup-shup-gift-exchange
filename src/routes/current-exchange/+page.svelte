@@ -8,7 +8,9 @@
 	// if birthday has passed this year, default to showing recipient information
 	let showRecipientName: boolean = $state(!data.recipientBirthday && !data.isBirthdayToday);
 	let showRecipientWishlist: boolean = $state(false);
-	let recipientName = data?.recipient?.username;
+	let recipientName = data?.recipient?.username
+		? data.recipient.username.charAt(0).toUpperCase() + data.recipient.username.slice(1)
+		: '';
 	let error: string = $state('');
 	let recipientWishes: Wish[] | undefined = $state();
 
