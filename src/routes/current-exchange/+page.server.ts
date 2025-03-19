@@ -14,7 +14,8 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		where: {
 			santaId: locals.user.userId,
 			// OR: [{ santaId: locals.user.userId }, { recipientId: locals.user.userId }],
-			year: 2026
+			// STODO: remove +1
+			year: new Date().getUTCFullYear() + 1
 		}
 	});
 
