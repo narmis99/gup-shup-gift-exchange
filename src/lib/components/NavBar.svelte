@@ -9,7 +9,7 @@
 	<div class="navbar">
 		<div class="navbar-start">
 			<!-- SNOTE: how about Secret Santa Banta Birthday? -->
-			<a href="/" class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
+			<a href="/" class="btn bg-base-100 text-xl outline outline-primary">Gup Shup Gift Exchange</a>
 		</div>
 		<!-- {#if isLoggedIn}
 			<div class="navbar-center">
@@ -44,7 +44,7 @@
 				</div>
 			{:else}
 				<button
-					class="btn-primary btn"
+					class="btn btn-primary"
 					onclick={() => {
 						showModal = true;
 					}}>Log in</button
