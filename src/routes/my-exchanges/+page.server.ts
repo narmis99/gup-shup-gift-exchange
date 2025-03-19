@@ -1,10 +1,11 @@
 import { prisma } from '$lib/server/prisma';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from '../$types';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!locals.user) {
-		return { exchanges: [] };
+		throw redirect(303, '/');
+		// return { exchanges: [] };
 	}
 
 	// STODO: reveal santa when users birthday has passed?

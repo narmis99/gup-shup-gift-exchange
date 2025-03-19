@@ -1,11 +1,11 @@
 import { prisma } from '$lib/server/prisma';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
-import { fail, type Actions } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	message: async ({ request, locals }) => {
 		if (!locals.user) {
-			return fail(500, { error: 'Internal server error: No local user found. Try signing in again.' });
+			throw redirect(303, '/');
 		}
 
 		const formData: FormData = await request.formData();
