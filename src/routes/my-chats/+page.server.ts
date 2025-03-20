@@ -1,26 +1,26 @@
 import { prisma } from '$lib/server/prisma';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
-import { fail, type Actions } from '@sveltejs/kit';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	message: async ({ request, locals }) => {
 		if (!locals.user) {
-			return fail(500, { error: 'Internal server error: No local user found. Try signing in again.' });
+			throw redirect(303, '/');
 		}
 
 		const formData: FormData = await request.formData();
 		const chatId = Number(formData.get('chatId'));
 		const message = formData.get('message') as string;
-
-		if (chatId === undefined || message === undefined) {
+		
+		if (!chatId || !message) {
 			return fail(501, { error: 'Internal server error: Improper data when posting message' });
 		}
-
+		
 		// don't post if empty message
 		if (message.length == 0) {
 			return;
 		}
-
+		
 		try {
 			await prisma.message.create({
 				data: {

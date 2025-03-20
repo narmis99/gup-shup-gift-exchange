@@ -1,9 +1,10 @@
 import { prisma } from '$lib/server/prisma';
+import { redirect } from '@sveltejs/kit';
+import type { LayoutServerLoad } from '../$types';
 
-export async function load({ locals }) {
+export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!locals.user) {
-		// STODO: no local user
-		return { wishes: [] };
+		throw redirect(303, '/');
 	}
 
 	const wishes = await prisma.wish.findMany({
@@ -18,7 +19,7 @@ export async function load({ locals }) {
 			userId: locals.user.userId
 		},
 		orderBy: {
-			createdAt: 'desc'
+			createdAt: 'desc' // STODO: update this to rating?
 		}
 	});
 

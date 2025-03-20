@@ -1,6 +1,5 @@
 <script>
 	import LoginModal from './LoginModal.svelte';
-	import Countdown from './Countdown.svelte';
 
 	let { isLoggedIn = false, user = undefined } = $props();
 	let showModal = $state(false);
@@ -10,13 +9,13 @@
 	<div class="navbar">
 		<div class="navbar-start">
 			<!-- SNOTE: how about Secret Santa Banta Birthday? -->
-			<a href="/" class="btn btn-ghost text-xl">Gup Shup Gift Exchange</a>
+			<a href="/" class="btn bg-base-100 text-xl outline outline-primary">Gup Shup Gift Exchange</a>
 		</div>
-		{#if isLoggedIn}
+		<!-- {#if isLoggedIn}
 			<div class="navbar-center">
 				<Countdown birthdate={user.birthdate} />
 			</div>
-		{/if}
+		{/if} -->
 		<div class="navbar-end">
 			{#if isLoggedIn}
 				<div class="dropdown dropdown-end">
@@ -28,6 +27,7 @@
 					<ul class="menu dropdown-content menu-sm z-[1] mt-3 w-44 rounded-box bg-white shadow">
 						<li><a href="/my-wishlist">My Wishlist</a></li>
 						<li><a href="/my-chats">My Chats</a></li>
+						<li><a href="/current-exchange">Current Exchange</a></li>
 						<li class="justify-between">
 							<button
 								onclick={async (e) => {
@@ -44,7 +44,7 @@
 				</div>
 			{:else}
 				<button
-					class="btn-primary btn"
+					class="btn btn-primary"
 					onclick={() => {
 						showModal = true;
 					}}>Log in</button

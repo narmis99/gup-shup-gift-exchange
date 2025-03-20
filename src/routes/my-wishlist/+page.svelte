@@ -4,7 +4,7 @@
 	import WishCard from '$lib/components/WishCard.svelte';
 
 	let { data, form } = $props();
-	let showWishModal = $state(false);
+	let showWishModal: boolean = $state(false);
 </script>
 
 <div class="m-4 w-full">
@@ -19,7 +19,7 @@
 		</div>
 
 		<div class="w-full columns-sm space-y-5 p-5">
-			{#each data.wishes.map((wish, i) => ({ ...wish, shadowIndex: i % 4 })) as wish}
+			{#each data.wishes.map( (wish, i) => ({ ...wish, shadowIndex: i % 4, readOnly: false }) ) as wish}
 				<WishCard {...wish} />
 			{/each}
 		</div>

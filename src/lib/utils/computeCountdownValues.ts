@@ -1,28 +1,6 @@
-export function computeCountdownValues(birthdate: Date) {
-	const month = birthdate.getUTCMonth();
-	const day = birthdate.getUTCDate();
-
+export function computeCountdownValues(futureDate: Date) {
 	const now = new Date();
-
-	if (now.getMonth() === month && now.getDate() === day) {
-		return {
-			message: 'Happy Birthday 🎂',
-			months: 0,
-			days: 0,
-			hours: 0,
-			minutes: 0
-		};
-	}
-
-	const currentYear = now.getUTCFullYear();
-	const nextBirthday = new Date(currentYear, month, day, 0, 0, 0, 0);
-
-	if (now > nextBirthday) {
-		nextBirthday.setFullYear(currentYear + 1);
-	}
-
-	// difference in milliseconds
-	const diff = nextBirthday.getTime() - now.getTime();
+	const diff = futureDate.getTime() - now.getTime();
 
 	const remainingMonths = Math.floor(diff / (1000 * 60 * 60 * 24 * 30)); // approximate
 	const remainingDays = Math.floor(diff / (1000 * 60 * 60 * 24)) % 30;

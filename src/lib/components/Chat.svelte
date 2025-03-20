@@ -2,9 +2,11 @@
  sender's identity. It includes a form for message submission, which updates the chat in real time -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import type { Message } from '@prisma/client';
+	
 	const { data, refreshChat } = $props();
-	const userId = data.userId;
-	const messages = data.messages;
+	const userId: number = data.userId;
+	const messages: Message[] = data.messages;
 	const chatId = data.chatId;
 </script>
 

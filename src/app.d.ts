@@ -2,6 +2,9 @@
 // for information about these interfaces
 declare global {
 	namespace App {
+		interface Error {
+			message: string | null;
+		}
 		interface Locals {
 			sessionId: number,
 			user: {
@@ -10,7 +13,6 @@ declare global {
 				birthdate: Date
 			} | null;
 		}
-		// interface Error {}
 		// interface Locals {}
 		// interface PageData {}
 		// interface PageState {}
