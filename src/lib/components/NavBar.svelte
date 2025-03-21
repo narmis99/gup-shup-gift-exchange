@@ -20,11 +20,11 @@
 			{#if isLoggedIn}
 				<div class="dropdown dropdown-end">
 					<div tabindex="0" role="button" class="avatar placeholder btn btn-circle btn-ghost m-1">
-						<div class="w-12 rounded-full ring ring-base-100 ring-offset-2 ring-offset-primary">
+						<div class="w-12 rounded-full ring-3 ring-base-100 ring-offset-2 ring-offset-primary">
 							<span class="text-2xl">{user.username[0].toUpperCase()}</span>
 						</div>
 					</div>
-					<ul class="menu dropdown-content menu-sm z-[1] mt-3 w-44 rounded-box bg-white shadow">
+					<ul class="menu dropdown-content menu-sm z-1 mt-3 w-44 rounded-box bg-white shadow-sm">
 						<li><a href="/my-wishlist">My Wishlist</a></li>
 						<li><a href="/my-chats">My Chats</a></li>
 						<li><a href="/current-exchange">Current Exchange</a></li>

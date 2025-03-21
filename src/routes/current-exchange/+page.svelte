@@ -62,7 +62,7 @@
 		</h1>
 
 		<div class="pt-4">
-			<div class="stats stats-vertical mt-4 w-full bg-base-200 shadow md:stats-horizontal">
+			<div class="stats stats-vertical mt-4 w-full bg-base-200 shadow-sm md:stats-horizontal">
 				<div class="stat">
 					<div class="stat-title">Time left to find a gift</div>
 					{#if showRecipientName}
