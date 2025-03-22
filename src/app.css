@@ -4,7 +4,7 @@
 @plugin '@tailwindcss/container-queries';
 
 @plugin 'daisyui' {
-  themes: dracula --default, dracula --prefersdark, cupcake;
+  themes: fantasy --default, fantasy --prefersdark;
 }
 
 /*
@@ -16,11 +16,12 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-gray-500, currentColor);
   }
 }
