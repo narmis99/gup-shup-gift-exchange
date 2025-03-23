@@ -5,6 +5,8 @@
 	let showModal = $state(false);
 </script>
 
+<!-- STODO: dark mode toggle -->
+
 <nav>
 	<div class="navbar">
 		<div class="navbar-start">
@@ -23,6 +25,7 @@
 						<li><a href="/my-wishlist">My Wishlist</a></li>
 						<li><a href="/my-chats">My Chats</a></li>
 						<li><a href="/current-exchange">Current Exchange</a></li>
+						<li><a href="/profile-settings">Profile Settings</a></li>
 						<li class="justify-between">
 							<button
 								onclick={async (e) => {
