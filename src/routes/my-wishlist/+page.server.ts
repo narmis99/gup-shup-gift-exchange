@@ -1,9 +1,10 @@
-import { redirect, type Actions } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
+import { redirect } from '@sveltejs/kit';
+import type { LayoutServerLoad } from '../$types';
 
-export async function load({ locals }) {
+export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!locals.user) {
-		return { wishes: [] };
+		throw redirect(303, '/');
 	}
 
 	const wishes = await prisma.wish.findMany({
@@ -18,9 +19,15 @@ export async function load({ locals }) {
 			userId: locals.user.userId
 		},
 		orderBy: {
-			createdAt: 'desc'
+			createdAt: 'desc' // STODO: update this to rating?
 		}
 	});
 
 	return { wishes };
 }
+
+/**
+ * Store AI-generated suggestions in the database, linked to the user.
+ * Track feedback (e.g., thumbs up/down, comments) to refine future recommendations.
+ * Offer a “Refresh Suggestions” button that fetches new AI ideas while considering past feedback.
+ */
