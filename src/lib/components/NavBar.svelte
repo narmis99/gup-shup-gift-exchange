@@ -11,11 +11,6 @@
 			<!-- SNOTE: how about Secret Santa Banta Birthday? -->
 			<a href="/" class="btn btn-ghost btn-outline btn-primary text-xl">Gup Shup Gift Exchange</a>
 		</div>
-		<!-- {#if isLoggedIn}
-			<div class="navbar-center">
-				<Countdown birthdate={user.birthdate} />
-			</div>
-		{/if} -->
 		<div class="navbar-end">
 			{#if isLoggedIn}
 				<div class="dropdown dropdown-end">
@@ -23,10 +18,6 @@
 						<div class="btn btn-ghost btn-outline btn-primary btn-circle p-1 text-2xl">
 							{user.username[0].toUpperCase()}
 						</div>
-						<!-- <div class="ring-base-100 ring-offset-primary w-16 rounded-full ring-3 ring-offset-2">
-							<div class="m-1">
-							</div>
-						</div> -->
 					</div>
 					<ul class="menu dropdown-content rounded-box bg-base-100 z-1 mt-2 w-44 shadow-sm">
 						<li><a href="/my-wishlist">My Wishlist</a></li>
