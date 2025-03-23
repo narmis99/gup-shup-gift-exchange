@@ -11,7 +11,7 @@
 	};
 </script>
 
-<div class="flex min-h-screen flex-col">
+<div class="bg-base-200 flex min-h-screen flex-col">
 	<div class="h-16">
 		<NavBar {...navBarProps}/>
 	</div>

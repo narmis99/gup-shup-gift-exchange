@@ -62,7 +62,7 @@
 			aria-label="Chat with your Santa 🎅🏾"
 			onclick={() => handleOpenChat('santa')}
 		/>
-		<div class="tab-content border-base-300 p-6">
+		<div class="tab-content bg-base-100 border-base-300 p-6">
 			{#if openChat}
 				<div class="bg-base-100 border-primary h-[75vh] rounded-md border border-4 pb-4">
 					<div class="h-full grow content-end overflow-auto">
@@ -80,7 +80,7 @@
 			aria-label="Chat with your recipient 🎁"
 			onclick={() => handleOpenChat('recipient')}
 		/>
-		<div class="tab-content border-base-300 p-6">
+		<div class="tab-content bg-base-100 border-base-300 p-6">
 			{#if openChat}
 				<div class="bg-base-100 border-primary h-[75vh] rounded-md border border-4 pb-4">
 					<div class="h-full grow content-end overflow-auto">
@@ -112,7 +112,7 @@
 		</div>
 	{:else if !activeTab}
 		<div class="toast toast-center toast-top">
-			<div role="alert" class="alert">
+			<div role="alert" class="alert bg-base-100">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"

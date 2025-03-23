@@ -36,7 +36,9 @@
 </script>
 
 <div
-	class="card card-border border-base-300 w-full break-inside-avoid-column shadow-lg {SHADOW_CLASSES[shadowIndex]}"
+	class="bg-base-100 card card-border border-base-300 w-full break-inside-avoid-column shadow-lg {SHADOW_CLASSES[
+		shadowIndex
+	]}"
 >
 	<div class="card-body">
 		{#if !readOnly}
