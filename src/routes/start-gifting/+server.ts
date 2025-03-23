@@ -58,9 +58,9 @@ export const POST = async () => {
 		return json({ success: true }, { status: 307 });
 	} catch (err: any) {
 		if (err satisfies Error) {
-			return json({ error: 'Internal server error: ' + err.message }, { status: 501 });
+			return json({ error: 'Internal server error: ' + JSON.stringify(err.message) }, { status: 501 });
 		}
-		return json({ error: 'Internal server error: ' + err }, { status: 501 });
+		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
 	}
 };
 

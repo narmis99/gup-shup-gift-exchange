@@ -23,6 +23,6 @@ export const DELETE: RequestHandler = async ({ cookies }) => {
 		// throw redirect(303, '/');
 		return json({ success: true }, { status: 307 });
 	} catch (err) {
-		return json({ error: 'Internal server error: ' + err }, { status: 501 });
+		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
 	}
 };

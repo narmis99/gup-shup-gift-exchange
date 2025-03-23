@@ -3,7 +3,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { Message } from '@prisma/client';
-	
+
 	const { data, refreshChat } = $props();
 	const userId: number = data.userId;
 	const messages: Message[] = data.messages;
@@ -63,6 +63,7 @@
 					placeholder="Write your message here"
 					class="input join-item input-bordered w-full bg-white"
 				/>
+				<!-- STODO: button background, border, and svg color -->
 				<button class="btn join-item" type="submit" aria-label="submit message button">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"

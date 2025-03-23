@@ -42,6 +42,6 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 		}
 		return json({ chat });
 	} catch (err) {
-		return json({ error: 'Internal server error: ' + err }, { status: 501 });
+		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
 	}
 };
