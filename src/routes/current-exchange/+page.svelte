@@ -53,7 +53,7 @@
 </script>
 
 <div class="w-full">
-	<div class="m-8">
+	<div class="m-10">
 		<h1 class="flex justify-between text-xl font-bold">
 			My Current Exchange
 			<button class="btn btn-success btn-xs" onclick={handleToggleRecipientName}>
@@ -62,7 +62,7 @@
 		</h1>
 
 		<div class="pt-4">
-			<div class="stats stats-vertical mt-4 w-full bg-base-200 shadow-sm md:stats-horizontal">
+			<div class="stats stats-vertical bg-base-200 md:stats-horizontal m-4 w-full shadow-sm">
 				<div class="stat">
 					<div class="stat-title">Time left to find a gift</div>
 					{#if showRecipientName}
@@ -93,24 +93,25 @@
 				</div>
 			</div>
 		</div>
-	</div>
 
-	{#if showRecipientWishlist}
-		<div class="m-4 w-full">
-			{#if recipientWishes}
-				<div class="w-full columns-sm space-y-5 p-5">
-					{#each recipientWishes.map((wish, i) => ({ ...wish, shadowIndex: i % 4 })) as wish}
-						<WishCard {...wish} />
-					{/each}
-				</div>
-			{:else}
-				<div class="m-4">
-					<p>
-						Your recipient has not put in any wishes yet. Feel free to message them using the secret
-						chat function!
-					</p>
-				</div>
-			{/if}
-		</div>
-	{/if}
+		{#if showRecipientWishlist}
+			<div class="mt-4 w-full">
+				<h1 class="text-xl font-bold">Your recipient's wishlist</h1>
+				{#if recipientWishes}
+					<div class="w-full columns-sm space-y-5 p-5">
+						{#each recipientWishes.map((wish, i) => ({ ...wish, shadowIndex: i % 4 })) as wish}
+							<WishCard {...wish} />
+						{/each}
+					</div>
+				{:else}
+					<div class="m-4">
+						<p>
+							Your recipient has not put in any wishes yet. Feel free to message them using the
+							secret chat function!
+						</p>
+					</div>
+				{/if}
+			</div>
+		{/if}
+	</div>
 </div>
