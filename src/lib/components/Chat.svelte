@@ -61,17 +61,17 @@
 					name="message"
 					type="text"
 					placeholder="Write your message here"
-					class="input join-item input-bordered w-full bg-white"
+					class="input join-item input-bordered w-full bg-base-200"
 				/>
 				<!-- STODO: button background, border, and svg color -->
-				<button class="btn join-item" type="submit" aria-label="submit message button">
+				<button class="btn btn-secondary join-item" type="submit" aria-label="submit message button">
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="size-6"
+						class="size-6 stroke-secondary-content"
 					>
 						<path
 							stroke-linecap="round"
