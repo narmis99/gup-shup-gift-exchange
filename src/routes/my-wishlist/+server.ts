@@ -25,7 +25,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 			}
 		}
 
-		return json({ error: 'Internal server error: ' + err }, { status: 501 });
+		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
 	}
 };
 
@@ -51,7 +51,7 @@ export const PATCH: RequestHandler = async ({ request }) => {
 			}
 		}
 
-		return json({ error: 'Internal server error: ' + err }, { status: 501 });
+		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
 	}
 };
 
@@ -65,6 +65,6 @@ export const DELETE: RequestHandler = async ({ request }) => {
 		});
 		return json({ success: true }, { status: 307 });
 	} catch (err) {
-		return json({ error: 'Internal server error: ' + err }, { status: 501 });
+		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
 	}
 };

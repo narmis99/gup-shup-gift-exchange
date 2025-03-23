@@ -21,8 +21,8 @@
 				isUserSanta = true;
 				break;
 			default:
-				console.error('Error finding chat');
 				error = 'Error finding chat';
+				console.error(error);
 				return;
 		}
 
@@ -38,6 +38,7 @@
 
 		if (result.error) {
 			error = result.error;
+			console.error(JSON.stringify(result.error));
 			return;
 		}
 
@@ -51,31 +52,44 @@
 	}
 </script>
 
-<div class="mt-4 flex w-full flex-col bg-base-200">
-	<div class="w-full">
-		<div role="tablist" class="tabs-boxed tabs p-2">
-			<button
-				role="tab"
-				class="tab m-1 content-center text-lg hover:bg-gray-400"
-				class:tab-active={activeTab === 'santa'}
-				onclick={() => handleOpenChat('santa')}>Chat with your Santa 🎅🏾</button
-			>
-			<button
-				role="tab"
-				class="tab m-1 content-center text-lg hover:bg-gray-400"
-				class:tab-active={activeTab === 'recipient'}
-				onclick={() => handleOpenChat('recipient')}>Chat with your recipient 🎁</button
-			>
+<div class="m-4 flex w-full flex-col">
+	<div class="tabs tabs-lift border-primary h-[80vh]">
+		<input
+			type="radio"
+			name="chat_tabs"
+			class="tab"
+			class:tab-active={activeTab === 'santa'}
+			aria-label="Chat with your Santa 🎅🏾"
+			onclick={() => handleOpenChat('santa')}
+		/>
+		<div class="tab-content bg-base-100 border-base-300 p-6">
+			{#if openChat}
+				<div class="bg-base-100 border-primary h-[75vh] rounded-md border border-4 pb-4">
+					<div class="h-full grow content-end overflow-auto">
+						<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} />
+					</div>
+				</div>
+			{/if}
+		</div>
+
+		<input
+			type="radio"
+			name="chat_tabs"
+			class="tab"
+			class:tab-active={activeTab === 'recipient'}
+			aria-label="Chat with your recipient 🎁"
+			onclick={() => handleOpenChat('recipient')}
+		/>
+		<div class="tab-content bg-base-100 border-base-300 p-6">
+			{#if openChat}
+				<div class="bg-base-100 border-primary h-[75vh] rounded-md border border-4 pb-4">
+					<div class="h-full grow content-end overflow-auto">
+						<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} />
+					</div>
+				</div>
+			{/if}
 		</div>
 	</div>
-
-	{#if openChat}
-		<div class="mx-4 rounded-md border-2 border-neutral bg-base-100 p-4">
-			<div class="h-[75vh] grow content-end overflow-auto">
-				<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} />
-			</div>
-		</div>
-	{/if}
 
 	{#if error}
 		<div class="toast toast-center toast-top">
@@ -94,6 +108,25 @@
 					/>
 				</svg>
 				<span>{error}</span>
+			</div>
+		</div>
+	{:else if !activeTab}
+		<div class="toast toast-center toast-top">
+			<div role="alert" class="alert bg-base-100">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					fill="none"
+					viewBox="0 0 24 24"
+					class="stroke-primary h-6 w-6 shrink-0"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+					></path>
+				</svg>
+				<span class="pr-2">Select a tab below to start chatting</span>
 			</div>
 		</div>
 	{/if}

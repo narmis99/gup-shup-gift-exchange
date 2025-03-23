@@ -19,7 +19,7 @@
 							{user.username[0].toUpperCase()}
 						</div>
 					</div>
-					<ul class="menu dropdown-content menu-sm rounded-box bg-base-200 z-1 mt-2 w-44 shadow-sm">
+					<ul class="menu dropdown-content rounded-box bg-base-100 z-1 mt-2 w-44 shadow-sm">
 						<li><a href="/my-wishlist">My Wishlist</a></li>
 						<li><a href="/my-chats">My Chats</a></li>
 						<li><a href="/current-exchange">Current Exchange</a></li>

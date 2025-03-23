@@ -1,6 +1,13 @@
 import { prisma } from '$lib/server/prisma';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
+import type { LayoutServerLoad } from '../$types';
+
+export const load: LayoutServerLoad = async ({ locals }) => {
+	if (!locals.user) {
+		throw redirect(303, '/');
+	}
+};
 
 export const actions: Actions = {
 	message: async ({ request, locals }) => {

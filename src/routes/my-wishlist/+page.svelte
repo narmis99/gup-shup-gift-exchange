@@ -9,7 +9,8 @@
 
 <div class="m-4 w-full">
 	<div>
-		<div class="flex justify-end">
+		<div class="flex justify-between">
+			<h1 class="text-xl font-bold">My Wishlist</h1>
 			<button
 				class="btn btn-accent"
 				onclick={() => {
