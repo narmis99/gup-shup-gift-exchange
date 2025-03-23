@@ -1,5 +1,5 @@
 import { prisma } from '$lib/server/prisma';
-import { json, redirect, type RequestHandler } from '@sveltejs/kit';
+import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const DELETE: RequestHandler = async ({ cookies }) => {
 	try {
@@ -20,9 +20,9 @@ export const DELETE: RequestHandler = async ({ cookies }) => {
 			});
 		}
 
-		// throw redirect(303, '/');
 		return json({ success: true }, { status: 307 });
 	} catch (err) {
-		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
+		console.log('err: ' + JSON.stringify(err));
+		return json({ error: 'Internal server error: ' + err }, { status: 501 });
 	}
 };
