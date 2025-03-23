@@ -71,7 +71,7 @@
 
 	{#if openChat}
 		<div class="mx-4 rounded-md border-2 border-neutral bg-base-100 p-4">
-			<div class="h-[75vh] flex-grow content-end overflow-auto">
+			<div class="h-[75vh] grow content-end overflow-auto">
 				<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} />
 			</div>
 		</div>

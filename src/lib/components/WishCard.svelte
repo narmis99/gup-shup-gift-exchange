@@ -35,11 +35,13 @@
 	}
 </script>
 
-<div class="card w-full break-inside-avoid-column bg-white shadow-lg {SHADOW_CLASSES[shadowIndex]}">
+<div
+	class="card card-border border-base-300 w-full break-inside-avoid-column shadow-lg {SHADOW_CLASSES[shadowIndex]}"
+>
 	<div class="card-body">
 		{#if !readOnly}
 			<button
-				class="group btn btn-circle btn-ghost btn-sm absolute bottom-4 right-12"
+				class="group btn btn-circle btn-ghost btn-sm absolute right-12 bottom-4"
 				aria-label="edit wish card"
 				onclick={handleEditWish}
 			>
@@ -60,7 +62,7 @@
 			</button>
 
 			<button
-				class="group btn btn-circle btn-ghost btn-sm absolute bottom-4 right-4"
+				class="group btn btn-circle btn-ghost btn-sm absolute right-4 bottom-4"
 				aria-label="trash wish card"
 				onclick={handleDeleteWish}
 			>
@@ -81,7 +83,7 @@
 			</button>
 		{/if}
 
-		<span class="absolute right-4 top-4">
+		<span class="absolute top-4 right-4">
 			{#if rating == 0}
 				<span class="text-3xl">👍</span>
 			{:else if rating == 1}

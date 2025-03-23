@@ -27,54 +27,55 @@
 			</div>
 		{/if}
 		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
-		<div class="pt-6">
-			<form
-				method="POST"
-				action="/login"
-				use:enhance={({ formElement, formData, action, cancel, submitter }) => {
-					// `formElement` is this `<form>` element
-					// `formData` is its `FormData` object that's about to be submitted
-					// `action` is the URL to which the form is posted
-					// calling `cancel()` will prevent the submission
-					// `submitter` is the `HTMLElement` that caused the form to be submitted
-					return async ({ result, update }) => {
-						form = result;
 
-						if (result.type == 'success') {
-							openModal = false;
-							window.location.reload();
-						}
-						// `result` is an `ActionResult` object
-						// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
-					};
-				}}
-			>
-				<button
-					class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2"
-					onclick={() => {
+		<form
+			class="p-2"
+			method="POST"
+			action="/login"
+			use:enhance={({ formElement, formData, action, cancel, submitter }) => {
+				// `formElement` is this `<form>` element
+				// `formData` is its `FormData` object that's about to be submitted
+				// `action` is the URL to which the form is posted
+				// calling `cancel()` will prevent the submission
+				// `submitter` is the `HTMLElement` that caused the form to be submitted
+				return async ({ result, update }) => {
+					form = result;
+
+					if (result.type == 'success') {
 						openModal = false;
-					}}>✕</button
-				>
-				<label class="max-w form-control w-full p-2">
-					<input
-						type="text"
-						name="username"
-						placeholder="username"
-						class="max-w input input-bordered w-full"
-					/>
-				</label>
-				<label class="max-w form-control w-full p-2">
-					<input
-						type="password"
-						name="passkey"
-						placeholder="passkey"
-						class="max-w input input-bordered w-full"
-					/>
-				</label>
-				<div class="flex justify-end p-2">
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</div>
-			</form>
-		</div>
+						window.location.reload();
+					}
+					// `result` is an `ActionResult` object
+					// `update` is a function which triggers the default logic that would be triggered if this callback wasn't set
+				};
+			}}
+		>
+			<button
+				class="btn btn-circle btn-ghost btn-sm absolute top-2 right-2"
+				onclick={() => {
+					openModal = false;
+				}}>✕</button
+			>
+			<fieldset class="fieldset rounded-box">
+				<label class="fieldset-label pt-2"> username </label>
+				<input
+					type="text"
+					name="username"
+					placeholder="username"
+					class="max-w input input-bordered w-full"
+				/>
+
+				<label class="fieldset-label pt-2">passkey </label>
+				<input
+					type="password"
+					name="passkey"
+					placeholder="passkey"
+					class="max-w input input-bordered w-full"
+				/>
+			</fieldset>
+			<div class="flex justify-end p-2">
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</div>
+		</form>
 	</div>
 </div>
