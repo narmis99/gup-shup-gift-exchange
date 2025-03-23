@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	let { openModal = $bindable(), form = undefined } = $props();
-	let errorMessage: string = $state('');
+	let errorMessage: string | undefined = $state();
 </script>
 
 <div class="modal" class:modal-open={openModal}>
