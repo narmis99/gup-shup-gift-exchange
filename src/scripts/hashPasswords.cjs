@@ -15,7 +15,7 @@ const hashPassword = async (password) => {
 	}
 };
 
-const insertUser = async (username, passkey, birthdate) => {
+const insertUser = async (username, passkey, birthdate, isAdmin) => {
 	const hashedPassword = await hashPassword(passkey);
 
 	if (hashedPassword) {
@@ -24,7 +24,8 @@ const insertUser = async (username, passkey, birthdate) => {
 				data: {
 					username,
 					passkeyHash: hashedPassword,
-					birthdate: new Date(birthdate)
+					birthdate: new Date(birthdate),
+					isAdmin: isAdmin
 				}
 			});
 			console.log(`User ${username} inserted successfully!`);
@@ -49,12 +50,12 @@ const insertUser = async (username, passkey, birthdate) => {
 
 
 // (async () => {
-	// await insertUser('test_user_SS', 'pa55w0rd&', '2025-01-20');
-	// await insertUser('angadraj', 'atablawithoutaholeinit33!', '1991-06-09');
-	// await insertUser('ravnit', 'ilovepeople55+', '1991-10-26');
-	// await insertUser('yuvraj', 'camaro0car$', '1994-03-14');
-	// await insertUser('sahejveer', 'hikingsurfingandskating0hmy!', '1996-05-11');
-	// await insertUser('simran', 'gl4diator07%', '1999-12-16');
+// 	await insertUser('test_user_SS', 'pa55w0rd&', '2025-01-20', true);
+// 	await insertUser('angadraj', 'atablawithoutaholeinit33!', '1991-06-09', false);
+// 	await insertUser('ravnit', 'ilovepeople55+', '1991-10-26', false);
+// 	await insertUser('yuvraj', 'camaro0car$', '1994-03-14', false);
+// 	await insertUser('sahejveer', 'hikingsurfingandskating0hmy!', '1996-05-11', false);
+// 	await insertUser('simran', 'gl4diator07%', '1999-12-16', false);
 // })();
 
 // (async () => {
