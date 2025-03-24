@@ -14,11 +14,13 @@ model User {
   birthdate                 DateTime    @db.Timestamp(6)
   sessions                  Session[]
   wishes                    Wish[]
+  messages                  Message[]
+  
+
   exchangesWhereSanta       Exchange[]  @relation("santaExchangeId")
   exchangesWhereRecipient   Exchange[]  @relation("recipientExchangeId")
   santaChat                 Chat?       @relation("santaChatId")
   recipientChat             Chat?       @relation("recipientChatId")
-  messages                  Message[]
 }
 
 model Session {
