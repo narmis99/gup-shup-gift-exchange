@@ -1,7 +1,7 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	let { openModal = $bindable(), form = undefined } = $props();
+	let { openModal = $bindable() } = $props();
 	let errorMessage: string | undefined = $state();
 </script>
 

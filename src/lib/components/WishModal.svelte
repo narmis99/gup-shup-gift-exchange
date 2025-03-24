@@ -77,63 +77,66 @@
 				</div>
 			</div>
 		{/if}
-		<label class="max-w form-control w-full p-2">
-			<span class="label-text pb-2 text-base">*What do you wish for?</span>
-			<input
-				type="text"
-				name="name"
-				bind:value={name}
-				placeholder="world peace"
-				class="input input-bordered"
-				required
-			/>
-		</label>
 
-		<label class="max-w form-control w-full p-2">
-			<span class="label-text pb-2 text-base">Link to gift</span>
-			<input
-				type="text"
-				name="url"
-				bind:value={url}
-				placeholder="https://www.pingalwara.org"
-				class="input input-bordered"
-			/>
-		</label>
-
-		<label class="max-w form-control w-full p-2">
-			<span class="label-text pb-2 text-base">Any comments for your Santa?</span>
-			<input
-				type="text"
-				name="comment"
-				bind:value={comment}
-				placeholder="black size M plz"
-				class="input input-bordered"
-			/>
-		</label>
-
-		<label class="max-w form-control w-full p-2">
-			<span class="label-text pb-2 text-base">Wish rating</span>
-			<input
-				type="range"
-				name="rating"
-				bind:value={rating}
-				min="0"
-				max="2"
-				class="range range-xs"
-				step="1"
-			/>
-			<div class="grid grid-cols-3 justify-between gap-4 p-2 text-xs">
-				<span class="w-30 flex-none justify-self-start text-left text-sm"
-					>I won't say no to this 👍</span
-				>
-				<span class="w-30 flex-none justify-self-center text-center text-sm"
-					>I'd love to have this 😍</span
-				>
-				<span class="w-30 flex-none justify-self-end text-right text-sm"
-					>If you don't grant this for me, I will 🧞</span
-				>
+		<fieldset class="fieldset m-4 grid grid-cols-1 gap-4">
+			<div>
+				<span class="form-control text">*What do you wish for?</span>
+				<input
+					type="text"
+					name="name"
+					bind:value={name}
+					placeholder="world peace"
+					class="input w-full"
+					required
+				/>
 			</div>
-		</label>
+
+			<div>
+				<span class="form-control text">Link to gift</span>
+				<input
+					type="url"
+					name="url"
+					bind:value={url}
+					placeholder="https://www.pingalwara.org"
+					class="input w-full"
+				/>
+			</div>
+
+			<div>
+				<span class="form-control text">Comments for your Santa</span>
+				<input
+					type="text"
+					name="comment"
+					bind:value={comment}
+					placeholder="black size M plz"
+					class="input w-full"
+				/>
+			</div>
+
+			<div>
+				<span class="form-control text">Wish rating</span>
+				<input
+					type="range"
+					name="rating"
+					bind:value={rating}
+					min="0"
+					max="2"
+					class="range range-xs w-full"
+					step="1"
+				/>
+				<div class="grid grid-cols-3 justify-between gap-4 p-2 text-xs">
+					<span class="w-30 flex-none justify-self-start text-left text-sm"
+						>I won't say no to this 👍</span
+					>
+					<span class="w-30 flex-none justify-self-center text-center text-sm"
+						>I'd love to have this 😍</span
+					>
+					<span class="w-30 flex-none justify-self-end text-right text-sm"
+						>If you don't grant this for me, I will 🧞</span
+					>
+				</div>
+			</div>
+		</fieldset>
 
 		<div class="mt-4 flex justify-end gap-4">
 			<button
