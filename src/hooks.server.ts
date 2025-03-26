@@ -15,7 +15,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 			event.locals.user = {
 				userId: session.user.id,
 				username: session.user.username,
-				birthdate: session.user.birthdate
+				birthdate: session.user.birthdate,
+				isAdmin: session.user.isAdmin
 			};
 		}
 	}

@@ -10,7 +10,8 @@ declare global {
 			user: {
 				userId: number,
 				username: string,
-				birthdate: Date
+				birthdate: Date,
+				isAdmin: boolean
 			} | null;
 		}
 		// interface Locals {}

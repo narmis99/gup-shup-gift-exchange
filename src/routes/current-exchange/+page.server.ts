@@ -1,14 +1,13 @@
 import { prisma } from '$lib/server/prisma';
-import { fail, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from '../$types';
+// STODO: https://svelte.dev/tutorial/kit/error-pages
 
 export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!locals.user) {
 		throw redirect(303, '/');
-		// return { exchanges: [] };
 	}
 
-	// STODO: reveal santa when users birthday has passed?
 	const exchanges = await prisma.exchange.findMany({
 		select: { santaId: true, recipientId: true },
 		where: {
@@ -20,7 +19,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	});
 
 	if (exchanges.length == 0) {
-		return fail(500, { error: 'Internal server error: No exchanges found.' });
+		return {};
 	}
 
 	const recipient = await prisma.user.findUnique({
