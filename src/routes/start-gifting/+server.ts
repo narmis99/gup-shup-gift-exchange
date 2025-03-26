@@ -44,16 +44,32 @@ export const POST: RequestHandler = async () => {
 			);
 		}
 
+		let exchanges = [];
+		let chats = [];
+
 		// create exchange records
-		const exchanges = Array.from(santaToRecipientMap.entries()).map(([key, value]) => ({
-			year: currentYear,
-			present: '',
-			santaId: key,
-			recipientId: value
-		}));
+		for (const entry of Array.from(santaToRecipientMap.entries())) {
+			const [key, value] = entry;
+
+			exchanges.push({
+				year: currentYear,
+				present: '',
+				santaId: key,
+				recipientId: value
+			})
+
+			chats.push({
+				santaId: key,
+				recipientId: value
+			});
+		}
 
 		await prisma.exchange.createMany({
 			data: exchanges
+		});
+
+		await prisma.chat.createMany({
+			data: chats
 		});
 
 		return json({ success: true, data: exchanges }, { status: 307 });
@@ -77,6 +93,8 @@ export const DELETE: RequestHandler = async ({ request }) => {
 					}
 				}
 			});
+
+			await prisma.chat.deleteMany({});
 		}
 
 		return json({ success: true }, { status: 307 });
