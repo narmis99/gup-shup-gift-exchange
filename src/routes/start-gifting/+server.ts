@@ -1,9 +1,9 @@
 /* eslint-disable prefer-const */
 import { prisma } from '$lib/server/prisma';
-import { json } from '@sveltejs/kit';
-import { mapSantasToRecipients } from '$lib/utils/mapSantasToRecipients';
+import { json, redirect, type RequestHandler } from '@sveltejs/kit';
+import { mapSantasToRecipients } from '$lib/utils/assignSantas';
 
-export const POST = async () => {
+export const POST: RequestHandler = async () => {
 	try {
 		// verify assignment has not already been done
 		const latestExchange = await prisma.exchange.findFirst({
@@ -12,6 +12,7 @@ export const POST = async () => {
 		});
 
 		if (latestExchange === null) {
+			// STODO: standardize
 			throw new Error('Database should contain at least one exchange');
 		}
 
@@ -26,7 +27,7 @@ export const POST = async () => {
 			select: { id: true }
 		});
 
-		let lastYearMap = await generateLastYearMap(currentYear - 1);
+		let lastYearMap = await generateLastYearMap();
 		let santaToRecipientMap: Map<number, number> = new Map();
 
 		while (santaToRecipientMap.size === 0) {
@@ -55,6 +56,29 @@ export const POST = async () => {
 			data: exchanges
 		});
 
+		return json({ success: true, data: exchanges }, { status: 307 });
+	} catch (err: any) {
+		if (err satisfies Error) {
+			return json({ error: 'Internal server error: ' + JSON.stringify(err.message) }, { status: 501 });
+		}
+		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
+	}
+};
+
+export const DELETE: RequestHandler = async ({ request }) => {
+	const { idsToDelete } = await request.json();
+
+	try {
+		if (idsToDelete) {
+			await prisma.exchange.deleteMany({
+				where: {
+					id: {
+						in: idsToDelete
+					}
+				}
+			});
+		}
+
 		return json({ success: true }, { status: 307 });
 	} catch (err: any) {
 		if (err satisfies Error) {
@@ -64,11 +88,11 @@ export const POST = async () => {
 	}
 };
 
-async function generateLastYearMap(lastYear: number) {
+async function generateLastYearMap() {
 	let lastYearMap = new Map<number, number>();
 	const lastExchanges = await prisma.exchange.findMany({
 		select: { santaId: true, recipientId: true },
-		where: { year: lastYear }
+		where: { year: new Date().getUTCFullYear() - 1 }
 	});
 
 	lastExchanges.forEach((exchange) => {
