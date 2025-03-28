@@ -1,7 +1,7 @@
 import { prisma } from '$lib/server/prisma';
-import type { LayoutServerLoad } from '../$types';
+import type { PageServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals }) => {
 	const previousExchanges = await prisma.exchange.findMany({
 		select: {
 			year: true,
@@ -11,8 +11,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		},
 		where: {
 			NOT: {
-				// STODO: remove + 1
-				year: new Date().getUTCFullYear() + 1
+				year: new Date().getUTCFullYear()
 			}
 		},
 		orderBy: {
