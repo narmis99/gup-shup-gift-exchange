@@ -3,7 +3,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { Message } from '@prisma/client';
-	import Toast from './Toast.svelte';
+	import Toast from '$lib/components/Toast.svelte';
 
 	const { data, refreshChat } = $props();
 	const userId: number = data.userId;

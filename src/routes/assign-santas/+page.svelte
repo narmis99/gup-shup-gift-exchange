@@ -1,11 +1,12 @@
 <script lang="ts">
+	import Toast from '$lib/components/Toast.svelte';
+
 	let { data } = $props();
 
 	console.log('data: ' + JSON.stringify(data));
 	let exchanges = $state(data.exchanges);
 	console.log('exchanges in svelte: ' + JSON.stringify(exchanges));
 
-	// let state = {};
 	let showWarning: boolean = $state(false);
 	let errorMessage: string | undefined = $state(undefined);
 	let successMessage: string | undefined = $state(undefined);
@@ -88,7 +89,11 @@
 		</div>
 	{/if}
 
-	{#if showWarning}
+	{#if errorMessage}
+		<Toast message={errorMessage} />
+	{:else if successMessage}
+		<Toast message={successMessage} type="success" />
+	{:else if showWarning}
 		<div class="toast toast-center toast-top w-lg">
 			<div role="alert" class="alert alert-warning alert-vertical sm:alert-horizontal">
 				<svg
