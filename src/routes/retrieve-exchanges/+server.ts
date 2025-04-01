@@ -15,10 +15,9 @@ export const GET: RequestHandler = async () => {
 			}
 		});
 
-		console.log('exchanges found: ' + JSON.stringify(exchanges));
 		return json({ exchanges });
-		// return json({ success: true, data: exchanges }, { status: 307 });
 	} catch (err: any) {
+		console.error(JSON.stringify(err));
 		if (err satisfies Error) {
 			return json({ error: 'Internal server error: ' + JSON.stringify(err.message) }, { status: 501 });
 		}

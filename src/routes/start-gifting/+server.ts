@@ -11,7 +11,6 @@ export const POST: RequestHandler = async ({ request }) => {
 		const currentYear = new Date().getUTCFullYear();
 
 		if (replaceExchange) {
-			console.log('replace!');
 			await prisma.exchange.deleteMany({
 				where: {
 					year: currentYear,
@@ -21,7 +20,6 @@ export const POST: RequestHandler = async ({ request }) => {
 		}
 
 		// create map for this year
-		// STODO: find better way to filter out test user
 		const users = await prisma.user.findMany({ select: { id: true, username: true }, where: { NOT: { id: 1 } } });
 
 		const lastYearMap = await generateLastYearMap();
@@ -74,6 +72,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		return json({ success: true, data: exchanges }, { status: 307 });
 	} catch (err: any) {
+		console.error(JSON.stringify(err));
 		if (err satisfies Error) {
 			return json({ error: 'Internal server error: ' + JSON.stringify(err.message) }, { status: 501 });
 		}

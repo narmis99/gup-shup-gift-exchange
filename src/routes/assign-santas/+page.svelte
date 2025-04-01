@@ -3,10 +3,7 @@
 
 	let { data } = $props();
 
-	console.log('data: ' + JSON.stringify(data));
 	let exchanges = $state(data.exchanges);
-	console.log('exchanges in svelte: ' + JSON.stringify(exchanges));
-
 	let showWarning: boolean = $state(false);
 	let errorMessage: string | undefined = $state(undefined);
 	let successMessage: string | undefined = $state(undefined);
@@ -28,16 +25,12 @@
 			});
 
 			const postResult = await response.json();
-			console.log('postResult: ' + JSON.stringify(postResult));
 
 			if (postResult.error) {
 				errorMessage = postResult.error;
-				console.log('errorMessage: ' + errorMessage);
 			} else if (postResult.success) {
-				successMessage = 'Successfully created exchanges and chats.';
-				console.log('exchanges before: ' + JSON.stringify(exchanges));
+				successMessage = 'Successfully created exchanges and chats!';
 				exchanges = postResult.data;
-				console.log('exchanges after: ' + JSON.stringify(exchanges));
 			}
 		} catch (error) {
 			errorMessage = 'Something went wrong. Please try again.';

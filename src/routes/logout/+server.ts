@@ -22,7 +22,7 @@ export const DELETE: RequestHandler = async ({ cookies }) => {
 
 		return json({ success: true }, { status: 307 });
 	} catch (err) {
-		console.log('err: ' + JSON.stringify(err));
+		console.error(JSON.stringify(err));
 		return json({ error: 'Internal server error: ' + err }, { status: 501 });
 	}
 };

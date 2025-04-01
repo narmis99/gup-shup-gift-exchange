@@ -19,6 +19,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 
 		return json({ success: true }, { status: 307 });
 	} catch (err) {
+		console.error(JSON.stringify(err));
 		if (err instanceof PrismaClientKnownRequestError) {
 			if (err.code == 'P2002') {
 				return json({ error: 'A wish with this name already exists!' }, { status: 409 });

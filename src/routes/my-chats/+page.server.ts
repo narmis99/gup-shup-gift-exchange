@@ -38,6 +38,7 @@ export const actions: Actions = {
 			});
 			return { success: true };
 		} catch (err) {
+			console.error(JSON.stringify(err));
 			if (err instanceof PrismaClientValidationError) {
 				return fail(500, { error: 'Internal prisma error: ' + JSON.stringify(err) });
 			}

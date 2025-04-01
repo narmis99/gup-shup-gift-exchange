@@ -50,6 +50,7 @@ export const actions: Actions = {
 
 			return { success: true };
 		} catch (err) {
+			console.error(JSON.stringify(err));
 			throw fail(500, { error: 'Internal server error: ' + JSON.stringify(err) });
 		}
 	}
