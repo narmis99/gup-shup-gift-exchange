@@ -72,6 +72,6 @@ model Message {
   content     String
   timestamp   DateTime  @default(now())
 
-  chat        Chat      @relation(fields: [chatId], references: [id])
+  chat        Chat      @relation(fields: [chatId], references: [id], onDelete: Cascade)
   sender      User      @relation(fields: [senderId], references: [id])
 }
