@@ -1,9 +1,13 @@
-/* eslint-disable prefer-const */
+import { building } from '$app/environment';
 import { prisma } from '$lib/server/prisma';
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { mapSantasToRecipients } from '$lib/utils/assignSantas';
 
 export const POST: RequestHandler = async ({ request }) => {
+	if (building) {
+		return new Response(null, { status: 204 });
+	}
+
 	const { replaceExchange } = await request.json();
 
 	try {
@@ -12,14 +16,17 @@ export const POST: RequestHandler = async ({ request }) => {
 		if (replaceExchange) {
 			await prisma.exchange.deleteMany({
 				where: {
-					year: currentYear,
-				},
-			})
+					year: currentYear
+				}
+			});
 			await prisma.chat.deleteMany({});
 		}
 
 		// create map for this year
-		const users = await prisma.user.findMany({ select: { id: true, username: true }, where: { NOT: { id: 1 } } });
+		const users = await prisma.user.findMany({
+			select: { id: true, username: true },
+			where: { NOT: { id: 1 } }
+		});
 
 		const lastYearMap = await generateLastYearMap();
 		let santaToRecipientMap: Map<number, number> = new Map();
@@ -48,7 +55,7 @@ export const POST: RequestHandler = async ({ request }) => {
 				present: '',
 				santaId: santaId,
 				recipientId: recipientId
-			})
+			});
 
 			chats.push({
 				santaId: santaId,
@@ -62,7 +69,6 @@ export const POST: RequestHandler = async ({ request }) => {
 		// generate user id to name map
 		const userIdToNameMap = await generateUserIdToNameMap(users);
 
-
 		// construct exchanges with username info
 		exchanges.forEach((exchange) => {
 			exchange.santaUser = { username: userIdToNameMap.get(exchange.santaId) };
@@ -73,7 +79,10 @@ export const POST: RequestHandler = async ({ request }) => {
 	} catch (err: any) {
 		console.error(JSON.stringify(err));
 		if (err satisfies Error) {
-			return json({ error: 'Internal server error: ' + JSON.stringify(err.message) }, { status: 501 });
+			return json(
+				{ error: 'Internal server error: ' + JSON.stringify(err.message) },
+				{ status: 501 }
+			);
 		}
 		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
 	}
@@ -97,7 +106,7 @@ async function generateUserIdToNameMap(users: any[]) {
 	let userIdToNameMap = new Map<number, string>();
 
 	users.forEach((user) => {
-		userIdToNameMap.set(user.id, user.username)
+		userIdToNameMap.set(user.id, user.username);
 	});
 
 	return userIdToNameMap;

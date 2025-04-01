@@ -1,7 +1,12 @@
+import { building } from '$app/environment';
 import type { Handle } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	if (building) {
+		return new Response(null, { status: 204 });
+	}
+
 	const sessionToken = event.cookies.get('session_token');
 
 	if (sessionToken) {

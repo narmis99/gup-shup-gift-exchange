@@ -1,7 +1,12 @@
+import { building } from '$app/environment';
 import { fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
+	if (building) {
+		return;
+	}
+
 	if (!locals.user) {
 		return {};
 	}
@@ -19,7 +24,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const now = new Date();
 
 	if (now.getMonth() === birthMonth && now.getDate() === birthDay) {
-		isBirthdayToday = true
+		isBirthdayToday = true;
 	} else {
 		const currentYear = now.getUTCFullYear();
 		const nextBirthday = new Date(currentYear, birthMonth, birthDay, 0, 0, 0, 0);
