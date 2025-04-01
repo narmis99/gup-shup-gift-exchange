@@ -18,14 +18,14 @@ export const actions: Actions = {
 			});
 
 			if (!user) {
-				return fail(400, { error: 'Invalid credentials', username });
+				return fail(400, { error: 'Invalid credentials' });
 			}
 
 			// compare hashed passkey
 			const isValid = await bcrypt.compare(passkey, user.passkeyHash);
 
 			if (!isValid) {
-				return fail(400, { error: 'Invalid credentials', username });
+				return fail(400, { error: 'Invalid credentials' });
 			}
 
 			// generate session token
@@ -50,6 +50,7 @@ export const actions: Actions = {
 
 			return { success: true };
 		} catch (err) {
+			console.error(JSON.stringify(err));
 			throw fail(500, { error: 'Internal server error: ' + JSON.stringify(err) });
 		}
 	}

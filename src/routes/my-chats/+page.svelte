@@ -1,11 +1,12 @@
 <!-- This route controls the display the user sees when interacting with the two chats. -->
 <script lang="ts">
 	import Chat from '$lib/components/Chat.svelte';
+	import Toast from '$lib/components/Toast.svelte';
 
 	let { data } = $props();
 
 	let activeTab: string = $state('');
-	let error: string = $state('');
+	let errorMessage: string = $state('');
 	let openChat: boolean = $state(false);
 	let chatData: object = $state({});
 
@@ -21,8 +22,7 @@
 				isUserSanta = true;
 				break;
 			default:
-				error = 'Error finding chat';
-				console.error(error);
+				errorMessage = 'Error finding chat';
 				return;
 		}
 
@@ -37,8 +37,7 @@
 		const result = await response.json();
 
 		if (result.error) {
-			error = result.error;
-			console.error(JSON.stringify(result.error));
+			errorMessage = result.error;
 			return;
 		}
 
@@ -91,25 +90,8 @@
 		</div>
 	</div>
 
-	{#if error}
-		<div class="toast toast-center toast-top">
-			<div class="alert alert-error">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-6 w-6 shrink-0 stroke-current"
-					fill="none"
-					viewBox="0 0 24 24"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-					/>
-				</svg>
-				<span>{error}</span>
-			</div>
-		</div>
+	{#if errorMessage}
+		<Toast message={errorMessage} />
 	{:else if !activeTab}
 		<div class="toast toast-center toast-top">
 			<div role="alert" class="alert bg-base-100">

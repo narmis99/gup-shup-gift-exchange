@@ -1,35 +1,20 @@
 <!-- A <script> tag with a module attribute runs once when the module first evaluates, rather than for each component instance. Variables declared in this block can be referenced elsewhere in the component, but not vice versa. -->
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	let { openModal = $bindable(), form = undefined } = $props();
+	import Toast from '$lib/components/Toast.svelte';
+
+	let { openModal = $bindable() } = $props();
+	let errorMessage: string | undefined = $state();
 </script>
 
 <div class="modal" class:modal-open={openModal}>
 	<div class="modal-box">
-		{#if form?.data.error}
-			<div class="toast toast-center toast-top">
-				<div class="alert alert-error">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-6 w-6 shrink-0 stroke-current"
-						fill="none"
-						viewBox="0 0 24 24"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-						/>
-					</svg>
-					<span>{form.data.error}</span>
-				</div>
-			</div>
+		{#if errorMessage}
+			<Toast message={errorMessage} />
 		{/if}
-		<h3 class="text-lg font-bold">Toda gup toda shup</h3>
+		<h3 class="p-2 text-lg font-bold">Toda gup toda shup</h3>
 
 		<form
-			class="p-2"
 			method="POST"
 			action="/login"
 			use:enhance={({ formElement, formData, action, cancel, submitter }) => {
@@ -39,9 +24,9 @@
 				// calling `cancel()` will prevent the submission
 				// `submitter` is the `HTMLElement` that caused the form to be submitted
 				return async ({ result, update }) => {
-					form = result;
-
-					if (result.type == 'success') {
+					if (result.type == 'failure') {
+						errorMessage = result?.data?.error as string;
+					} else if (result.type == 'success') {
 						openModal = false;
 						window.location.reload();
 					}
@@ -56,22 +41,44 @@
 					openModal = false;
 				}}>✕</button
 			>
-			<fieldset class="fieldset rounded-box">
-				<label class="fieldset-label pt-2"> username </label>
-				<input
-					type="text"
-					name="username"
-					placeholder="username"
-					class="max-w input input-bordered w-full"
-				/>
 
-				<label class="fieldset-label pt-2">passkey </label>
-				<input
-					type="password"
-					name="passkey"
-					placeholder="passkey"
-					class="max-w input input-bordered w-full"
-				/>
+			<fieldset class="fieldset rounded-box px-2">
+				<div class="m-1">
+					<label class="input w-full">
+						<svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+							><g
+								stroke-linejoin="round"
+								stroke-linecap="round"
+								stroke-width="2.5"
+								fill="none"
+								stroke="currentColor"
+								><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle
+									cx="12"
+									cy="7"
+									r="4"
+								></circle></g
+							></svg
+						>
+						<input type="input" name="username" required placeholder="username" />
+					</label>
+				</div>
+				<div class="m-1">
+					<label class="input w-full">
+						<svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+							><g
+								stroke-linejoin="round"
+								stroke-linecap="round"
+								stroke-width="2.5"
+								fill="none"
+								stroke="currentColor"
+								><path
+									d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"
+								></path><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle></g
+							></svg
+						>
+						<input type="password" name="passkey" required placeholder="passkey" />
+					</label>
+				</div>
 			</fieldset>
 			<div class="flex justify-end p-2">
 				<button type="submit" class="btn btn-primary">Submit</button>

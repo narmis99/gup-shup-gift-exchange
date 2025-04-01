@@ -3,7 +3,8 @@
  but it does handle deleting a wish. -->
 <!-- This component displays a wishlist item as a card with options to edit or delete it, using different shadow styles for visual distinction. If the user opts to edit the item, a modal opens with the item's details, while deletion triggers a request to remove it from the wishlist. -->
 <script lang="ts">
-	import WishModal from './WishModal.svelte';
+	import WishModal from '$lib/components/WishModal.svelte';
+
 	const { id, name, url, rating, comment, shadowIndex, readOnly = true } = $props();
 	const SHADOW_CLASSES = ['shadow-secondary', 'shadow-accent', 'shadow-success', 'shadow-primary'];
 	let showWishModal = $state(false);

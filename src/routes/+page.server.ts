@@ -1,4 +1,4 @@
-import { json } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -7,10 +7,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	}
 
 	if (!locals.user.birthdate) {
-		// STODO: add messaging
-		return {};
-		// return json({ success: true }, { status: 307 });
-		// return fail(500, { error: 'Internal server error: No local user found. Try signing in again.' });
+		return fail(500, { error: 'Internal server error: No birthday found. Try signing in again.' });
 	}
 
 	let isBirthdayToday: boolean = false;

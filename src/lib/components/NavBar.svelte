@@ -1,5 +1,5 @@
 <script>
-	import LoginModal from './LoginModal.svelte';
+	import LoginModal from '$lib/components/LoginModal.svelte';
 
 	let { isLoggedIn = false, user = undefined } = $props();
 	let showModal = $state(false);
