@@ -1,8 +1,7 @@
 /* eslint-disable prefer-const */
 import { prisma } from '$lib/server/prisma';
-import { json, redirect, type RequestHandler } from '@sveltejs/kit';
+import { json, type RequestHandler } from '@sveltejs/kit';
 import { mapSantasToRecipients } from '$lib/utils/assignSantas';
-import type { User } from '@prisma/client';
 
 export const POST: RequestHandler = async ({ request }) => {
 	const { replaceExchange } = await request.json();
@@ -79,31 +78,6 @@ export const POST: RequestHandler = async ({ request }) => {
 		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
 	}
 };
-
-// export const DELETE: RequestHandler = async ({ request }) => {
-// 	const { idsToDelete } = await request.json();
-
-// 	try {
-// 		if (idsToDelete) {
-// 			await prisma.exchange.deleteMany({
-// 				where: {
-// 					id: {
-// 						in: idsToDelete
-// 					}
-// 				}
-// 			});
-
-// 			await prisma.chat.deleteMany({});
-// 		}
-
-// 		return json({ success: true }, { status: 307 });
-// 	} catch (err: any) {
-// 		if (err satisfies Error) {
-// 			return json({ error: 'Internal server error: ' + JSON.stringify(err.message) }, { status: 501 });
-// 		}
-// 		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
-// 	}
-// };
 
 async function generateLastYearMap() {
 	let lastYearMap = new Map<number, number>();
