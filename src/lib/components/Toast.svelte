@@ -2,7 +2,7 @@
 	const { message, type = 'error' } = $props();
 
 	if (type === 'error') {
-		console.error(message);
+		console.error(JSON.stringify(message));
 	}
 </script>
 

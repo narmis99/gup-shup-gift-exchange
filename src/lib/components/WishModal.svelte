@@ -6,6 +6,8 @@
   component makes a POST request for new wishes and a PATCH request for updates. If the request succeeds, the modal closes, 
   and the page reloads. If an error occurs, an error message is displayed in an alert. -->
 <script lang="ts">
+	import Toast from '$lib/components/Toast.svelte';
+
 	let { openModal = $bindable(), wishData = undefined } = $props();
 	let { id, name, url, rating, comment } = { ...wishData };
 	const editMode: boolean = wishData ? true : false;

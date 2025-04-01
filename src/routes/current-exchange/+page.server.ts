@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 			santaId: locals.user.userId,
 			// OR: [{ santaId: locals.user.userId }, { recipientId: locals.user.userId }],
 			// STODO: remove +1
-			year: new Date().getUTCFullYear() + 1
+			year: new Date().getUTCFullYear()
 		}
 	});
 
