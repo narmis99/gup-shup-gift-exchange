@@ -1,44 +1,45 @@
 <script lang="ts">
 	let { data } = $props();
 
+	console.log('data: ' + JSON.stringify(data));
 	let exchanges = $state(data.exchanges);
+	console.log('exchanges in svelte: ' + JSON.stringify(exchanges));
+
+	// let state = {};
 	let showWarning: boolean = $state(false);
 	let errorMessage: string | undefined = $state(undefined);
+	let successMessage: string | undefined = $state(undefined);
 
 	function formatName(username: string) {
 		return username.charAt(0).toUpperCase() + username.slice(1);
 	}
 
 	async function handleAssignSantas(replaceExchange: boolean) {
-		let deleteResponse, postResponse;
-		if (replaceExchange) {
-			const idsToDelete = exchanges.map((exchange) => {
-				return exchange.id;
-			});
+		showWarning = false;
 
-			deleteResponse = await fetch('/start-gifting', {
-				method: 'DELETE',
-				body: JSON.stringify({ idsToDelete }),
+		try {
+			let response = await fetch('/start-gifting', {
+				method: 'POST',
+				body: JSON.stringify({ replaceExchange }),
 				headers: {
 					'content-type': 'application/json'
 				}
 			});
-		}
 
-		postResponse = await fetch('/start-gifting', {
-			method: 'POST',
-			headers: {
-				'content-type': 'application/json'
+			const postResult = await response.json();
+			console.log('postResult: ' + JSON.stringify(postResult));
+
+			if (postResult.error) {
+				errorMessage = postResult.error;
+				console.log('errorMessage: ' + errorMessage);
+			} else if (postResult.success) {
+				successMessage = 'Successfully created exchanges and chats.';
+				console.log('exchanges before: ' + JSON.stringify(exchanges));
+				exchanges = postResult.data;
+				console.log('exchanges after: ' + JSON.stringify(exchanges));
 			}
-		});
-
-		const postResult = await postResponse.json();
-		
-		if (postResult.error) {
-			errorMessage = postResult.error;
-		} else if (postResult.success) {
-			exchanges = postResult.data;
-			window.location.reload();
+		} catch (error) {
+			errorMessage = 'Something went wrong. Please try again.';
 		}
 	}
 </script>
@@ -113,28 +114,6 @@
 						>Continue</button
 					>
 				</div>
-			</div>
-		</div>
-	{/if}
-
-	<!-- STODO: turn into error component -->
-	{#if errorMessage}
-		<div class="toast toast-center toast-top">
-			<div class="alert alert-error">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-6 w-6 shrink-0 stroke-current"
-					fill="none"
-					viewBox="0 0 24 24"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-					/>
-				</svg>
-				<span>{errorMessage}</span>
 			</div>
 		</div>
 	{/if}

@@ -2,42 +2,39 @@
 import { prisma } from '$lib/server/prisma';
 import { json, redirect, type RequestHandler } from '@sveltejs/kit';
 import { mapSantasToRecipients } from '$lib/utils/assignSantas';
+import type { User } from '@prisma/client';
 
-export const POST: RequestHandler = async () => {
+export const POST: RequestHandler = async ({ request }) => {
+	const { replaceExchange } = await request.json();
+
 	try {
-		// verify assignment has not already been done
-		const latestExchange = await prisma.exchange.findFirst({
-			select: { year: true },
-			orderBy: { year: 'desc' }
-		});
-
-		if (latestExchange === null) {
-			// STODO: standardize
-			throw new Error('Database should contain at least one exchange');
-		}
-
 		const currentYear = new Date().getUTCFullYear();
 
-		if (latestExchange.year === currentYear) {
-			return json({ error: 'Santas have already been assigned' }, { status: 409 });
+		if (replaceExchange) {
+			console.log('replace!');
+			await prisma.exchange.deleteMany({
+				where: {
+					year: currentYear,
+				},
+			})
+			await prisma.chat.deleteMany({});
 		}
 
 		// create map for this year
-		const users = await prisma.user.findMany({
-			select: { id: true }
-		});
+		// STODO: find better way to filter out test user
+		const users = await prisma.user.findMany({ select: { id: true, username: true }, where: { NOT: { id: 1 } } });
 
-		let lastYearMap = await generateLastYearMap();
+		const lastYearMap = await generateLastYearMap();
 		let santaToRecipientMap: Map<number, number> = new Map();
 
 		while (santaToRecipientMap.size === 0) {
 			santaToRecipientMap = mapSantasToRecipients(
-				users.filter((user) => user.id != 1).map((user) => user.id),
+				users.map((user) => user.id),
 				lastYearMap
 			);
 		}
 
-		if (santaToRecipientMap.size != users.length - 1) {
+		if (santaToRecipientMap.size != users.length) {
 			return json(
 				{ error: 'There was a problem processing the data to assign Santas. Please try again.' },
 				{ status: 404 }
@@ -48,28 +45,31 @@ export const POST: RequestHandler = async () => {
 		let chats = [];
 
 		// create exchange records
-		for (const entry of Array.from(santaToRecipientMap.entries())) {
-			const [key, value] = entry;
-
+		for (const [santaId, recipientId] of santaToRecipientMap) {
 			exchanges.push({
 				year: currentYear,
 				present: '',
-				santaId: key,
-				recipientId: value
+				santaId: santaId,
+				recipientId: recipientId
 			})
 
 			chats.push({
-				santaId: key,
-				recipientId: value
+				santaId: santaId,
+				recipientId: recipientId
 			});
 		}
 
-		await prisma.exchange.createMany({
-			data: exchanges
-		});
+		await prisma.exchange.createMany({ data: exchanges });
+		await prisma.chat.createMany({ data: chats });
 
-		await prisma.chat.createMany({
-			data: chats
+		// generate user id to name map
+		const userIdToNameMap = await generateUserIdToNameMap(users);
+
+
+		// construct exchanges with username info
+		exchanges.forEach((exchange) => {
+			exchange.santaUser = { username: userIdToNameMap.get(exchange.santaId) };
+			exchange.recipientUser = { username: userIdToNameMap.get(exchange.recipientId) };
 		});
 
 		return json({ success: true, data: exchanges }, { status: 307 });
@@ -81,30 +81,30 @@ export const POST: RequestHandler = async () => {
 	}
 };
 
-export const DELETE: RequestHandler = async ({ request }) => {
-	const { idsToDelete } = await request.json();
+// export const DELETE: RequestHandler = async ({ request }) => {
+// 	const { idsToDelete } = await request.json();
 
-	try {
-		if (idsToDelete) {
-			await prisma.exchange.deleteMany({
-				where: {
-					id: {
-						in: idsToDelete
-					}
-				}
-			});
+// 	try {
+// 		if (idsToDelete) {
+// 			await prisma.exchange.deleteMany({
+// 				where: {
+// 					id: {
+// 						in: idsToDelete
+// 					}
+// 				}
+// 			});
 
-			await prisma.chat.deleteMany({});
-		}
+// 			await prisma.chat.deleteMany({});
+// 		}
 
-		return json({ success: true }, { status: 307 });
-	} catch (err: any) {
-		if (err satisfies Error) {
-			return json({ error: 'Internal server error: ' + JSON.stringify(err.message) }, { status: 501 });
-		}
-		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
-	}
-};
+// 		return json({ success: true }, { status: 307 });
+// 	} catch (err: any) {
+// 		if (err satisfies Error) {
+// 			return json({ error: 'Internal server error: ' + JSON.stringify(err.message) }, { status: 501 });
+// 		}
+// 		return json({ error: 'Internal server error: ' + JSON.stringify(err) }, { status: 501 });
+// 	}
+// };
 
 async function generateLastYearMap() {
 	let lastYearMap = new Map<number, number>();
@@ -118,4 +118,14 @@ async function generateLastYearMap() {
 	});
 
 	return lastYearMap;
+}
+
+async function generateUserIdToNameMap(users: any[]) {
+	let userIdToNameMap = new Map<number, string>();
+
+	users.forEach((user) => {
+		userIdToNameMap.set(user.id, user.username)
+	});
+
+	return userIdToNameMap;
 }

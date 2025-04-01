@@ -1,4 +1,4 @@
-/* eslint-disable prefer-const */
+// Maps list of santa user ids to unique recipients user ids. Ensures no santa receives the same recipient as last year.
 export function mapSantasToRecipients(userIds: number[], lastYearMap: Map<number, number>) {
 	let santasToRecipients = new Map<number, number>();
 	let recipients: number[] = [...userIds];
