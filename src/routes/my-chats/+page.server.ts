@@ -1,9 +1,9 @@
 import { prisma } from '$lib/server/prisma';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
-import type { LayoutServerLoad } from '../$types';
+import type { PageServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.user) {
 		throw redirect(303, '/');
 	}
@@ -18,16 +18,16 @@ export const actions: Actions = {
 		const formData: FormData = await request.formData();
 		const chatId = Number(formData.get('chatId'));
 		const message = formData.get('message') as string;
-		
+
 		if (!chatId || !message) {
 			return fail(501, { error: 'Internal server error: Improper data when posting message' });
 		}
-		
+
 		// don't post if empty message
 		if (message.length == 0) {
 			return;
 		}
-		
+
 		try {
 			await prisma.message.create({
 				data: {

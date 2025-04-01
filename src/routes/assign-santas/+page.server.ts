@@ -1,8 +1,8 @@
-import { prisma } from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad } from '../$types';
+import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ fetch, locals }) => {
+export const load: PageServerLoad = async ({ locals }) => {
+	console.log('loading...');
 	if (!locals.user) {
 		throw redirect(303, '/');
 	}

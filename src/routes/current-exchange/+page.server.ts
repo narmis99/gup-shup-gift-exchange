@@ -1,9 +1,9 @@
 import { prisma } from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
-import type { LayoutServerLoad } from '../$types';
+import type { PageServerLoad } from './$types';
 // STODO: https://svelte.dev/tutorial/kit/error-pages
 
-export const load: LayoutServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.user) {
 		throw redirect(303, '/');
 	}

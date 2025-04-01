@@ -1,7 +1,7 @@
-import { fail, json } from '@sveltejs/kit';
-import type { LayoutServerLoad } from './$types';
+import { fail } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.user) {
 		return {};
 	}
