@@ -9,6 +9,7 @@
 	let errorMessage: string = $state('');
 	let openChat: boolean = $state(false);
 	let chatData: object = $state({});
+	// STODO: boolean getter?
 	let isUserSanta: boolean = false;
 
 	async function handleOpenChat(purpose: string) {
