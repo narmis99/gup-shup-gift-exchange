@@ -15,7 +15,6 @@ export const POST: RequestHandler = async ({ request }) => {
 					year: currentYear,
 				},
 			})
-			// STODO: delete messages too
 			await prisma.chat.deleteMany({});
 		}
 
