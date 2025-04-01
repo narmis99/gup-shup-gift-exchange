@@ -107,9 +107,9 @@
 					exchange and start a new one for this year.
 				</span>
 				<div>
-					<button class="btn btn-sm" onclick={() => handleAssignSantas(true)}>Continue</button>
-					<button class="btn btn-sm btn-neutral" onclick={() => (showWarning = false)}
-						>Cancel</button
+					<button class="btn btn-sm" onclick={() => (showWarning = false)}>Cancel</button>
+					<button class="btn btn-sm btn-neutral" onclick={() => handleAssignSantas(true)}
+						>Continue</button
 					>
 				</div>
 			</div>
