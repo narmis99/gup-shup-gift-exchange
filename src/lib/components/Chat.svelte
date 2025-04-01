@@ -5,7 +5,7 @@
 	import type { Message } from '@prisma/client';
 	import Toast from '$lib/components/Toast.svelte';
 
-	const { data, refreshChat } = $props();
+	const { data, refreshChat, isUserSanta } = $props();
 	const userId: number = data.userId;
 	const messages: Message[] = data.messages;
 	const chatId = data.chatId;
@@ -18,8 +18,10 @@
 				<div class="avatar chat-image">
 					<div class="w-10 rounded-full">
 						<img
-							alt="Tailwind CSS chat bubble component"
-							src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+							alt="User avatar"
+							src={isUserSanta
+								? 'src/lib/images/santa-avatar.png'
+								: 'src/lib/images/lion-avatar.png'}
 						/>
 					</div>
 				</div>
@@ -29,7 +31,12 @@
 			<div class="chat chat-start">
 				<div class="avatar chat-image">
 					<div class="w-10 rounded-full">
-						<img alt="Tailwind CSS chat bubble component" src="src/lib/images/santa-avatar.png" />
+						<img
+							alt="User avatar"
+							src={!isUserSanta
+								? 'src/lib/images/santa-avatar.png'
+								: 'src/lib/images/lion-avatar.png'}
+						/>
 					</div>
 				</div>
 				<div class="chat-bubble">

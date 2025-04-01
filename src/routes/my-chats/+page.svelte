@@ -9,10 +9,10 @@
 	let errorMessage: string = $state('');
 	let openChat: boolean = $state(false);
 	let chatData: object = $state({});
+	let isUserSanta: boolean = false;
 
 	async function handleOpenChat(purpose: string) {
 		openChat = false;
-		let isUserSanta: boolean = false;
 
 		switch (purpose) {
 			case 'santa':
@@ -65,7 +65,7 @@
 			{#if openChat}
 				<div class="bg-base-100 border-primary h-[75vh] rounded-md border border-4 pb-4">
 					<div class="h-full grow content-end overflow-auto">
-						<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} />
+						<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} {isUserSanta} />
 					</div>
 				</div>
 			{/if}
@@ -83,7 +83,7 @@
 			{#if openChat}
 				<div class="bg-base-100 border-primary h-[75vh] rounded-md border border-4 pb-4">
 					<div class="h-full grow content-end overflow-auto">
-						<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} />
+						<Chat data={chatData} refreshChat={() => handleOpenChat(activeTab)} {isUserSanta} />
 					</div>
 				</div>
 			{/if}
