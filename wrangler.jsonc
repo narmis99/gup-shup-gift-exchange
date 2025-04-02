@@ -5,5 +5,11 @@
     "assets": {
         "binding": "ASSETS",
         "directory": ".svelte-kit/cloudflare",
-    }
+    },
+    "routes": [
+        {
+            "pattern": "gupshupgiftexchange.com",
+            "custom_domain": true
+        }
+    ]
 }
