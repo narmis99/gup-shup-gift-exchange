@@ -20,7 +20,7 @@
 
 	async function renderRecipientWishlist() {
 		if (!data?.recipient?.id) {
-			console.log('STODO: some error');
+			console.log('some error');
 			return;
 		}
 
