@@ -6,8 +6,11 @@ import bcrypt from 'bcryptjs';
 export const actions: Actions = {
 	default: async ({ request, cookies }) => {
 		if (building) {
+			console.log('cancel, building');
 			return;
 		}
+
+		console.log('logging in...');
 
 		try {
 			// parse form data
