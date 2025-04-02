@@ -1,9 +1,14 @@
+import { building } from '$app/environment';
 import { prisma } from '$lib/server/prisma';
 import { PrismaClientValidationError } from '@prisma/client/runtime/library';
 import { fail, redirect, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
+	if (building) {
+		return;
+	}
+
 	if (!locals.user) {
 		throw redirect(303, '/');
 	}
@@ -11,6 +16,10 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions: Actions = {
 	message: async ({ request, locals }) => {
+		if (building) {
+			return;
+		}
+
 		if (!locals.user) {
 			throw redirect(303, '/');
 		}

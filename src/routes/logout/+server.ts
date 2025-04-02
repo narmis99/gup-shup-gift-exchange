@@ -1,7 +1,12 @@
+import { building } from '$app/environment';
 import { prisma } from '$lib/server/prisma';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const DELETE: RequestHandler = async ({ cookies }) => {
+	if (building) {
+		return new Response(null, { status: 204 });
+	}
+
 	try {
 		const sessionToken = cookies.get('session_token') as string;
 

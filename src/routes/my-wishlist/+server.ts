@@ -1,9 +1,14 @@
 // https://www.prisma.io/docs/orm/reference/error-reference#error-codes
+import { building } from '$app/environment';
 import { prisma } from '$lib/server/prisma';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { json, type RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request, locals }) => {
+	if (building) {
+		return new Response(null, { status: 204 });
+	}
+
 	const cardData = await request.json();
 
 	try {
@@ -31,6 +36,10 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 };
 
 export const PATCH: RequestHandler = async ({ request }) => {
+	if (building) {
+		return new Response(null, { status: 204 });
+	}
+
 	const { id, name, url, rating, comment } = await request.json();
 	try {
 		await prisma.wish.update({
@@ -57,6 +66,10 @@ export const PATCH: RequestHandler = async ({ request }) => {
 };
 
 export const DELETE: RequestHandler = async ({ request }) => {
+	if (building) {
+		return new Response(null, { status: 204 });
+	}
+
 	const { id } = await request.json();
 	try {
 		await prisma.wish.delete({

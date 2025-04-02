@@ -1,9 +1,14 @@
+import { building } from '$app/environment';
 import { prisma } from '$lib/server/prisma';
 import { fail, type Actions } from '@sveltejs/kit';
 import bcrypt from 'bcryptjs';
 
 export const actions: Actions = {
 	default: async ({ request, cookies }) => {
+		if (building) {
+			return;
+		}
+
 		try {
 			// parse form data
 			const loginData = await request.formData();

@@ -1,8 +1,13 @@
+import { building } from '$app/environment';
 import { prisma } from '$lib/server/prisma';
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
+	if (building) {
+		return;
+	}
+
 	if (!locals.user) {
 		throw redirect(303, '/');
 	}
@@ -24,7 +29,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	});
 
 	return { wishes };
-}
+};
 
 /**
  * Store AI-generated suggestions in the database, linked to the user.
