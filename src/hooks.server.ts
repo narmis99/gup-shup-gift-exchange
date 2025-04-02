@@ -3,7 +3,9 @@ import type { Handle } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	console.log('in hooks');
 	if (building) {
+		console.log('quick exit, building');
 		return new Response(null, { status: 204 });
 	}
 
