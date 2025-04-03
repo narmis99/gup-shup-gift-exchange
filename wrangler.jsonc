@@ -1,5 +1,5 @@
 {
-    "name": "gup_shup_gift_exchange",
+    "name": "gup-shup-gift-exchange",
     "main": ".svelte-kit/cloudflare/_worker.js",
     "compatibility_date": "2025-01-01",
     "compatibility_flags": [
