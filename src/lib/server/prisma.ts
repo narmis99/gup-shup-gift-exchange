@@ -5,12 +5,21 @@
 // console.log("DATABASE_URL:", process.env.DATABASE_URL);
 // export const prisma = new PrismaClient();
 
-import { PrismaClient } from '@prisma/client';
-// import { PrismaClient } from '@prisma/client/edge'; //
+// import { PrismaClient } from '@prisma/client/edge';
+// import { PrismaClient } from '@prisma/client';
+// import { withAccelerate } from '@prisma/extension-accelerate';
+
+// export const prisma = new PrismaClient().$extends(withAccelerate());
+// ------------------
+import { PrismaClient } from '@prisma/client/edge';
 import { withAccelerate } from '@prisma/extension-accelerate';
 
-export const prisma = new PrismaClient().$extends(withAccelerate());
+export const prisma = new PrismaClient({
+    datasourceUrl: process.env.DATABASE_URL,
+}).$extends(withAccelerate());
 
+
+// ------------------
 // import { PrismaClient } from "@prisma/client/edge";
 // import { withAccelerate } from "@prisma/extension-accelerate";
 
